@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.api", "ISC.BEmpleo.BE.api\isc.bempleo.be.api.csproj", "{24061285-191A-43AA-BD8C-B3919BAB2DC3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0} = {1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}
+		{2AAF946D-6A92-4720-83D3-9E11D042D30E} = {2AAF946D-6A92-4720-83D3-9E11D042D30E}
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB} = {4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.application", "isc.bempleo.be.application\isc.bempleo.be.application.csproj", "{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB} = {4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.domain", "isc.bempleo.be.domain\isc.bempleo.be.domain.csproj", "{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.infrastructure", "isc.bempleo.be.infrastructure\isc.bempleo.be.infrastructure.csproj", "{2AAF946D-6A92-4720-83D3-9E11D042D30E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0} = {1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB} = {4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24061285-191A-43AA-BD8C-B3919BAB2DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24061285-191A-43AA-BD8C-B3919BAB2DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24061285-191A-43AA-BD8C-B3919BAB2DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24061285-191A-43AA-BD8C-B3919BAB2DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4571252D-6E70-4BF4-8E90-D5E22AF7ABEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AAF946D-6A92-4720-83D3-9E11D042D30E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AAF946D-6A92-4720-83D3-9E11D042D30E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AAF946D-6A92-4720-83D3-9E11D042D30E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AAF946D-6A92-4720-83D3-9E11D042D30E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {393837F8-5E27-49CC-AB6F-0BD4E2BA55F0}
+	EndGlobalSection
+EndGlobal
