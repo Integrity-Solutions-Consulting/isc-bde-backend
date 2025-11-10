@@ -33,16 +33,16 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.IdentificationNumber).HasColumnName("identification_number");
                 entity.Property(e => e.Phone).HasColumnName("phone");
                 entity.Property(e => e.Address).HasColumnName("address");
-                entity.Property(e => e.GenderId).HasColumnName("marital_status");
-                entity.Property(e => e.GenderId).HasColumnName("birth_date");
-                entity.Property(e => e.GenderId).HasColumnName("nationality");
-                entity.Property(e => e.GenderId).HasColumnName("disability_card");
-                entity.Property(e => e.GenderId).HasColumnName("education_level");
-                entity.Property(e => e.GenderId).HasColumnName("education_status");
-                entity.Property(e => e.GenderId).HasColumnName("career");
-                entity.Property(e => e.GenderId).HasColumnName("academic_institution");
-                entity.Property(e => e.GenderId).HasColumnName("country_of_study");
-                entity.Property(e => e.GenderId).HasColumnName("english_level");
+                entity.Property(e => e.MaritalStatus).HasColumnName("marital_status");
+                entity.Property(e => e.BirthDate).HasColumnName("birth_date");
+                entity.Property(e => e.Nationality).HasColumnName("nationality");
+                entity.Property(e => e.DisabilityCard).HasColumnName("disability_card");
+                entity.Property(e => e.EducationLevel).HasColumnName("education_level");
+                entity.Property(e => e.EducationStatus).HasColumnName("education_status");
+                entity.Property(e => e.Carer).HasColumnName("career");
+                entity.Property(e => e.AcademicInstitution).HasColumnName("academic_institution");
+                entity.Property(e => e.CountryOfStudy).HasColumnName("country_of_study");
+                entity.Property(e => e.EnglishLevel).HasColumnName("english_level");
 
 
                 entity.Property(e => e.Status).HasColumnName("status");

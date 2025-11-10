@@ -22,7 +22,7 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? DisabilityCard { get; set; }
         public string? EducationLevel {  get; set; }
         public string? EducationStatus { get; set; }
-        public string? Carrier { get; set; }
+        public string? Carer { get; set; }
         public string? AcademicInstitution { get; set; }
         public string? CountryOfStudy { get; set; }
         public string? EnglishLevel { get; set; }

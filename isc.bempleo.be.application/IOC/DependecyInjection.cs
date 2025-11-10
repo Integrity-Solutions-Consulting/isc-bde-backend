@@ -1,5 +1,7 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service;
+using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.application.Services;
+using isc.bempleo.be.application.Services.Profiles;
 using isc.bempleo.be.domain.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ namespace isc.bempleo.be.application.IOC
         {
 
             services.AddScoped<IProjectionService, ProjectionService>();
+            services.AddScoped<IProfileService, ProfileService>();
             return services;
         }
     }

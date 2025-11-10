@@ -16,8 +16,8 @@ namespace isc.bempleo.be.application.Services.Profiles
     public class ProfileService : IProfileService
     {
         private readonly IProfileRepository _profileRepository;
-        private readonly Mapper _mapper;
-        public ProfileService(IProfileRepository profileRepository, Mapper mapper) {
+        private readonly IMapper _mapper;
+        public ProfileService(IProfileRepository profileRepository, IMapper mapper) {
             _profileRepository = profileRepository;
             _mapper = mapper;
         }
@@ -63,10 +63,10 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
         }
 
-        public async Task<SkillsResponse> CreateProfileAsync (SkillsRequest request)
-        {
+        //public async Task<SkillsResponse> CreateProfileAsync (SkillsRequest request)
+        //{
             
-        }
+        //}
         
     }
 }
