@@ -42,31 +42,109 @@ namespace isc.bempleo.be.application.Services.Profiles
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
             if(profile == null)
             {
-                new Exception("No existe ningun perfil con ese ID");
+                throw new Exception("No existe ningun perfil con ese ID");
             }
             var mapping = _mapper.Map<ProfileResponse>(profile);
             return mapping;
         }
         public async Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request)
         {
+            var existingProfile = await _profileRepository
+                .GetProfileByEmailOrIdentificationAsync(request.Email, request.IdentificationNumber);
+
+            if (existingProfile != null)
+            {
+                if (existingProfile.Email == request.Email)
+                    throw new Exception("El correo electrónico ya está registrado en otro perfil.");
+
+                if (existingProfile.IdentificationNumber == request.IdentificationNumber)
+                    throw new Exception("El número de identificación ya está registrado en otro perfil.");
+            }
+
             var entity = _mapper.Map<domain.Entity.Profiles.Profile>(request);
+            var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(request.Email, request.IdentificationNumber);
             var createdEntity = await _profileRepository.CreateProfileAsync(entity);
             var response = _mapper.Map<ProfileResponse>(createdEntity);
+
             return response;
         }
 
-        public async Task<ProfileResponse> CreateProfileAsync(FormationRequest request)
+        public async Task<ProfileResponse> CreateProfileAsync(FormationRequest request,int profileId)
         {
-            var entity = _mapper.Map<domain.Entity.Profiles.Profile>(request);
-            var createdEntity = await _profileRepository.CreateProfileAsync(entity);
-            var response = _mapper.Map<ProfileResponse>(createdEntity);
+            var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+            _mapper.Map(request, entity);
+            var updateEntity = await _profileRepository.UpdateProfileAsync(entity);
+            var response = _mapper.Map<ProfileResponse>(updateEntity);
             return response;
         }
 
-        //public async Task<SkillsResponse> CreateProfileAsync (SkillsRequest request)
-        //{
-            
-        //}
-        
+        public async Task<ProfileResponse> UpdateProfile (PersonalDataRequest request, int profileId)
+        {
+            var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+            if (entity == null)
+            {
+                throw new Exception("No existe el perfil con ese ID");
+            }
+            var existingProfile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(request.Email, request.IdentificationNumber);
+
+            if (existingProfile != null && existingProfile.Id != profileId)
+            {
+                if (existingProfile.Email == request.Email)
+                    throw new Exception("El correo electronico ya esta registrado en otro perfil.");
+
+                if (existingProfile.IdentificationNumber == request.IdentificationNumber)
+                    throw new Exception("El numero de identificacion ya esta registrado en otro perfil.");
+            }
+
+
+            entity.GenderId = request.GenderId;
+            entity.FirstName = request.FirstName;
+            entity.LastName = request.LastName;
+            entity.Email = request.Email;
+            entity.IdentificationNumber = request.IdentificationNumber;
+            entity.Phone = request.Phone;
+            entity.Address = request.Address;
+            entity.MaritalStatus = request.MaritalStatus;
+            entity.BirthDate = request.BirthDate;
+            entity.Nationality = request.Nationality;
+            entity.DisabilityCard = request.DisabilityCard;
+
+            await _profileRepository.UpdateProfileAsync(entity);
+
+            var response = _mapper.Map<ProfileResponse>(entity);
+            return response;
+
+
+        }
+        public async Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId)
+        {
+            var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+            if (entity == null)
+            {
+                throw new Exception("No existe el perfil con ese ID");
+            }
+            entity.EducationLevel = request.EducationLevel;
+            entity.EducationStatus = request.EducationStatus;
+            entity.Carer = request.Carer;
+            entity.AcademicInstitution = request.AcademicInstitution;
+            entity.CountryOfStudy = request.CountryOfStudy;
+            entity.EnglishLevel = request.EnglishLevel;
+
+            await _profileRepository.UpdateProfileAsync(entity);
+
+            var response = _mapper.Map<ProfileResponse>(entity);
+            return response;
+
+        }
+        public async Task ActivateInactiveResourceAsync(int profileId, bool active)
+        {
+            var rowsAffected = await _profileRepository.ActiveInactiveProfileAsync(profileId, active);
+
+            if (rowsAffected == 0)
+            {
+                throw new Exception($"El Perfil {profileId} no existe");
+            }
+        }
+
     }
 }

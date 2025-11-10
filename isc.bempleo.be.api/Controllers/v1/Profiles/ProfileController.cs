@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.domain.Models.Request.Profiles;
 using isc.bempleo.be.domain.Models.Response.Profiles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -32,8 +33,45 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
         }
 
+        [HttpPost("create-profile-personal-data")]
+        public async Task<ActionResult<ProfileResponse>> CreateAsync (PersonalDataRequest request)
+        {
+            var result = await _service.CreateProfileAsync(request);
+            return Ok(result);
+        }
+        [HttpPost("create-profile-formation")]
+        public async Task<ActionResult<ProfileResponse>> CreateAsync(FormationRequest request, int profileId)
+        {
+            var result = await _service.CreateProfileAsync(request, profileId);
+            return Ok(result);
+        }
 
 
-        
+        [HttpPut("update-personal-data")]
+        public async Task<ActionResult<ProfileResponse>> UpdateAsync (int id, PersonalDataRequest request)
+        {
+            var result = await _service.UpdateProfile(request, id);
+            return Ok(result);
+
+        }
+        [HttpPut("update-formation")]
+        public async Task<ActionResult<ProfileResponse>> UpdateAsync(int id, FormationRequest request)
+        {
+            var result = await _service.UpdateProfile(request, id);
+            return Ok(result);
+
+        }
+
+        [HttpPut("active-inactive-profile")]
+        public async Task<ActionResult> ActiveInactiveAsync(int id, [FromQuery] bool isActive)
+        {
+            await _service.ActivateInactiveResourceAsync(id, isActive);
+            return NoContent();
+        }
+
+
+
+
+
     }
 }
