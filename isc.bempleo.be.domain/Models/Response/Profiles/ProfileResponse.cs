@@ -27,8 +27,5 @@ namespace isc.bempleo.be.domain.Models.Response.Profiles
         public string? EnglishLevel { get; set; }
     }
 
-    public class CapacityResponse
-    {
 
-    }
 }

@@ -9,21 +9,21 @@ namespace isc.bempleo.be.domain.Models.Response.Profiles
     public class SkillsResponse
     {
         public int ProfileId { get; set; }
-        public KnowledgeResponse Knowledges { get; set; } 
-        public ToolResponse Tools { get; set; }
+        public List<KnowledgeResponse> Knowledges { get; set; } 
+        public List<ToolResponse> Tools { get; set; }
     }
     public class KnowledgeResponse
     {
         public int Id { get; set; }
-        public List<string> KnowledgeType { get; set; }
-        public List<string> KnowledgeName { get; set; }
+        public string KnowledgeType { get; set; }
+        public string KnowledgeName { get; set; }
     }
 
     public class ToolResponse
     {
         public int Id { get; set; }
-        public List<string> ToolName { get; set; }
-        public List<string> Certificate { get; set; }
+        public string ToolName { get; set; }
+        public string Certificate { get; set; }
 
     }
 }
