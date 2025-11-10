@@ -13,6 +13,9 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
         Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive);
         Task<ProfileResponse> GetProfileById(int profileId);
         Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request);
-        Task<ProfileResponse> CreateProfileAsync(FormationRequest request);
+        Task<ProfileResponse> CreateProfileAsync(FormationRequest request, int profileId);
+        Task<ProfileResponse> UpdateProfile(PersonalDataRequest request, int profileId);
+        Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId);
+        Task ActivateInactiveResourceAsync(int profileId, bool active);
     }
 }
