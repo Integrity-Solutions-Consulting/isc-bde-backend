@@ -1,4 +1,6 @@
-﻿using isc.bempleo.be.domain.Entity.Profiles;
+﻿using isc.bempleo.be.domain.Entity.Knowledges;
+using isc.bempleo.be.domain.Entity.Profiles;
+using isc.bempleo.be.domain.Entity.Tools;
 using isc.bempleo.be.domain.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -53,6 +55,39 @@ namespace isc.bempleo.be.infrastructure.Database
 
             });
 
+            modelBuilder.Entity<Tool>(entity =>
+            {
+                entity.ToTable("Tools");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("ToolID");
+                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
+                entity.Property(e => e.ToolName).HasColumnName("tool_name");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
+            modelBuilder.Entity<Knowledge>(entity =>
+            {
+                entity.ToTable("Knowledge");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("KnowledgeID");
+                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
+                entity.Property(e => e.KnowledgeType).HasColumnName("knowledge_type");
+                entity.Property(e => e.KnowledgeName).HasColumnName("knowledge_name");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
 
             modelBuilder.Entity<ProjectionHoursProjectResponse>().HasNoKey();
 
@@ -62,6 +97,8 @@ namespace isc.bempleo.be.infrastructure.Database
         }
 
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Tool> Tools { get; set; }
+        public DbSet<Knowledge> Knowledges { get; set; }
 
-    }
+        }
 }

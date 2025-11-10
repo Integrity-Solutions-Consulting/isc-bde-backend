@@ -1,5 +1,7 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository;
+using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.infrastructure.Database;
+using isc.bempleo.be.infrastructure.Repositories.Profiles;
 using isc.bempleo.be.infrastructure.Repositories.Projections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,7 @@ namespace isc.bempleo.be.infrastructure.IOC
         {
 
             services.AddScoped<IProjectionRepository, ProjectionRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
 
             return services;
         }
