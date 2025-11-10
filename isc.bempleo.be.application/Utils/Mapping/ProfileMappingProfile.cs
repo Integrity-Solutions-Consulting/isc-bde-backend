@@ -24,11 +24,6 @@ namespace isc.bempleo.be.application.Utils.Mapping
             CreateMap<Knowledge, KnowledgeResponse>();
             CreateMap<KnowledgeResponse, Knowledge>();
 
-            CreateMap<Tool, ToolResponse>();
-            CreateMap<ToolResponse, Tool>();
-
-
-
             CreateMap<ProfileEntity, PersonalDataRequest>();
             CreateMap<PersonalDataRequest, ProfileEntity>();
 
@@ -38,8 +33,10 @@ namespace isc.bempleo.be.application.Utils.Mapping
             CreateMap<Knowledge, KnowledgeRequest>();
             CreateMap<KnowledgeRequest, Knowledge>();
 
-            CreateMap<Tool, ToolRequest>();
-            CreateMap<ToolRequest, Tool>();
+
+            CreateMap<KnowledgeRequest, Knowledge>();
+            CreateMap<Knowledge, KnowledgeResponse>();
+
 
 
         }

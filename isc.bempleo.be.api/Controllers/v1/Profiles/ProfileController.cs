@@ -3,7 +3,7 @@ using isc.bempleo.be.domain.Models.Response.Profiles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
-namespace isc.bempleo.be.api.Controllers.v1
+namespace isc.bempleo.be.api.Controllers.v1.Profiles
 {
     [ApiController]
     [Route("api/[controller]")]

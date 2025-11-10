@@ -60,7 +60,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.ToTable("Tools");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("ToolID");
-                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
                 entity.Property(e => e.ToolName).HasColumnName("tool_name");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
@@ -76,7 +75,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.ToTable("Knowledge");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("KnowledgeID");
-                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
                 entity.Property(e => e.KnowledgeType).HasColumnName("knowledge_type");
                 entity.Property(e => e.KnowledgeName).HasColumnName("knowledge_name");
                 entity.Property(e => e.Status).HasColumnName("status");
