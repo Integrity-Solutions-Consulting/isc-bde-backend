@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  api-dev:
+    build:
+      context: .                
+      dockerfile: Dockerfile  
+    image: b-empleo-api-dev
+    container_name: b-empleo-api-dev
+    ports:
+      - "9190:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__ConexionBD=Server=147.93.181.146,1433;Database=ISC_TimeReport_dev;User=sa;Password=Zp8#kV42wLp@tR3m;MultipleActiveResultSets=true;Trust Server Certificate=true
+      - Cors__AllowedOrigins=http://localhost:4200,https://localhost:4200,http://147.93.181.146:8083,https://147.93.181.146:8083
+    depends_on:
+      - sqlserver
+    networks:
+      - bempleo-net
+
