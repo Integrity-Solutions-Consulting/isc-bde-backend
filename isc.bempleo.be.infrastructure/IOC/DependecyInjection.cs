@@ -1,8 +1,12 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository;
+using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
+using isc.bempleo.be.application.Interfaces.Repository.Tools;
 using isc.bempleo.be.infrastructure.Database;
+using isc.bempleo.be.infrastructure.Repositories.Knowledges;
 using isc.bempleo.be.infrastructure.Repositories.Profiles;
 using isc.bempleo.be.infrastructure.Repositories.Projections;
+using isc.bempleo.be.infrastructure.Repositories.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,22 +18,24 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.infrastructure.IOC
 {
-    public static class DependecyInjection 
+    public static class DependecyInjection
     {
-        public static IServiceCollection AddInfrastructure (this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddScoped<IProjectionRepository, ProjectionRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IToolRepository, ToolRepository>();
+            services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();
 
             return services;
         }
 
-        public static IServiceCollection AddDbConfiguration (this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDbConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DBContext> (options =>
+            services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ConexionBD"))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                       .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
             return services;
         }
     }
