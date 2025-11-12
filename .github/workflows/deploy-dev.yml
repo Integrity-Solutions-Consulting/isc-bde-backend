@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up SSH (OpenSSH key support)
-        uses: webfactory/ssh-agent@v0.8.0
+        uses: webfactory/ssh-agent@v0.5.4
 
         with:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
