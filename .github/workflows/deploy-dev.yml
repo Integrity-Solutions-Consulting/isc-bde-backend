@@ -18,6 +18,7 @@ jobs:
 
       - name: Set up SSH (OpenSSH key support)
         uses: webfactory/ssh-agent@v0.8.0
+
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -35,6 +36,7 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
             cd ${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_backend
+
 
             docker compose -f docker-compose.dev.yml down || true
 
