@@ -20,7 +20,7 @@ namespace isc.bempleo.be.application.Utils.Mapping
             CreateMap<Tool, ToolRequest>();
             CreateMap<ToolRequest, Tool>();
 
-
+            CreateMap<ToolRequest, ToolResponse>();
         }
     }
 }

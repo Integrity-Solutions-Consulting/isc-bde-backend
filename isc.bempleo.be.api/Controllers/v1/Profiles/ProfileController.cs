@@ -46,6 +46,19 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
         }
 
+        [HttpGet("get-profile-skills/{profileId}")]
+        public async Task<ActionResult<SkillsResponse>> GetSkillsAsync(int profileId)
+        {
+            var result = await _service.GetProfileSkillsAsync(profileId);
+            return Ok(result);
+        }
+
+        [HttpPost("create-profile-skills/{profileId}")]
+        public async Task<ActionResult<SkillsResponse>> CreateAsync(SkillsRequest request)
+        {
+            var result = await _service.CreateProfileAsync(request);
+            return Ok(result);
+        }
 
         [HttpPut("update-personal-data")]
         public async Task<ActionResult<ProfileResponse>> UpdateAsync (int id, PersonalDataRequest request)

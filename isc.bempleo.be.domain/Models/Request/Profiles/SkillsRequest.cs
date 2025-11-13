@@ -10,16 +10,16 @@ namespace isc.bempleo.be.domain.Models.Request.Profiles
     {
         public int ProfileId { get; set; }  
 
-        public List<KnowledgeRequest> Knowledges { get; set; } 
-        public List<ToolRequest> Tools { get; set; } 
+        public List<KnowledgeRequestForProfile> Knowledges { get; set; } 
+        public List<ToolRequestForProfile> Tools { get; set; } 
     }
-    public class KnowledgeRequest
+    public class KnowledgeRequestForProfile
     {
         public string KnowledgeType { get; set; }   
         public string KnowledgeName { get; set; }   
     }   
 
-    public class ToolRequest
+    public class ToolRequestForProfile
     {
         public string ToolName { get; set; }
         public string Certificate { get;set; }

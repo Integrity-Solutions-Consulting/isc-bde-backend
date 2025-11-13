@@ -1,11 +1,13 @@
 ﻿using isc.bempleo.be.domain.Entity.Knowledges;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Tools;
+using isc.bempleo.be.domain.Entity.Documents;
 using isc.bempleo.be.domain.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +42,8 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.EducationLevel).HasColumnName("education_level");
                 entity.Property(e => e.EducationStatus).HasColumnName("education_status");
                 entity.Property(e => e.Carer).HasColumnName("career");
+                entity.Property(e => e.KnowledgeList).HasColumnName("knowledge_list");
+                entity.Property(e => e.ToolList).HasColumnName("tool_list");
                 entity.Property(e => e.AcademicInstitution).HasColumnName("academic_institution");
                 entity.Property(e => e.CountryOfStudy).HasColumnName("country_of_study");
                 entity.Property(e => e.EnglishLevel).HasColumnName("english_level");
@@ -86,6 +90,27 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
+            modelBuilder.Entity<DocumentData>(entity =>
+            {
+                entity.ToTable("DocumentData");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("DocumentDataID");
+                entity.Property(e => e.ProcessId).HasColumnName("ProcessID");
+                entity.Property(e => e.ProcessName).HasColumnName("process_name");
+                entity.Property(e => e.FileName).HasColumnName("file_name");
+                entity.Property(e => e.FilePath).HasColumnName("file_path");
+                entity.Property(e => e.FileExtension).HasColumnName("file_extension");
+                entity.Property(e => e.FileData).HasColumnName("file_data");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
+
 
             modelBuilder.Entity<ProjectionHoursProjectResponse>().HasNoKey();
 
@@ -97,6 +122,6 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<Knowledge> Knowledges { get; set; }
-
-        }
+        public DbSet<DocumentData> Documents { get; set; }
+    }
 }

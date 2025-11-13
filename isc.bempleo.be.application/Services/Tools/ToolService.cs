@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Repository.Tools;
 using isc.bempleo.be.application.Interfaces.Service.Tools;
 using isc.bempleo.be.domain.Entity.Tools;
 using isc.bempleo.be.domain.Models.Request.Tools;
 using isc.bempleo.be.domain.Models.Response.Tools;
+using Microsoft.AspNetCore.Mvc.Razor;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,7 +34,7 @@ namespace isc.bempleo.be.application.Services.Tools
         {
             var tool = await _toolRepository.GetToolByIdAsync(toolId);
             if (tool == null)
-                throw new System.Exception("No existe ninguna herramienta con ese ID");
+                throw new Exception("No existe ninguna herramienta con ese ID");
 
             return _mapper.Map<ToolResponse>(tool);
         }
@@ -41,7 +43,11 @@ namespace isc.bempleo.be.application.Services.Tools
         {
             var entity = _mapper.Map<Tool>(request);
             var createdEntity = await _toolRepository.CreateToolAsync(entity);
+            //llamas al helper
+            //List de kwowledge= Helperlist
+ 
             return _mapper.Map<ToolResponse>(createdEntity);
+            // otro metodo que tu 
         }
 
         public async Task<ToolResponse> UpdateToolAsync(int toolId, ToolRequest request)
