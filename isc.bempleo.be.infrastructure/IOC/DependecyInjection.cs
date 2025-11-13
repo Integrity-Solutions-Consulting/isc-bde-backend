@@ -1,11 +1,13 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
+using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Repository.Tools;
 using isc.bempleo.be.infrastructure.Database;
 using isc.bempleo.be.infrastructure.Repositories.Documents;
 using isc.bempleo.be.infrastructure.Repositories.Knowledges;
+using isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.Repositories.Profiles;
 using isc.bempleo.be.infrastructure.Repositories.Projections;
 using isc.bempleo.be.infrastructure.Repositories.Tools;
@@ -32,6 +34,8 @@ namespace isc.bempleo.be.infrastructure.IOC
             services.AddScoped<IToolRepository, ToolRepository>();
             services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();
             services.AddScoped<IDocumentRepository, DocumentRepository>();
+            services.AddScoped<IProfileAccessCodeRepository, ProfileAccessCodeRepository>();
+
 
             return services;
         }

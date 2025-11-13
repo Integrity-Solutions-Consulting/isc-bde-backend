@@ -1,7 +1,8 @@
-﻿using isc.bempleo.be.domain.Entity.Knowledges;
+﻿using isc.bempleo.be.domain.Entity.Documents;
+using isc.bempleo.be.domain.Entity.Knowledges;
+using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Tools;
-using isc.bempleo.be.domain.Entity.Documents;
 using isc.bempleo.be.domain.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -110,6 +111,20 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
+            modelBuilder.Entity<ProfileAccessCode>(entity =>
+            {
+                entity.ToTable("ProfileAccessCode");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("Id");
+                entity.Property(e => e.Code).HasColumnName("Code");
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
 
 
             modelBuilder.Entity<ProjectionHoursProjectResponse>().HasNoKey();
@@ -123,5 +138,7 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Tool> Tools { get; set; }
         public DbSet<Knowledge> Knowledges { get; set; }
         public DbSet<DocumentData> Documents { get; set; }
+        public DbSet<ProfileAccessCode> ProfileAccessCodes { get; set; }
+
     }
 }
