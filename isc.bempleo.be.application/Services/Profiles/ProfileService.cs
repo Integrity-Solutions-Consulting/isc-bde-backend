@@ -2,13 +2,18 @@
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.domain.Entity.Profiles;
+using isc.bempleo.be.domain.Models.Request.Knowledges;
 using isc.bempleo.be.domain.Models.Request.Profiles;
+using isc.bempleo.be.domain.Models.Request.Tools;
+using isc.bempleo.be.domain.Models.Response.Knowledges;
 using isc.bempleo.be.domain.Models.Response.Profiles;
+using isc.bempleo.be.domain.Models.Response.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace isc.bempleo.be.application.Services.Profiles
@@ -22,7 +27,6 @@ namespace isc.bempleo.be.application.Services.Profiles
             _mapper = mapper;
         }
         
-
         public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
         {
             var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
@@ -36,7 +40,6 @@ namespace isc.bempleo.be.application.Services.Profiles
 
         }
 
-
         public async Task<ProfileResponse> GetProfileById (int profileId)
         {
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
@@ -45,6 +48,9 @@ namespace isc.bempleo.be.application.Services.Profiles
                 throw new Exception("No existe ningun perfil con ese ID");
             }
             var mapping = _mapper.Map<ProfileResponse>(profile);
+            //aqui haces un mapping.y tras el atributo de tu lista y lo deserializas para mosotrarlo 
+            //aqui haces un mapping.y tras el atributo de tu lista y lo deserializas para mosotrarlo 
+            
             return mapping;
         }
         public async Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request)
@@ -72,7 +78,8 @@ namespace isc.bempleo.be.application.Services.Profiles
         public async Task<ProfileResponse> CreateProfileAsync(FormationRequest request,int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
-            _mapper.Map(request, entity);
+            var mapping = _mapper.Map(request, entity);
+            //mapping.
             var updateEntity = await _profileRepository.UpdateProfileAsync(entity);
             var response = _mapper.Map<ProfileResponse>(updateEntity);
             return response;
@@ -145,6 +152,58 @@ namespace isc.bempleo.be.application.Services.Profiles
                 throw new Exception($"El Perfil {profileId} no existe");
             }
         }
+
+        public async Task<SkillsResponse> GetProfileSkillsAsync(int profileId)
+        {
+            var profile = await _profileRepository.GetProfileByIdAsync(profileId);
+            if (profile == null)
+            {
+                throw new Exception("No existe el perfil con ese ID");
+            }
+
+            var knowledges = string.IsNullOrEmpty(profile.KnowledgeList)? 
+                new List<KnowledgeRequestForProfile>(): 
+                JsonSerializer.Deserialize<List<KnowledgeRequestForProfile>>(profile.KnowledgeList);
+
+            var tools = string.IsNullOrEmpty(profile.ToolList)?
+                new List<ToolRequestForProfile>():
+                JsonSerializer.Deserialize<List<ToolRequestForProfile>>(profile.ToolList);
+
+            return new SkillsResponse
+            {
+                ProfileId = profileId,
+                Knowledges = _mapper.Map<List<KnowledgeResponseForProfile>>(knowledges),
+                Tools = _mapper.Map<List<ToolResponseForProfile>>(tools)
+            };
+        }
+
+        public async Task<SkillsResponse> CreateProfileAsync(SkillsRequest request)
+        {
+            var profile = await _profileRepository.GetProfileByIdAsync(request.ProfileId);
+            if (profile == null)
+            {
+                throw new Exception("No existe el perfil con ese ID");
+            }
+
+            profile.KnowledgeList = JsonSerializer.Serialize(request.Knowledges);
+            profile.ToolList = JsonSerializer.Serialize(request.Tools);
+
+            await _profileRepository.UpdateProfileAsync(profile);
+
+            return new SkillsResponse
+            {
+                ProfileId = request.ProfileId,
+                Knowledges = _mapper.Map<List<KnowledgeResponseForProfile>>(request.Knowledges),
+                Tools = _mapper.Map<List<ToolResponseForProfile>>(request.Tools)
+            };
+        }
+        // publicasunc task<el response que esat arriba> UpdateListCampInProfile (el request que esta arriba){
+           //este metodo tiene que llamar a la 
+
+        //}
+
+
+
 
     }
 }

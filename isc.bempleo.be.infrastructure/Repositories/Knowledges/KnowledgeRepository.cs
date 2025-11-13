@@ -11,7 +11,10 @@ namespace isc.bempleo.be.infrastructure.Repositories.Knowledges
     public class KnowledgeRepository : IKnowledgeRepository
     {
         private readonly DBContext _dbContext;
-        public KnowledgeRepository(DBContext context) => _dbContext = context;
+        public KnowledgeRepository(DBContext context)
+        {
+            _dbContext = context;
+        }
 
         public async Task<List<Knowledge>> GetAllKnowledgesAsync(bool isActive, string? search = null)
         {
