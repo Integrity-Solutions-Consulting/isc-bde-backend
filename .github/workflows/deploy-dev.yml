@@ -32,7 +32,7 @@ jobs:
       - name: Deploy on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
-            cd ${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_bac
+            cd ${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back
 
 
             docker compose -f docker-compose.dev.yml down || true
