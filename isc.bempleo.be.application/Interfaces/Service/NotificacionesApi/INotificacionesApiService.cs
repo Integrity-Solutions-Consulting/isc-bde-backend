@@ -9,6 +9,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.NotificacionesApi
 {
     public interface INotificacionesApiService
     {
-        Task<bool> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request);
+        Task<bool> SendVerificationCodeAsync(string cedula, string email);
     }
 }
