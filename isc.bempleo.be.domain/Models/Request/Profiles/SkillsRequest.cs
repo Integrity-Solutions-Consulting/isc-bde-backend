@@ -8,7 +8,7 @@ namespace isc.bempleo.be.domain.Models.Request.Profiles
 {
     public class SkillsRequest
     {
-        public int ProfileId { get; set; }  
+        //public int ProfileId { get; set; }  
 
         public List<KnowledgeRequestForProfile> Knowledges { get; set; } 
         public List<ToolRequestForProfile> Tools { get; set; } 
