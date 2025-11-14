@@ -14,6 +14,7 @@ namespace isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes
 
 
         Task<ProfileAccessCode> CreateProfileAccessCodeAsync(ProfileAccessCode entity);
+        Task<bool> CodeExistsAsync(string code); 
 
 
     }

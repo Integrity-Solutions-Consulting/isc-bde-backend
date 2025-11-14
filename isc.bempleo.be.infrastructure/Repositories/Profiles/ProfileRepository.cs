@@ -56,12 +56,13 @@ namespace isc.bempleo.be.infrastructure.Repositories.Profiles
                 .ExecuteUpdateAsync(update => update.SetProperty(p => p.Status, status));
         }
 
-        public async Task<Profile> GetProfileByEmailOrIdentificationAsync(string identificationNumber, string email)
+        public async Task<Profile> GetProfileByEmailOrIdentificationAsync(string email, string identificationNumber)
         {
-            return await _dbContext.Profiles
+            var validation = await _dbContext.Profiles
                 .FirstOrDefaultAsync(p =>
                     p.Email == email &&
                     p.IdentificationNumber == identificationNumber);
+            return validation;
         }
 
 
