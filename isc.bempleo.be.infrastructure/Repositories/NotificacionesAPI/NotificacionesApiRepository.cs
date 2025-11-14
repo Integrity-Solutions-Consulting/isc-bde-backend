@@ -23,8 +23,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI
 
         public async Task<bool> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request)
         {
-            var url = $"{_configuration["Infrastructure:UrlApiBempleo"]}/api/v1/email/send-verification-code";
-
+            var url = $"{_configuration["Infrastructure:UrlApiBempleo"]}/send-verification-code";
             var result = await _httpUtils.SendRequest<string>(url, HttpMethod.Post, request);
 
             return !string.IsNullOrWhiteSpace(result);

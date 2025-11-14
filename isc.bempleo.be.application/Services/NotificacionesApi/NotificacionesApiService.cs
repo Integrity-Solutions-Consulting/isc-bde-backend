@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
+using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.domain.Models.DTOs.Notificaciones;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,20 @@ namespace isc.bempleo.be.application.Services.NotificacionesApi
     public class NotificacionesApiService : INotificacionesApiService
     {
         private readonly INotificacionesApiRepository _notificacionesApiRepository;
-        public NotificacionesApiService(INotificacionesApiRepository notificacionesApiRepository)
+        private readonly IProfileService _profileService;
+
+        public NotificacionesApiService(INotificacionesApiRepository notificacionesApiRepository, IProfileService profileService)
         {
             _notificacionesApiRepository = notificacionesApiRepository;
+            _profileService = profileService;
         }
         public async Task<bool> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request)
         {
 
             if (request == null)
-                throw new ArgumentNullException(nameof(request), "El request no puede ser nulo.");
+                request = new NotificacionesSendVerificationCodeRequest();
+
+
 
             if (string.IsNullOrWhiteSpace(request.To))
                 throw new ArgumentException("El correo de destino (To) es obligatorio.");

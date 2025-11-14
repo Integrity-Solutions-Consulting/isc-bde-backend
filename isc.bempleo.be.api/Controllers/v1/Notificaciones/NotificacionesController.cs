@@ -1,5 +1,7 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
+using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.domain.Models.DTOs.Notificaciones;
+using isc.bempleo.be.domain.Models.Response.Profiles;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

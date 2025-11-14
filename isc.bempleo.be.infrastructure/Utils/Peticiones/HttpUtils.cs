@@ -43,7 +43,14 @@ namespace isc.bempleo.be.infrastructure.Utils.Peticiones
                     return default;
                 }
 
-                // Deserializar JSON en T
+                // Si T es string, devolver contenido como texto
+                if (typeof(T) == typeof(string))
+                {
+                    var stringContent = await response.Content.ReadAsStringAsync();
+                    return (T)(object)stringContent; // casting seguro
+                }
+
+                // De lo contrario, deserializar JSON
                 return await response.Content.ReadFromJsonAsync<T>();
             }
         }
