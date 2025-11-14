@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
+using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
 using isc.bempleo.be.domain.Models.Request.Profiles;
 using isc.bempleo.be.domain.Models.Response.Profiles;
 using System;
@@ -17,9 +19,11 @@ namespace isc.bempleo.be.application.Services.Profiles
     {
         private readonly IProfileRepository _profileRepository;
         private readonly IMapper _mapper;
-        public ProfileService(IProfileRepository profileRepository, IMapper mapper) {
+        private readonly IProfileAccessCodeService _serviceCode;
+        public ProfileService(IProfileRepository profileRepository, IMapper mapper, IProfileAccessCodeService code) {
             _profileRepository = profileRepository;
             _mapper = mapper;
+            _serviceCode = code;
         }
         
         public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
@@ -58,9 +62,12 @@ namespace isc.bempleo.be.application.Services.Profiles
             {
                 throw new Exception("No existe ningún perfil con esos datos.");
             }
-            //AQUI LLAMAS A UN METOOD QUE TIENES QUE CREAR EN EL REPO DE PROFILECODE QUE GUARDA EL PARAMETRO QUE LE PASAS A ESTE SERVICIO QUE ES EL CODE
-            // VAR CODEPROFILE = AWAIT _CODEPROFILEREPOSITORY.AQUI LLAMA AL METODO QUE GUARDA EL CODE
 
+            var codeRequest = new ProfileAccessCodeRequest
+            {
+            };
+
+            await _serviceCode.CreateProfileAccessCodeAsync(codeRequest);
             var response = _mapper.Map<ProfileResponse>(profile);
 
             response.Knowledges = string.IsNullOrEmpty(profile.KnowledgeList)
@@ -70,7 +77,6 @@ namespace isc.bempleo.be.application.Services.Profiles
             response.Tools = string.IsNullOrEmpty(profile.ToolList)
                 ? new List<ToolResponseForProfile>()
                 : JsonSerializer.Deserialize<List<ToolResponseForProfile>>(profile.ToolList);
-            //RESPONSE.AQUI LE ASIGNAS EL VALOR DEL CODEPROFILE QUE OBTUVISTE ARRIBA
             return response;
         }
 

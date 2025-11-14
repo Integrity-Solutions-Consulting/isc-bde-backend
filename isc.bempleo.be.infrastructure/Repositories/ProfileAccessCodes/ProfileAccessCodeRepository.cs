@@ -1,6 +1,7 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,12 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes
             await _dbContext.ProfileAccessCodes.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
+        }
+
+        public async Task<bool> CodeExistsAsync(string code)
+        {
+            return await _dbContext.ProfileAccessCodes
+                .AnyAsync(x => x.Code == code);
         }
 
 
