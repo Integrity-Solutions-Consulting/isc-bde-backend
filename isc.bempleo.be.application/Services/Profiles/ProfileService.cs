@@ -136,6 +136,7 @@ namespace isc.bempleo.be.application.Services.Profiles
             };
         }
 
+        // Actualizar datos de la pantalla 1
         public async Task<ProfileResponse> UpdateProfile (PersonalDataRequest request, int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
@@ -173,6 +174,7 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
         }
 
+        // Actualizar datos de la pantalla 2
         public async Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
@@ -193,6 +195,28 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
 
         }
+
+        // Actualizar datos de la pantalla 3
+        public async Task<SkillsResponse> UpdateProfileSkillsAsync(SkillsRequest request, int profileId)
+        {
+            var profile = await _profileRepository.GetProfileByIdAsync(profileId);
+
+            if (profile == null)
+                throw new Exception("No existe el perfil con ese ID");
+
+            profile.KnowledgeList = JsonSerializer.Serialize(request.Knowledges);
+            profile.ToolList = JsonSerializer.Serialize(request.Tools);
+
+            await _profileRepository.UpdateProfileAsync(profile);
+
+            return new SkillsResponse
+            {
+                ProfileId = profileId,
+                Knowledges = _mapper.Map<List<KnowledgeResponseForProfile>>(request.Knowledges),
+                Tools = _mapper.Map<List<ToolResponseForProfile>>(request.Tools)
+            };
+        }
+
         public async Task ActivateInactiveResourceAsync(int profileId, bool active)
         {
             var rowsAffected = await _profileRepository.ActiveInactiveProfileAsync(profileId, active);
@@ -203,29 +227,29 @@ namespace isc.bempleo.be.application.Services.Profiles
             }
         }
 
-        //public async Task<SkillsResponse> GetProfileSkillsAsync(int profileId)
-        //{
-        //    var profile = await _profileRepository.GetProfileByIdAsync(profileId);
-        //    if (profile == null)
-        //    {
-        //        throw new Exception("No existe el perfil con ese ID");
-        //    }
+        public async Task<SkillsResponse> GetProfileSkillsAsync(int profileId)
+        {
+            var profile = await _profileRepository.GetProfileByIdAsync(profileId);
+            if (profile == null)
+            {
+                throw new Exception("No existe el perfil con ese ID");
+            }
 
-        //    var knowledges = string.IsNullOrEmpty(profile.KnowledgeList)? 
-        //        new List<KnowledgeRequestForProfile>(): 
-        //        JsonSerializer.Deserialize<List<KnowledgeRequestForProfile>>(profile.KnowledgeList);
+            var knowledges = string.IsNullOrEmpty(profile.KnowledgeList) ?
+                new List<KnowledgeRequestForProfile>() :
+                JsonSerializer.Deserialize<List<KnowledgeRequestForProfile>>(profile.KnowledgeList);
 
-        //    var tools = string.IsNullOrEmpty(profile.ToolList)?
-        //        new List<ToolRequestForProfile>():
-        //        JsonSerializer.Deserialize<List<ToolRequestForProfile>>(profile.ToolList);
+            var tools = string.IsNullOrEmpty(profile.ToolList) ?
+                new List<ToolRequestForProfile>() :
+                JsonSerializer.Deserialize<List<ToolRequestForProfile>>(profile.ToolList);
 
-        //    return new SkillsResponse
-        //    {
-        //        ProfileId = profileId,
-        //        Knowledges = _mapper.Map<List<KnowledgeResponseForProfile>>(knowledges),
-        //        Tools = _mapper.Map<List<ToolResponseForProfile>>(tools)
-        //    };
-        //}
+            return new SkillsResponse
+            {
+                ProfileId = profileId,
+                Knowledges = _mapper.Map<List<KnowledgeResponseForProfile>>(knowledges),
+                Tools = _mapper.Map<List<ToolResponseForProfile>>(tools)
+            };
+        }
 
         // publicasunc task<el response que esat arriba> UpdateListCampInProfile (el request que esta arriba){
         //este metodo tiene que llamar a la 

@@ -33,19 +33,34 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
         }
 
+        // Pantalla 1 del formulario
         [HttpPost("create-profile-personal-data")]
         public async Task<ActionResult<ProfileResponse>> CreateAsync (PersonalDataRequest request)
         {
             var result = await _service.CreateProfileAsync(request);
             return Ok(result);
         }
+        // Pantalla 2 del formulario
         [HttpPost("create-profile-formation")]
         public async Task<ActionResult<ProfileResponse>> CreateAsync(FormationRequest request, int profileId)
         {
             var result = await _service.CreateProfileAsync(request, profileId);
             return Ok(result);
         }
+        // Pantalla 3 del formulario
+        [HttpPost("create-profile-skills")]
+        public async Task<ActionResult<SkillsResponse>> CreateSkillsAsync(SkillsRequest request, int profileId)
+        {
+            var result = await _service.CreateProfileAsync(request, profileId);
+            return Ok(result);
+        }
 
+        [HttpGet("get-profile-skills")]
+        public async Task<ActionResult<SkillsResponse>> GetProfileSkills(int profileId)
+        {
+            var result = await _service.GetProfileSkillsAsync(profileId);
+            return Ok(result);
+        }
 
 
         //[HttpPut("update-profile-skills")]
@@ -62,6 +77,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
         //    return Ok(result);
         //}
 
+
+
         [HttpPut("update-personal-data")]
         public async Task<ActionResult<ProfileResponse>> UpdateAsync (int id, PersonalDataRequest request)
         {
@@ -75,6 +92,14 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             var result = await _service.UpdateProfile(request, id);
             return Ok(result);
 
+        }
+
+        [HttpPut("update-profile-skills")]
+        public async Task<ActionResult<SkillsResponse>> UpdateSkillsAsync(int profileId, SkillsRequest request)
+
+        {
+            var result = await _service.UpdateProfileSkillsAsync(request, profileId);
+            return Ok(result);
         }
 
         [HttpPut("active-inactive-profile")]

@@ -11,7 +11,9 @@ namespace isc.bempleo.be.api.Controllers.v1
     public class DocumentController : ControllerBase
     {
         private readonly IDocumentService _service;
-        public DocumentController(IDocumentService service) => _service = service;
+        public DocumentController(IDocumentService service){
+            _service = service;
+        }
 
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
