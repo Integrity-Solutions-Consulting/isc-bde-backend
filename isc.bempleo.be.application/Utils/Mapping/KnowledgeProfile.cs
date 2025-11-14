@@ -11,6 +11,9 @@ namespace isc.bempleo.be.application.Utils.Mapping
         {
             CreateMap<KnowledgeRequest, Knowledge>();
             CreateMap<Knowledge, KnowledgeResponse>();
+
+            CreateMap<KnowledgeRequest, KnowledgeResponse>();
+
         }
     }
 }

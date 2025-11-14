@@ -1,6 +1,7 @@
 ﻿using isc.bempleo.be.domain.Entity.Shared;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? AcademicInstitution { get; set; }
         public string? CountryOfStudy { get; set; }
         public string? EnglishLevel { get; set; }
-
+        public string? KnowledgeList { get; set; }
+        public string? ToolList { get; set; }
     }
 }
