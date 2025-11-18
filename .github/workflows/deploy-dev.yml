@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -27,8 +28,13 @@ jobs:
 
       - name: Copy project in VPS
         uses: burnett01/rsync-deployments@7.1.0
-        run: |
-          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}
+        with:
+          switches: -avzr --delete
+          path: ./
+          remote_path: ${{ secrets.VPS_DEPLOY_PATH }}
+          remote_host: ${{ secrets.VPS_IP }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.VPS_SSH_KEY }}
 
       - name: Deploy on VPS
         run: |
