@@ -21,23 +21,15 @@ namespace isc.bempleo.be.application.Utils.Mapping
             CreateMap<ProfileEntity, ProfileResponse>();
             CreateMap<ProfileResponse, ProfileEntity>();
 
-            CreateMap<Knowledge, KnowledgeResponse>();
-            CreateMap<KnowledgeResponse, Knowledge>();
-
             CreateMap<ProfileEntity, PersonalDataRequest>();
             CreateMap<PersonalDataRequest, ProfileEntity>();
 
             CreateMap<ProfileEntity, FormationRequest>();
             CreateMap<FormationRequest, ProfileEntity>();
 
-            CreateMap<Knowledge, KnowledgeRequest>();
-            CreateMap<KnowledgeRequest, Knowledge>();
 
-
-            CreateMap<KnowledgeRequest, Knowledge>();
-            CreateMap<Knowledge, KnowledgeResponse>();
-
-
+            CreateMap<KnowledgeRequestForProfile, KnowledgeResponseForProfile>();
+            CreateMap<ToolRequestForProfile, ToolResponseForProfile>();
 
         }
     }

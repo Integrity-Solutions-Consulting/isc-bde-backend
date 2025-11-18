@@ -26,6 +26,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
 
       - name: Copy project in VPS
+        uses: burnett01/rsync-deployments@7.1.0
         run: |
           rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}
 

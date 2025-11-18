@@ -11,7 +11,10 @@ namespace isc.bempleo.be.api.Controllers.v1.Knowledges
     public class KnowledgeController : ControllerBase
     {
         private readonly IKnowledgeService _service;
-        public KnowledgeController(IKnowledgeService service) => _service = service;
+        public KnowledgeController(IKnowledgeService service)
+        {
+            _service = service;
+        }
 
         [HttpGet("get-all-knowledges")]
         public async Task<ActionResult<List<KnowledgeResponse>>> GetAllAsync(
@@ -21,7 +24,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Knowledges
             var result = await _service.GetAllKnowledgesAsync(isActive, search);
             return Ok(result);
         }
-
 
         [HttpGet("get-by-id-{id}")]
         public async Task<ActionResult<KnowledgeResponse>> GetById(int id)

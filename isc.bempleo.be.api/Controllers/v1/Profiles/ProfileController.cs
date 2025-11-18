@@ -26,10 +26,10 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
 
         }
-        [HttpGet("get-by-id-{id}")]
-        public async Task<ActionResult<ProfileResponse>> GetById (int id)
+        [HttpGet("get-by-email-cedula")]
+        public async Task<ActionResult<ProfileResponse>> GetById (string cedula, string email)
         {
-            var result = await _service.GetProfileById(id);
+            var result = await _service.GetProfileByCedulaEmail(cedula, email);
             return Ok(result);
         }
 
@@ -46,6 +46,21 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
         }
 
+
+
+        //[HttpPut("update-profile-skills")]
+        //public async Task<ActionResult<SkillsResponse>> UpdateSkillsAsync(SkillsRequest request, int profileId)
+        //{
+        //    var result = await _service.UpdateProfile(request, profileId);
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("get-profile-skills/{profileId}")]
+        //public async Task<ActionResult<SkillsResponse>> GetSkillsAsync(int profileId)
+        //{
+        //    var result = await _service.GetProfileSkillsAsync(profileId);
+        //    return Ok(result);
+        //}
 
         [HttpPut("update-personal-data")]
         public async Task<ActionResult<ProfileResponse>> UpdateAsync (int id, PersonalDataRequest request)
