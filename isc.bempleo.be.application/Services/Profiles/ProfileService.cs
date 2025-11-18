@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
@@ -20,10 +21,12 @@ namespace isc.bempleo.be.application.Services.Profiles
         private readonly IProfileRepository _profileRepository;
         private readonly IMapper _mapper;
         private readonly IProfileAccessCodeService _serviceCode;
-        public ProfileService(IProfileRepository profileRepository, IMapper mapper, IProfileAccessCodeService code) {
+        private readonly IProfileAccessCodeRepository _codeAccessRepository;
+        public ProfileService(IProfileRepository profileRepository, IMapper mapper, IProfileAccessCodeService code, IProfileAccessCodeRepository codeAccessRepository) {
             _profileRepository = profileRepository;
             _mapper = mapper;
             _serviceCode = code;
+            _codeAccessRepository = codeAccessRepository;
         }
         
         public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
@@ -39,23 +42,40 @@ namespace isc.bempleo.be.application.Services.Profiles
 
         }
 
-        //public async Task<ProfileResponse> GetProfileByCedulaEmail (string cedula,string email)//cedula y correo
+        //public async Task<ProfileResponse> GetProfileByCedulaEmail(string cedula, string email)
         //{
-        //    var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(cedula, email);
-        //    if(profile == null)
+
+        //    var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(email, cedula);
+
+        //    if (profile == null)
         //    {
-        //        throw new Exception("No existe ningun perfil con ese ID");
+        //        throw new Exception("No existe ningún perfil con esos datos.");
         //    }
-        //    var mapping = _mapper.Map<ProfileResponse>(profile);
-        //    //aqui haces un mapping.y tras el atributo de tu lista y lo deserializas para mosotrarlo 
-        //    //aqui haces un mapping.y tras el atributo de tu lista y lo deserializas para mosotrarlo 
-            
-        //    return mapping;
+
+        //    var codeRequest = new ProfileAccessCodeRequest
+        //    {
+        //    };
+
+        //    await _serviceCode.CreateProfileAccessCodeAsync(codeRequest);
+        //    var response = _mapper.Map<ProfileResponse>(profile);
+
+        //    response.Knowledges = string.IsNullOrEmpty(profile.KnowledgeList)
+        //        ? new List<KnowledgeResponseForProfile>()
+        //        : JsonSerializer.Deserialize<List<KnowledgeResponseForProfile>>(profile.KnowledgeList);
+
+        //    response.Tools = string.IsNullOrEmpty(profile.ToolList)
+        //        ? new List<ToolResponseForProfile>()
+        //        : JsonSerializer.Deserialize<List<ToolResponseForProfile>>(profile.ToolList);
+        //    return response;
         //}
 
-
-        public async Task<ProfileResponse> GetProfileByCedulaEmail(string cedula, string email)
+         public async Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code)
         {
+            var codeAccess = await _codeAccessRepository.ValidateCode(code);
+            if (codeAccess == null)
+            {
+                throw new Exception("El codigo de acceso que proporciono no es valido");
+            }
             var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(email, cedula);
 
             if (profile == null)
@@ -67,7 +87,6 @@ namespace isc.bempleo.be.application.Services.Profiles
             {
             };
 
-            await _serviceCode.CreateProfileAccessCodeAsync(codeRequest);
             var response = _mapper.Map<ProfileResponse>(profile);
 
             response.Knowledges = string.IsNullOrEmpty(profile.KnowledgeList)
@@ -79,6 +98,9 @@ namespace isc.bempleo.be.application.Services.Profiles
                 : JsonSerializer.Deserialize<List<ToolResponseForProfile>>(profile.ToolList);
             return response;
         }
+        
+
+
 
         //Pantalla 1 del formulario
         public async Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request)

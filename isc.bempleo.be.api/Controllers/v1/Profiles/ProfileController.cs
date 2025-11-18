@@ -26,10 +26,18 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
 
         }
-        [HttpGet("get-by-email-cedula")]
-        public async Task<ActionResult<ProfileResponse>> GetById (string cedula, string email)
+        //[HttpGet("get-by-email-cedula")]
+        //public async Task<ActionResult<ProfileResponse>> GetById (string cedula, string email)
+        //{
+        //    var result = await _service.GetProfileByCedulaEmail(cedula, email);
+        //    return Ok(result);
+        //}
+        
+                
+        [HttpGet("get-profile-by-email-cedula-code")]
+        public async Task<ActionResult<ProfileResponse>> GetProfileByCode(string cedula, string email, string code)
         {
-            var result = await _service.GetProfileByCedulaEmail(cedula, email);
+            var result = await _service.GetProfileByCodeAsync(cedula, email, code);
             return Ok(result);
         }
 

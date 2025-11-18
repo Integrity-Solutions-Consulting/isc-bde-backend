@@ -27,7 +27,8 @@ namespace isc.bempleo.be.application.Services.NotificacionesApi
         public async Task<bool> SendVerificationCodeAsync(string cedula, string email)
         {
             // Traer perfil
-            var profile = await _profileService.GetProfileByCedulaEmail(cedula, email);
+            //var profile = await _profileService.GetProfileByCedulaEmail(cedula, email);
+            var profile = await _profileService.GetProfileByCodeAsync(cedula, email, "");
 
             if (profile == null)
                 throw new Exception("No se encontró el perfil.");

@@ -11,7 +11,8 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
     public interface IProfileService
     {
         Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive);
-        Task<ProfileResponse> GetProfileByCedulaEmail(string cedula, string email);
+        //Task<ProfileResponse> GetProfileByCedulaEmail(string cedula, string email);
+        Task<ProfileResponse> GetProfileByCodeAsync (string cedula, string email, string code);
         Task<SkillsResponse> GetProfileSkillsAsync(int profileId);
         Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request);
         Task<ProfileResponse> CreateProfileAsync(FormationRequest request, int profileId);
