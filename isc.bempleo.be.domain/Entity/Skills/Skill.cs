@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace isc.bempleo.be.domain.Entity.Knowledges
+namespace isc.bempleo.be.domain.Entity.Skills
 {
-    public class Knowledge : BaseEntity
+    public class Skill : BaseEntity
     {
-        public string KnowledgeName { get; set; }
+        public string SkillName { get; set; }
 
     }
 }

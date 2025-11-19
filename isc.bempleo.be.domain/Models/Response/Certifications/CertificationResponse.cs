@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace isc.bempleo.be.domain.Models.Response.Knowledges
+namespace isc.bempleo.be.domain.Models.Response.Certifications
 {
-    public class KnowledgeResponse
+    public class CertificationResponse
     {
         public int Id { get; set; }
-        public string KnowledgeName { get; set; }
-
+        public string CertificationName { get; set; }
     }
 }

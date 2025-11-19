@@ -27,14 +27,12 @@ namespace isc.bempleo.be.infrastructure.Repositories.Knowledges
                 string normalizedSearch = search.Trim().ToLowerInvariant();
 
                 query = query.Where(k =>
-                    (k.KnowledgeName != null && k.KnowledgeName.ToLower().Contains(normalizedSearch)) ||
-                    (k.KnowledgeType != null && k.KnowledgeType.ToLower().Contains(normalizedSearch))
+                    (k.KnowledgeName != null && k.KnowledgeName.ToLower().Contains(normalizedSearch))
                 );
             }
 
             query = query
-                .OrderBy(k => k.KnowledgeName)
-                .ThenBy(k => k.KnowledgeType);
+                .OrderBy(k => k.KnowledgeName);
 
             return await query.AsNoTracking().ToListAsync();
         }
