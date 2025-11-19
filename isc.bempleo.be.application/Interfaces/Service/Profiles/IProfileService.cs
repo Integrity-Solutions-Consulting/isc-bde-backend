@@ -11,15 +11,17 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
     public interface IProfileService
     {
         Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive);
-        //Task<ProfileResponse> GetProfileByCedulaEmail(string cedula, string email);
-        Task<ProfileResponse> GetProfileByCodeAsync (string cedula, string email, string code);
-        Task<SkillsResponse> GetProfileSkillsAsync(int profileId);
+        Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code);
+
+        // Pantalla 1
         Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request);
-        Task<ProfileResponse> CreateProfileAsync(FormationRequest request, int profileId);
-        Task<SkillsResponse> CreateProfileAsync(SkillsRequest request, int profileId);
         Task<ProfileResponse> UpdateProfile(PersonalDataRequest request, int profileId);
+        // Pantalla 2
+        Task<ProfileResponse> CreateProfileAsync(FormationRequest request, int profileId);
         Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId);
-        Task<SkillsResponse> UpdateProfileSkillsAsync(SkillsRequest request, int profileId);
+        // Pantalla 3
+        Task UpdateProfileTechnologiesAsync(int profileId, ProfileTechnologiesRequest request);
+        Task<ProfileTechnologiesRequest> GetProfileTechnologiesAsync(int profileId);
 
         Task ActivateInactiveResourceAsync(int profileId, bool active);
     }

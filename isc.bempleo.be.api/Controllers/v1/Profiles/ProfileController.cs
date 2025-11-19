@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.application.Services.Profiles;
 using isc.bempleo.be.domain.Models.Request.Profiles;
 using isc.bempleo.be.domain.Models.Response.Profiles;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
     {
         private readonly IProfileService _service;
 
-
         public ProfileController (IProfileService service)
         {
             _service = service;
@@ -26,13 +26,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
 
         }
-        //[HttpGet("get-by-email-cedula")]
-        //public async Task<ActionResult<ProfileResponse>> GetById (string cedula, string email)
-        //{
-        //    var result = await _service.GetProfileByCedulaEmail(cedula, email);
-        //    return Ok(result);
-        //}
-        
                 
         [HttpGet("get-profile-by-email-cedula-code")]
         public async Task<ActionResult<ProfileResponse>> GetProfileByCode(string cedula, string email, string code)
@@ -48,6 +41,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             var result = await _service.CreateProfileAsync(request);
             return Ok(result);
         }
+
         // Pantalla 2 del formulario
         [HttpPost("create-profile-formation")]
         public async Task<ActionResult<ProfileResponse>> CreateAsync(FormationRequest request, int profileId)
@@ -55,38 +49,24 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             var result = await _service.CreateProfileAsync(request, profileId);
             return Ok(result);
         }
-        // Pantalla 3 del formulario
-        [HttpPost("create-profile-skills")]
-        public async Task<ActionResult<SkillsResponse>> CreateSkillsAsync(SkillsRequest request, int profileId)
+
+        // Pantalla 3 - guardar herramientas, habilidadesBlandas, cursos y certificaciones asociadas al perfil
+        [HttpPut("update-profile-technologies-{profileId}")]
+        public async Task<IActionResult> UpdateTechnologies(int profileId,ProfileTechnologiesRequest request)
         {
-            var result = await _service.CreateProfileAsync(request, profileId);
+            await _service.UpdateProfileTechnologiesAsync(profileId, request);
+            return NoContent();
+        }
+
+        // Pantalla 3 - obtener tecnologías asociadas (para editar)
+        [HttpGet("get-profile-technologies-{profileId}")]
+        public async Task<ActionResult<ProfileTechnologiesRequest>> GetTechnologies(int profileId)
+        {
+            var result = await _service.GetProfileTechnologiesAsync(profileId);
             return Ok(result);
         }
 
-        [HttpGet("get-profile-skills")]
-        public async Task<ActionResult<SkillsResponse>> GetProfileSkills(int profileId)
-        {
-            var result = await _service.GetProfileSkillsAsync(profileId);
-            return Ok(result);
-        }
-
-
-        //[HttpPut("update-profile-skills")]
-        //public async Task<ActionResult<SkillsResponse>> UpdateSkillsAsync(SkillsRequest request, int profileId)
-        //{
-        //    var result = await _service.UpdateProfile(request, profileId);
-        //    return Ok(result);
-        //}
-
-        //[HttpGet("get-profile-skills/{profileId}")]
-        //public async Task<ActionResult<SkillsResponse>> GetSkillsAsync(int profileId)
-        //{
-        //    var result = await _service.GetProfileSkillsAsync(profileId);
-        //    return Ok(result);
-        //}
-
-
-
+        // Actualizar datos personales (pantalla 1)
         [HttpPut("update-personal-data")]
         public async Task<ActionResult<ProfileResponse>> UpdateAsync (int id, PersonalDataRequest request)
         {
@@ -94,6 +74,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
 
         }
+
+        // Actualizar formación (pantalla 2)
         [HttpPut("update-formation")]
         public async Task<ActionResult<ProfileResponse>> UpdateAsync(int id, FormationRequest request)
         {
@@ -102,23 +84,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
 
         }
 
-        [HttpPut("update-profile-skills")]
-        public async Task<ActionResult<SkillsResponse>> UpdateSkillsAsync(int profileId, SkillsRequest request)
-
-        {
-            var result = await _service.UpdateProfileSkillsAsync(request, profileId);
-            return Ok(result);
-        }
-
         [HttpPut("active-inactive-profile")]
         public async Task<ActionResult> ActiveInactiveAsync(int id, [FromQuery] bool isActive)
         {
             await _service.ActivateInactiveResourceAsync(id, isActive);
             return NoContent();
         }
-
-
-
 
 
     }

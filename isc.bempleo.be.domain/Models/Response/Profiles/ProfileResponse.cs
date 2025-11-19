@@ -26,9 +26,10 @@ namespace isc.bempleo.be.domain.Models.Response.Profiles
         public string? CountryOfStudy { get; set; }
         public string? EnglishLevel { get; set; }
 
-
-        public List<KnowledgeResponseForProfile> Knowledges { get; set; }
-        public List<ToolResponseForProfile> Tools { get; set; }
+        public List<int> KnowledgeIds { get; set; } = new();
+        public List<int> ToolIds { get; set; } = new();
+        public List<int> SkillIds { get; set; } = new();
+        public List<int> CertificationIds { get; set; } = new();
     }
 
 
