@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.api", "ISC.BEmpleo.BE.api\isc.bempleo.be.api.csproj", "{24061285-191A-43AA-BD8C-B3919BAB2DC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "isc.bempleo.be.api", "isc.bempleo.be.api\isc.bempleo.be.api.csproj", "{24061285-191A-43AA-BD8C-B3919BAB2DC3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1D8805D9-E2E5-47F1-A751-D9FD5536B6F0} = {1D8805D9-E2E5-47F1-A751-D9FD5536B6F0}
 		{2AAF946D-6A92-4720-83D3-9E11D042D30E} = {2AAF946D-6A92-4720-83D3-9E11D042D30E}
