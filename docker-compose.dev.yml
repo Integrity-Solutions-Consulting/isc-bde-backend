@@ -15,7 +15,7 @@ services:
       - Cors__AllowedOrigins=http://localhost:4200,https://localhost:4200,http://147.93.181.146:8083,https://147.93.181.146:8083
     depends_on:
       - sqlserver
-  networks:
-    bempleo-net:
-       - backend-net
+networks:
+  backend-net:
+    external: true
 
