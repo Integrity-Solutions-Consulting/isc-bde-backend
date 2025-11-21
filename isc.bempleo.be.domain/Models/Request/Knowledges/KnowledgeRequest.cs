@@ -8,7 +8,6 @@ namespace isc.bempleo.be.domain.Models.Request.Knowledges
 {
     public class KnowledgeRequest
     {
-        public string KnowledgeType { get; set; }
         public string KnowledgeName { get; set; }
 
     }

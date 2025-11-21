@@ -29,5 +29,7 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? EnglishLevel { get; set; }
         public string? KnowledgeList { get; set; }
         public string? ToolList { get; set; }
+        public string? SkillList { get; set; }
+        public string? CertificationList { get; set; }
     }
 }

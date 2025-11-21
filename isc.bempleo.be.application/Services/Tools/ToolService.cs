@@ -43,11 +43,8 @@ namespace isc.bempleo.be.application.Services.Tools
         {
             var entity = _mapper.Map<Tool>(request);
             var createdEntity = await _toolRepository.CreateToolAsync(entity);
-            //llamas al helper
-            //List de kwowledge= Helperlist
- 
+
             return _mapper.Map<ToolResponse>(createdEntity);
-            // otro metodo que tu 
         }
 
         public async Task<ToolResponse> UpdateToolAsync(int toolId, ToolRequest request)
