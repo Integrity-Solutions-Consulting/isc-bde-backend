@@ -17,5 +17,5 @@ services:
       - sqlserver
   networks:
     bempleo-net:
-      driver: bridge
+       - backend-net
 
