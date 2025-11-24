@@ -32,7 +32,6 @@ namespace isc.bempleo.be.infrastructure.IOC
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IProjectionRepository, ProjectionRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IToolRepository, ToolRepository>();
             services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();

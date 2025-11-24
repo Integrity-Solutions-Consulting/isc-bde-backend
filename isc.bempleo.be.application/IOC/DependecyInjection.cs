@@ -29,7 +29,6 @@ namespace isc.bempleo.be.application.IOC
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddScoped<IProjectionService, ProjectionService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IToolService, ToolService>();
             services.AddScoped<IKnowledgeService, KnowledgeService>();

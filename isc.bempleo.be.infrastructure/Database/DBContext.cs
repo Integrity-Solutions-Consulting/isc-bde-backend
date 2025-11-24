@@ -127,9 +127,6 @@ namespace isc.bempleo.be.infrastructure.Database
             });
 
 
-            modelBuilder.Entity<ProjectionHoursProjectResponse>().HasNoKey();
-
-
             base.OnModelCreating(modelBuilder);
 
         }
