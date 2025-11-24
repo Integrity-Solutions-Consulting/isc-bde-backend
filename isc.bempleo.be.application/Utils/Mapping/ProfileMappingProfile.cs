@@ -27,10 +27,6 @@ namespace isc.bempleo.be.application.Utils.Mapping
             CreateMap<ProfileEntity, FormationRequest>();
             CreateMap<FormationRequest, ProfileEntity>();
 
-
-            CreateMap<KnowledgeRequestForProfile, KnowledgeResponseForProfile>();
-            CreateMap<ToolRequestForProfile, ToolResponseForProfile>();
-
         }
     }
 }

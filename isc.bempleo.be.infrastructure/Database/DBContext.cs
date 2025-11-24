@@ -4,6 +4,8 @@ using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Tools;
 using isc.bempleo.be.domain.Models.Response;
+using isc.bempleo.be.domain.Entity.Skills;
+using isc.bempleo.be.domain.Entity.Certifications;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,6 +47,8 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.Carer).HasColumnName("career");
                 entity.Property(e => e.KnowledgeList).HasColumnName("knowledge_list");
                 entity.Property(e => e.ToolList).HasColumnName("tool_list");
+                entity.Property(e => e.SkillList).HasColumnName("skill_list");
+                entity.Property(e => e.CertificationList).HasColumnName("certification_list");
                 entity.Property(e => e.AcademicInstitution).HasColumnName("academic_institution");
                 entity.Property(e => e.CountryOfStudy).HasColumnName("country_of_study");
                 entity.Property(e => e.EnglishLevel).HasColumnName("english_level");
@@ -80,7 +84,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.ToTable("Knowledge");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("KnowledgeID");
-                entity.Property(e => e.KnowledgeType).HasColumnName("knowledge_type");
                 entity.Property(e => e.KnowledgeName).HasColumnName("knowledge_name");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
@@ -126,6 +129,38 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
+            modelBuilder.Entity<Skill>(entity =>
+            {
+                entity.ToTable("Skills");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("SkillID");
+                entity.Property(e => e.SkillName).HasColumnName("skill_name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
+            modelBuilder.Entity<Certification>(entity =>
+            {
+                entity.ToTable("Certifications");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("CertificationID");
+                entity.Property(e => e.CertificationName).HasColumnName("certification_name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
 
             base.OnModelCreating(modelBuilder);
 
@@ -136,6 +171,9 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Knowledge> Knowledges { get; set; }
         public DbSet<DocumentData> Documents { get; set; }
         public DbSet<ProfileAccessCode> ProfileAccessCodes { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Certification> Certifications { get; set; }
+
 
     }
 }
