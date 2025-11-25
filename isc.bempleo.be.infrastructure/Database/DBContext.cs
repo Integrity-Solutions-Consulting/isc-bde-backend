@@ -118,7 +118,7 @@ namespace isc.bempleo.be.infrastructure.Database
             {
                 entity.ToTable("ProfileAccessCode");
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).HasColumnName("Id");
+                entity.Property(e => e.Id).HasColumnName("ProfileAccessCodeId");
                 entity.Property(e => e.Code).HasColumnName("Code");
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
