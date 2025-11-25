@@ -20,7 +20,6 @@ namespace isc.bempleo.be.application.Services.Documents
 
         public DocumentService(IDocumentRepository repository, IMapper mapper)
         {
-            //hola
             _repository = repository;
             _mapper = mapper;
         }
