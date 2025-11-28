@@ -12,7 +12,6 @@ using isc.bempleo.be.application.Interfaces.Service.Skills;
 using isc.bempleo.be.application.Interfaces.Service.Tools;
 using isc.bempleo.be.application.Services;
 using isc.bempleo.be.application.Services.Certifications;
-using isc.bempleo.be.application.Services.Documents;
 using isc.bempleo.be.application.Services.Knowledges;
 using isc.bempleo.be.application.Services.NotificacionesApi;
 using isc.bempleo.be.application.Services.ProfileAccessCodes;
@@ -39,7 +38,6 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IToolService, ToolService>();
             services.AddScoped<IKnowledgeService, KnowledgeService>();
-            services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IProfileAccessCodeService, ProfileAccessCodeService>();
             services.AddScoped<INotificacionesApiService, NotificacionesApiService>();
             services.AddScoped<ISkillService, SkillService>();

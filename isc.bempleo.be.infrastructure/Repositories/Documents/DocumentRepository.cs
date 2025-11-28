@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Documents;
+using isc.bempleo.be.domain.Entity.Certifications;
 using isc.bempleo.be.domain.Entity.Documents;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -12,28 +13,37 @@ namespace isc.bempleo.be.infrastructure.Repositories.Documents
 {
     public class DocumentRepository : IDocumentRepository
     {
+        private readonly DBContext _dbContext;
 
-        private readonly DBContext _context;
-        public DocumentRepository(DBContext context) => _context = context;
 
-        public async Task<DocumentData> CreateDocumentAsync(DocumentData document)
+        public DocumentRepository(DBContext dbContext)
         {
-            await _context.Documents.AddAsync(document);
-            await _context.SaveChangesAsync();
+            _dbContext = dbContext;
+        }
+
+        public async Task<Document> CreateAsync(Document document)
+        {
+            _dbContext.Documents.Add(document);
+            await _dbContext.SaveChangesAsync();
             return document;
         }
 
-        public async Task<List<DocumentData>> GetAllDocumentsAsync(bool isActive)
+        public async Task<Document> GetByProfileId(int profileId)
         {
-            return await _context.Documents
-                .Where(d => d.Status == isActive)
-                .ToListAsync();
+            return await _dbContext.Documents
+                .FirstOrDefaultAsync(d => d.ProfileId == profileId);
         }
 
-        public async Task<DocumentData?> GetDocumentByIdAsync(int id)
+        public async Task<List<Document>> GetAllAsync()
         {
-            return await _context.Documents
-                .FirstOrDefaultAsync(d => d.Id == id);
+            return await _dbContext.Documents.ToListAsync();
+        }
+
+        public async Task<Document> UpdateAsync(Document document)
+        {
+            _dbContext.Entry(document).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return document;
         }
 
     }
