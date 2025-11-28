@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace isc.bempleo.be.application.Interfaces.Repository.S3Minio
+namespace isc.bempleo.be.application.Interfaces.Service.S3Minio
 {
-    public interface IS3NimioRepository
+    public interface IS3MinioService
     {
-        Task UploadAsync(string bucket, string objectName, Stream data, string contentType);
-        Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expiryInSeconds);
+        Task UploadPdfAsync(string bucket, string objectName, Stream data);
+        Task<string> GetPresignedUrlAsync(string bucket, string objectName, int expiresInSeconds);
         Task<bool> ExistsAsync(string bucket, string objectName);
         Task<MemoryStream> DownloadAsync(string bucket, string objectName);
         Task<List<string>> ListObjectsAsync(string bucket, string prefix);
-
     }
 }

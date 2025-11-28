@@ -7,6 +7,7 @@ using isc.bempleo.be.application.Interfaces.Service.Knowledges;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using isc.bempleo.be.application.Interfaces.Service.Skills;
 using isc.bempleo.be.application.Interfaces.Service.Tools;
 using isc.bempleo.be.application.Services;
@@ -16,6 +17,7 @@ using isc.bempleo.be.application.Services.Knowledges;
 using isc.bempleo.be.application.Services.NotificacionesApi;
 using isc.bempleo.be.application.Services.ProfileAccessCodes;
 using isc.bempleo.be.application.Services.Profiles;
+using isc.bempleo.be.application.Services.S3Minio;
 using isc.bempleo.be.application.Services.Skills;
 using isc.bempleo.be.application.Services.Tools;
 using isc.bempleo.be.domain.Entity;
@@ -42,6 +44,8 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<INotificacionesApiService, NotificacionesApiService>();
             services.AddScoped<ISkillService, SkillService>();
             services.AddScoped<ICertificationService, CertificationService>();
+            services.AddScoped<IS3MinioService, S3MinioService>();
+
 
             return services;
         }
