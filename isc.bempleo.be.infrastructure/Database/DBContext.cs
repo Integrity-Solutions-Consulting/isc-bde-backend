@@ -62,6 +62,9 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
+
+
+
             });
 
             modelBuilder.Entity<Tool>(entity =>
@@ -141,17 +144,16 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
-            modelBuilder.Entity<Experience>(entity =>
+
+            modelBuilder.Entity<domain.Entity.Documents.Document>(entity =>
             {
-                entity.ToTable("Experiences");
+                entity.ToTable("Documents");
                 entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Id).HasColumnName("ExperienceID");
-                entity.Property(e => e.CompanyName).HasColumnName("company_name");
-                entity.Property(e => e.PositionHeld).HasColumnName("position_held");
-                entity.Property(e => e.ExperienceTime).HasColumnName("experience_time");
-
+                entity.Property(e => e.Id).HasColumnName("DocumentID");
                 entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
+                entity.Property(e => e.Bucket).HasColumnName("bucket");
+                entity.Property(e => e.ObjectName).HasColumnName("object_name");
+                entity.Property(e => e.DocumentName).HasColumnName("document_name");
 
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
@@ -161,10 +163,11 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
-                entity.HasOne(e => e.Profile)
-                      .WithMany(p => p.Experiences)
-                      .HasForeignKey(e => e.ProfileId);
+                entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
+
+
             });
+
 
             base.OnModelCreating(modelBuilder);
 
@@ -176,7 +179,8 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<ProfileAccessCode> ProfileAccessCodes { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Certification> Certifications { get; set; }
-        public DbSet<Experience> Experiences { get; set; }
+
+        public DbSet<domain.Entity.Documents.Document> Documents { get; set; }
 
 
     }
