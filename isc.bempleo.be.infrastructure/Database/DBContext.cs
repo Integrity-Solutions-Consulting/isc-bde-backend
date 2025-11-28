@@ -1,5 +1,4 @@
-﻿using isc.bempleo.be.domain.Entity.Documents;
-using isc.bempleo.be.domain.Entity.Knowledges;
+﻿using isc.bempleo.be.domain.Entity.Knowledges;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Tools;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using isc.bempleo.be.domain.Entity.Experiences;
 
 namespace isc.bempleo.be.infrastructure.Database
 {
@@ -141,17 +141,42 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
+            modelBuilder.Entity<Experience>(entity =>
+            {
+                entity.ToTable("Experiences");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("ExperienceID");
+                entity.Property(e => e.CompanyName).HasColumnName("company_name");
+                entity.Property(e => e.PositionHeld).HasColumnName("position_held");
+                entity.Property(e => e.ExperienceTime).HasColumnName("experience_time");
+
+                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+
+                entity.HasOne(e => e.Profile)
+                      .WithMany(p => p.Experiences)
+                      .HasForeignKey(e => e.ProfileId);
+            });
 
             base.OnModelCreating(modelBuilder);
 
         }
 
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Profile> Profiles { get; set; }    
         public DbSet<Tool> Tools { get; set; }
         public DbSet<Knowledge> Knowledges { get; set; }
         public DbSet<ProfileAccessCode> ProfileAccessCodes { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Certification> Certifications { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
 
 
     }
