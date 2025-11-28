@@ -94,26 +94,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
-            modelBuilder.Entity<DocumentData>(entity =>
-            {
-                entity.ToTable("DocumentData");
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).HasColumnName("DocumentDataID");
-                entity.Property(e => e.ProcessId).HasColumnName("ProcessID");
-                entity.Property(e => e.ProcessName).HasColumnName("process_name");
-                entity.Property(e => e.FileName).HasColumnName("file_name");
-                entity.Property(e => e.FilePath).HasColumnName("file_path");
-                entity.Property(e => e.FileExtension).HasColumnName("file_extension");
-                entity.Property(e => e.FileData).HasColumnName("file_data");
-                entity.Property(e => e.Status).HasColumnName("status");
-                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
-                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
-                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
-                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
-                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
-                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
-            });
-
             modelBuilder.Entity<ProfileAccessCode>(entity =>
             {
                 entity.ToTable("ProfileAccessCode");
@@ -169,7 +149,6 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<Knowledge> Knowledges { get; set; }
-        public DbSet<DocumentData> Documents { get; set; }
         public DbSet<ProfileAccessCode> ProfileAccessCodes { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Certification> Certifications { get; set; }
