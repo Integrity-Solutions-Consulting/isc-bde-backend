@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.domain.Models.Request.Documents
 {
-    public class DocumentRequest : BaseEntity
+    public class DocumentRequest 
     {
         public Profile Profile { get; set; }
         public int ProfileId {  get; set; }
