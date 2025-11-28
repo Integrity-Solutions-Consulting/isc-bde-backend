@@ -1,6 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository;
 using isc.bempleo.be.application.Interfaces.Repository.Certifications;
-using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
