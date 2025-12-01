@@ -8,10 +8,9 @@ namespace isc.bempleo.be.application.Interfaces.Service.S3Minio
 {
     public interface IS3MinioService
     {
-        Task UploadPdfAsync(string bucket, string objectName, Stream data);
-        Task<string> GetPresignedUrlAsync(string bucket, string objectName, int expiresInSeconds);
-        Task<bool> ExistsAsync(string bucket, string objectName);
+        Task UploadAsync(string bucket, string objectName, Stream data, string contentType);
         Task<MemoryStream> DownloadAsync(string bucket, string objectName);
-        Task<List<string>> ListObjectsAsync(string bucket, string prefix);
+        Task<bool> ExistsAsync(string bucket, string objectName);
+        Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expiresInSeconds);
     }
 }

@@ -1,4 +1,5 @@
-﻿using isc.bempleo.be.application.Interfaces.Repository;
+﻿using Amazon.S3;
+using isc.bempleo.be.application.Interfaces.Repository;
 using isc.bempleo.be.application.Interfaces.Repository.Certifications;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
@@ -23,7 +24,6 @@ using isc.bempleo.be.infrastructure.Utils.Peticiones;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Minio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,29 +38,35 @@ namespace isc.bempleo.be.infrastructure.IOC
         {
 
 
-            services.AddSingleton(sp =>
+            services.AddSingleton<IAmazonS3>(sp =>
             {
-                return new MinioClient()
-                    .WithEndpoint(configuration["Minio:Endpoint"])
-                    .WithCredentials(configuration["Minio:AccessKey"], configuration["Minio:SecretKey"])
-                    .WithSSL(false)
-                    .Build();
+                var config = new AmazonS3Config
+                {
+                    ServiceURL = configuration["Minio:Endpoint"],
+                    ForcePathStyle = true,
+                    UseHttp = true
+                };
+
+                return new AmazonS3Client(
+                    configuration["Minio:AccessKey"],
+                    configuration["Minio:SecretKey"],
+                    config
+                );
             });
 
 
-
             services.AddScoped<IS3NimioRepository, S3NimioRepository>();
-            services.AddScoped<IProfileRepository, ProfileRepository>();
-            services.AddScoped<IToolRepository, ToolRepository>();
-            services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();
-            services.AddScoped<IProfileAccessCodeRepository, ProfileAccessCodeRepository>();
-            services.AddScoped<INotificacionesApiRepository, NotificacionesApiRepository>();
-            services.AddScoped<ISkillRepository, SkillRepository>();
-            services.AddScoped<ICertificationRepository, CertificationRepository>();
-            services.AddScoped<IDocumentRepository, DocumentRepository>();
+                services.AddScoped<IProfileRepository, ProfileRepository>();
+                services.AddScoped<IToolRepository, ToolRepository>();
+                services.AddScoped<IKnowledgeRepository, KnowledgeRepository>();
+                services.AddScoped<IProfileAccessCodeRepository, ProfileAccessCodeRepository>();
+                services.AddScoped<INotificacionesApiRepository, NotificacionesApiRepository>();
+                services.AddScoped<ISkillRepository, SkillRepository>();
+                services.AddScoped<ICertificationRepository, CertificationRepository>();
+                services.AddScoped<IDocumentRepository, DocumentRepository>();
 
-            services.AddScoped<HttpUtils>();
-            return services;
+                services.AddScoped<HttpUtils>();
+                return services;
         }
 
         public static IServiceCollection AddDbConfiguration(this IServiceCollection services, IConfiguration configuration)

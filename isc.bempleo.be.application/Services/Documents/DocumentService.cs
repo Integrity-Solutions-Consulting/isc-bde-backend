@@ -38,7 +38,7 @@ namespace isc.bempleo.be.application.Services.Documents
         {
             var doc = await _repository.GetByProfileId(profileId);
             if (doc == null)
-                throw new Exception($"No existe ningún documento asociado al perfil {ProfileId}");
+                throw new Exception($"No existe ningún documento asociado al perfil {profileId}");
 
             return _mapper.Map<DocumentResponse>(doc);
         }
