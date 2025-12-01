@@ -1,7 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using Microsoft.AspNetCore.Mvc;
-using Minio;
 
 namespace isc.bempleo.be.api.Controllers.v1.S3Minio
 {
@@ -19,43 +18,47 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
 
 
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload([FromForm] IFormFile file, [FromQuery] string bucket, [FromQuery] string objectName)
+        public async Task<IActionResult> Upload(
+            string name,
+            IFormFile file)
         {
             using var stream = file.OpenReadStream();
-            await _service.UploadPdfAsync(bucket, objectName, stream);
+            var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
 
-            return Ok(new { Message = "Archivo subido exitosamente", Object = objectName });
+            await _service.UploadAsync(
+                "cvs",
+                newFileName,
+                stream,
+                file.ContentType
+            );
+            return Ok("Archivo subido");
         }
 
-        [HttpGet("download")]
-        public async Task<IActionResult> Download([FromQuery] string bucket, [FromQuery] string objectName)
+
+
+        // DESCARGAR ARCHIVO
+        [HttpGet("download/{fileName}")]
+        public async Task<IActionResult> Download(string fileName)
         {
-            var memory = await _service.DownloadAsync(bucket, objectName);
-            return File(memory.ToArray(), "application/pdf", objectName);
+            var stream = await _service.DownloadAsync("cvs", fileName);
+
+            return File(stream.ToArray(), "application/octet-stream", fileName);
         }
 
-        // PRESIGNED URL
-        [HttpGet("presigned")]
-        public async Task<IActionResult> GetPresignedUrl([FromQuery] string bucket, [FromQuery] string objectName)
+        // VERIFICAR EXISTENCIA
+        [HttpGet("exists/{fileName}")]
+        public async Task<IActionResult> Exists(string fileName)
         {
-            var url = await _service.GetPresignedUrlAsync(bucket, objectName, expiresInSeconds: 3600);
-            return Ok(new { Url = url });
+            bool exists = await _service.ExistsAsync("cvs", fileName);
+            return Ok(exists);
         }
 
-        // EXISTE?
-        [HttpGet("exists-cv")]
-        public async Task<IActionResult> Exists([FromQuery] string bucket, [FromQuery] string objectName)
+        // URL FIRMADA
+        [HttpGet("url/{fileName}")]
+        public async Task<IActionResult> GetUrl(string fileName)
         {
-            var exists = await _service.ExistsAsync(bucket, objectName);
-            return Ok(new { Exists = exists });
-        }
-
-        // LISTAR POR PREFIJO
-        [HttpGet("list-cvs")]
-        public async Task<IActionResult> List([FromQuery] string bucket, [FromQuery] string prefix)
-        {
-            var list = await _service.ListObjectsAsync(bucket, prefix);
-            return Ok(list);
+            var url = await _service.GeneratePresignedUrlAsync("cvs", fileName, 3600);
+            return Ok(url);
         }
     }
 }

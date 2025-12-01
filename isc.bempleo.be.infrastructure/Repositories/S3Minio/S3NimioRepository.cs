@@ -1,8 +1,6 @@
-﻿using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
-using Minio;
-using Minio.ApiEndpoints;
-using Minio.DataModel;
-using Minio.DataModel.Args;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,107 +11,62 @@ namespace isc.bempleo.be.infrastructure.Repositories.S3Minio
 {
     public class S3NimioRepository : IS3NimioRepository
     {
-        private readonly MinioClient _client;
+        private readonly IAmazonS3 _s3;
 
-        public S3NimioRepository(MinioClient client)
+        public S3NimioRepository(IAmazonS3 s3)
         {
-            _client = client;
+            _s3 = s3;
         }
 
         public async Task UploadAsync(string bucket, string objectName, Stream data, string contentType)
         {
-            await _client.PutObjectAsync(new PutObjectArgs()
-                .WithBucket(bucket)
-                .WithObject(objectName)
-                .WithStreamData(data)
-                .WithObjectSize(data.Length)
-                .WithContentType(contentType));
+            var putRequest = new PutObjectRequest
+            {
+                BucketName = bucket,
+                Key = objectName,
+                InputStream = data,
+                ContentType = contentType
+            };
+
+            await _s3.PutObjectAsync(putRequest);
         }
 
-        public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expiryInSeconds)
+        public async Task<MemoryStream> DownloadAsync(string bucket, string objectName)
         {
-            return await _client.PresignedGetObjectAsync(new PresignedGetObjectArgs()
-                .WithBucket(bucket)
-                .WithObject(objectName)
-                .WithExpiry(expiryInSeconds));
+            var response = await _s3.GetObjectAsync(bucket, objectName);
+
+            var ms = new MemoryStream();
+            await response.ResponseStream.CopyToAsync(ms);
+            ms.Position = 0;
+
+            return ms;
         }
 
         public async Task<bool> ExistsAsync(string bucket, string objectName)
         {
             try
             {
-                await _client.StatObjectAsync(new StatObjectArgs()
-                    .WithBucket(bucket)
-                    .WithObject(objectName));
-
+                await _s3.GetObjectMetadataAsync(bucket, objectName);
                 return true;
             }
-            catch (Minio.Exceptions.ObjectNotFoundException)
+            catch (AmazonS3Exception ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return false;
             }
         }
 
-
-        public async Task<MemoryStream> DownloadAsync(string bucket, string objectName)
+        public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expirySeconds)
         {
-            var ms = new MemoryStream();
-
-            await _client.GetObjectAsync(new GetObjectArgs()
-                .WithBucket(bucket)
-                .WithObject(objectName)
-                .WithCallbackStream(stream =>
-                {
-                    stream.CopyTo(ms);
-                }));
-
-            ms.Position = 0;
-            return ms;
-        }
-
-        public async Task<List<string>> ListObjectsAsync(string bucket, string prefix)
-        {
-            var results = new List<string>();
-
-            var listArgs = new ListObjectsArgs()
-                .WithBucket(bucket)
-                .WithPrefix(prefix)
-                .WithRecursive(true);
-
-            var asyncEnumerable = _client.ListObjectsEnumAsync(listArgs);
-
-            await foreach (var item in asyncEnumerable)
+            var request = new GetPreSignedUrlRequest
             {
-                results.Add(item.Key);
-            }
+                BucketName = bucket,
+                Key = objectName,
+                Expires = DateTime.UtcNow.AddSeconds(expirySeconds)
+            };
 
-            return results;
+            return _s3.GetPreSignedURL(request);
         }
 
-
-
-    }
-
-    // Helper para manejar callbacks del listado
-    public class MinioCallbackObserver<T> : IObserver<T>
-    {
-        private readonly Action<T>? _onNext;
-        private readonly Action<Exception>? _onError;
-        private readonly Action? _onCompleted;
-
-        public MinioCallbackObserver(Action<T>? onNext, Action<Exception>? onError, Action? onCompleted)
-        {
-            _onNext = onNext;
-            _onError = onError;
-            _onCompleted = onCompleted;
-        }
-
-        public void OnCompleted() => _onCompleted?.Invoke();
-
-        public void OnError(Exception error) => _onError?.Invoke(error);
-
-        public void OnNext(T value) => _onNext?.Invoke(value);
     }
 
 }
-
