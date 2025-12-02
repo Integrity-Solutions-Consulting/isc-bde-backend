@@ -1,0 +1,62 @@
+﻿using isc.bempleo.be.application.Interfaces.Service.Experiences;
+using isc.bempleo.be.domain.Models.Request.Experiences;
+using isc.bempleo.be.domain.Models.Response.Experiences;
+using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace isc.bempleo.be.api.Controllers.v1.Experiences
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ExperienceController : ControllerBase
+    {
+        private readonly IExperienceService _service;
+
+        public ExperienceController(IExperienceService service)
+        {
+            _service = service;
+        }
+
+        [HttpGet("get-all-experiences")]
+        public async Task<ActionResult<List<ExperienceResponse>>> GetAllAsync(
+            [FromQuery] bool isActive = true,
+            [FromQuery] int? profileId = null,
+            [FromQuery] string? search = null)
+        {
+            var result = await _service.GetAllExperiencesAsync(isActive, profileId, search);
+            return Ok(result);
+        }
+
+        [HttpGet("get-by-id-{id}")]
+        public async Task<ActionResult<ExperienceResponse>> GetById(int id)
+        {
+            var result = await _service.GetExperienceById(id);
+            return Ok(result);
+        }
+
+        [HttpPost("create-experience")]
+        public async Task<ActionResult<ExperienceResponse>> Create([FromBody] ExperienceRequest request)
+        {
+            var result = await _service.CreateExperienceAsync(request);
+            return Ok(result);
+        }
+
+        [HttpPut("update-experience-{id}")]
+        public async Task<ActionResult<ExperienceResponse>> Update(int id, [FromBody] ExperienceUpdateRequest request)
+        {
+            var result = await _service.UpdateExperienceAsync(id, request);
+            return Ok(result);
+        }
+
+        [HttpPatch("active-inactive-experience-{id}")]
+        public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
+        {
+            var rows = await _service.ActiveInactiveExperienceAsync(id, status);
+            if (rows == 0) return NotFound($"No existe la experiencia con ID {id}");
+            return NoContent();
+        }
+
+
+    }
+}

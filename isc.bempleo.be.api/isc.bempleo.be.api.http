@@ -1,0 +1,6 @@
+@isc.bempleo.be.api_HostAddress = http://localhost:5211
+
+GET {{isc.bempleo.be.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
