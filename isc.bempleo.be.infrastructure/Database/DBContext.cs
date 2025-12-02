@@ -1,10 +1,12 @@
-﻿using isc.bempleo.be.domain.Entity.Knowledges;
+﻿using isc.bempleo.be.domain.Entity.Certifications;
+using isc.bempleo.be.domain.Entity.Experiences;
+using isc.bempleo.be.domain.Entity.Genders;
+using isc.bempleo.be.domain.Entity.Knowledges;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
+using isc.bempleo.be.domain.Entity.Skills;
 using isc.bempleo.be.domain.Entity.Tools;
 using isc.bempleo.be.domain.Models.Response;
-using isc.bempleo.be.domain.Entity.Skills;
-using isc.bempleo.be.domain.Entity.Certifications;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,6 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using isc.bempleo.be.domain.Entity.Experiences;
 
 namespace isc.bempleo.be.infrastructure.Database
 {
@@ -184,6 +185,23 @@ namespace isc.bempleo.be.infrastructure.Database
 
             });
 
+            modelBuilder.Entity<Gender>(entity =>
+            {
+                entity.ToTable("Genders");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).HasColumnName("GenderID");
+                entity.Property(e => e.GenderCode).HasColumnName("gender_code");
+                entity.Property(e => e.GenderName).HasColumnName("gender_name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
 
             base.OnModelCreating(modelBuilder);
 
@@ -196,6 +214,7 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Gender> Genders { get; set; }
 
 
         public DbSet<domain.Entity.Documents.Document> Documents { get; set; }
