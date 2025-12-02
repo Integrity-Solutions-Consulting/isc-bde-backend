@@ -32,13 +32,13 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("ProfileID");
                 entity.Property(e => e.GenderId).HasColumnName("GenderID");
+                entity.Property(e => e.MaritalStatusId).HasColumnName("MaritalStatusID");
                 entity.Property(e => e.FirstName).HasColumnName("first_name");
                 entity.Property(e => e.LastName).HasColumnName("last_name");
                 entity.Property(e => e.Email).HasColumnName("email");
                 entity.Property(e => e.IdentificationNumber).HasColumnName("identification_number");
                 entity.Property(e => e.Phone).HasColumnName("phone");
                 entity.Property(e => e.Address).HasColumnName("address");
-                entity.Property(e => e.MaritalStatus).HasColumnName("marital_status");
                 entity.Property(e => e.BirthDate).HasColumnName("birth_date");
                 entity.Property(e => e.Nationality).HasColumnName("nationality");
                 entity.Property(e => e.DisabilityCard).HasColumnName("disability_card");
@@ -158,10 +158,9 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
-                entity.HasOne(e => e.Profile)
-                      .WithMany(p => p.Experiences)
-                      .HasForeignKey(e => e.ProfileId);
+                entity.HasOne(e => e.Profile).WithMany(p => p.Experiences).HasForeignKey(e => e.ProfileId);
             });
+
 
             modelBuilder.Entity<domain.Entity.Documents.Document>(entity =>
             {
