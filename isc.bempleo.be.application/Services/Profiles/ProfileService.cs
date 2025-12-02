@@ -200,7 +200,6 @@ namespace isc.bempleo.be.application.Services.Profiles
             }
             entity.EducationLevel = request.EducationLevel;
             entity.EducationStatus = request.EducationStatus;
-            entity.Carer = request.Carer;
             entity.AcademicInstitution = request.AcademicInstitution;
             entity.CountryOfStudy = request.CountryOfStudy;
             entity.EnglishLevel = request.EnglishLevel;

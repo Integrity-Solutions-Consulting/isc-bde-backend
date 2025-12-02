@@ -26,8 +26,6 @@ namespace isc.bempleo.be.infrastructure.Database
 
             modelBuilder.Entity<Profile>(entity =>
             {
-
-
                 entity.ToTable("Profiles");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("ProfileID");
@@ -44,7 +42,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.DisabilityCard).HasColumnName("disability_card");
                 entity.Property(e => e.EducationLevel).HasColumnName("education_level");
                 entity.Property(e => e.EducationStatus).HasColumnName("education_status");
-                entity.Property(e => e.Carer).HasColumnName("career");
                 entity.Property(e => e.KnowledgeList).HasColumnName("knowledge_list");
                 entity.Property(e => e.ToolList).HasColumnName("tool_list");
                 entity.Property(e => e.SkillList).HasColumnName("skill_list");
@@ -53,7 +50,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CountryOfStudy).HasColumnName("country_of_study");
                 entity.Property(e => e.EnglishLevel).HasColumnName("english_level");
 
-
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
                 entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
@@ -61,10 +57,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
-
-
-
-
             });
 
             modelBuilder.Entity<Tool>(entity =>
