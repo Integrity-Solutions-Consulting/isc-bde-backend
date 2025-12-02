@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository;
 using isc.bempleo.be.application.Interfaces.Repository.Certifications;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
+using isc.bempleo.be.application.Interfaces.Repository.Experiences;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
@@ -13,6 +14,7 @@ using isc.bempleo.be.domain.Entity.Documents;
 using isc.bempleo.be.infrastructure.Database;
 using isc.bempleo.be.infrastructure.Repositories.Certifications;
 using isc.bempleo.be.infrastructure.Repositories.Documents;
+using isc.bempleo.be.infrastructure.Repositories.Experiences;
 using isc.bempleo.be.infrastructure.Repositories.Knowledges;
 using isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI;
 using isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes;
@@ -64,6 +66,8 @@ namespace isc.bempleo.be.infrastructure.IOC
                 services.AddScoped<ISkillRepository, SkillRepository>();
                 services.AddScoped<ICertificationRepository, CertificationRepository>();
                 services.AddScoped<IDocumentRepository, DocumentRepository>();
+                services.AddScoped<IToolRepository, ToolRepository>();
+                services.AddScoped<IExperienceRepository, ExperienceRepository>();    
 
                 services.AddScoped<HttpUtils>();
                 return services;

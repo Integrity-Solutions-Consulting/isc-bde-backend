@@ -64,9 +64,10 @@ namespace isc.bempleo.be.application.Services.Documents
 
             var updated = await _repository.UpdateAsync(current);
             return _mapper.Map<DocumentResponse>(updated);
+            //}
+
+
+
         }
-
-
-
     }
 }
