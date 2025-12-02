@@ -29,12 +29,12 @@ jobs:
 
       - name: Copy project to VPS
         run: |
-          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}
+          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back_dev
 
       - name: Deploy on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
-            cd ${{ secrets.VPS_DEPLOY_PATH }}
+            cd ${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back_dev
 
 
             docker compose -f docker-compose.dev.yml down || true
