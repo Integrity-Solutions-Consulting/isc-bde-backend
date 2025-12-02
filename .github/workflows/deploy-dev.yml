@@ -29,7 +29,7 @@ jobs:
 
       - name: Copy project to VPS
         run: |
-          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}
+          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back_dev
 
       - name: Deploy on VPS
         run: |
