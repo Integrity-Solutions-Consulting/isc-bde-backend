@@ -19,7 +19,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Genders
         }
 
         [HttpGet("get-all-genders")]
-        public async Task<ActionResult<List<GenderResponse>>> GetAllAsync([FromQuery] bool isActive)
+        public async Task<ActionResult<List<GenderResponse>>> GetAllAsync(bool isActive)
         {
             var result = await _service.GetAllGenderAsync(isActive);
             return Ok(result);

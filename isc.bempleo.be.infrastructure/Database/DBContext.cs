@@ -2,6 +2,7 @@
 using isc.bempleo.be.domain.Entity.Experiences;
 using isc.bempleo.be.domain.Entity.Genders;
 using isc.bempleo.be.domain.Entity.Knowledges;
+using isc.bempleo.be.domain.Entity.MaritalStatus;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Skills;
@@ -202,6 +203,23 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
+            modelBuilder.Entity<MaritalStatu>(entity =>
+            {
+                entity.ToTable("MaritalStatus");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id).HasColumnName("MaritalStatusID");
+                entity.Property(e => e.MaritalStatusName).HasColumnName("maritalstatus_name");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
+                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
+                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
+                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
+                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
+                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
+            });
+
 
             base.OnModelCreating(modelBuilder);
 
@@ -215,6 +233,7 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<MaritalStatu> MaritalStatus { get; set; }
 
 
         public DbSet<domain.Entity.Documents.Document> Documents { get; set; }
