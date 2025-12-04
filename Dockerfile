@@ -16,7 +16,7 @@ COPY isc.bempleo.be.infrastructure/isc.bempleo.be.infrastructure.csproj isc.bemp
 # Restaurar dependencias
 RUN dotnet restore isc.bempleo.be.sln
 
-# Copiar todo el código fuente
+# Copiar todo el código fuentes
 COPY . .
 
 # Compilar y publicar

@@ -3,7 +3,9 @@ using isc.bempleo.be.application.Interfaces.Repository;
 using isc.bempleo.be.application.Interfaces.Repository.Certifications;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Experiences;
+using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
+using isc.bempleo.be.application.Interfaces.Repository.MaritalStatus;
 using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
@@ -15,7 +17,9 @@ using isc.bempleo.be.infrastructure.Database;
 using isc.bempleo.be.infrastructure.Repositories.Certifications;
 using isc.bempleo.be.infrastructure.Repositories.Documents;
 using isc.bempleo.be.infrastructure.Repositories.Experiences;
+using isc.bempleo.be.infrastructure.Repositories.Genders;
 using isc.bempleo.be.infrastructure.Repositories.Knowledges;
+using isc.bempleo.be.infrastructure.Repositories.MaritalStatus;
 using isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI;
 using isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.Repositories.Profiles;
@@ -68,8 +72,10 @@ namespace isc.bempleo.be.infrastructure.IOC
                 services.AddScoped<IDocumentRepository, DocumentRepository>();
                 services.AddScoped<IToolRepository, ToolRepository>();
                 services.AddScoped<IExperienceRepository, ExperienceRepository>();    
+                services.AddScoped<IGenderRepository, GenderRepository>();
+                services.AddScoped<IMaritalStatuRepository, MaritalStatuRepository>();
 
-                services.AddScoped<HttpUtils>();
+            services.AddScoped<HttpUtils>();
                 return services;
         }
 

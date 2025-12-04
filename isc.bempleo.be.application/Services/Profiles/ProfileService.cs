@@ -32,13 +32,21 @@ namespace isc.bempleo.be.application.Services.Profiles
         public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
         {
             var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
+
             if (allprofiles == null || !allprofiles.Any())
             {
                 return new List<ProfileResponse>();
-            }   
-               var mapping = _mapper.Map<List<ProfileResponse>>(allprofiles);
+            }
 
-               return mapping;
+            var result = new List<ProfileResponse>();
+
+            foreach (var profile in allprofiles)
+            {
+                var response = MapProfileWithLists(profile);
+                result.Add(response);
+            }
+
+            return result;
         }
 
         public async Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code)
@@ -56,23 +64,7 @@ namespace isc.bempleo.be.application.Services.Profiles
                 throw new Exception("No existe ningún perfil con esos datos.");
             }
 
-            var response = _mapper.Map<ProfileResponse>(profile);
-
-            response.KnowledgeIds = string.IsNullOrEmpty(profile.KnowledgeList)
-                ? new List<int>()
-                : JsonSerializer.Deserialize<List<int>>(profile.KnowledgeList);
-
-            response.ToolIds = string.IsNullOrEmpty(profile.ToolList)
-                ? new List<int>()
-                : JsonSerializer.Deserialize<List<int>>(profile.ToolList);
-
-            response.SkillIds = string.IsNullOrEmpty(profile.SkillList)
-                ? new List<int>()
-                : JsonSerializer.Deserialize<List<int>>(profile.SkillList);
-
-            response.CertificationIds = string.IsNullOrEmpty(profile.CertificationList)
-                ? new List<int>()
-                : JsonSerializer.Deserialize<List<int>>(profile.CertificationList);
+            var response = MapProfileWithLists(profile);
 
             return response;
         }
@@ -173,13 +165,13 @@ namespace isc.bempleo.be.application.Services.Profiles
             }
 
             entity.GenderId = request.GenderId;
+            entity.MaritalStatusId = request.MaritalStatusId;
             entity.FirstName = request.FirstName;
             entity.LastName = request.LastName;
             entity.Email = request.Email;
             entity.IdentificationNumber = request.IdentificationNumber;
             entity.Phone = request.Phone;
             entity.Address = request.Address;
-            entity.MaritalStatus = request.MaritalStatus;
             entity.BirthDate = request.BirthDate;
             entity.Nationality = request.Nationality;
             entity.DisabilityCard = request.DisabilityCard;
@@ -219,6 +211,29 @@ namespace isc.bempleo.be.application.Services.Profiles
                 throw new Exception($"El Perfil {profileId} no existe");
             }
         }
+
+        private ProfileResponse MapProfileWithLists(domain.Entity.Profiles.Profile profile)
+            {
+                var response = _mapper.Map<ProfileResponse>(profile);
+
+                response.KnowledgeIds = string.IsNullOrEmpty(profile.KnowledgeList)
+                    ? new List<int>()
+                    : JsonSerializer.Deserialize<List<int>>(profile.KnowledgeList);
+
+                response.ToolIds = string.IsNullOrEmpty(profile.ToolList)
+                    ? new List<int>()
+                    : JsonSerializer.Deserialize<List<int>>(profile.ToolList);
+
+                response.SkillIds = string.IsNullOrEmpty(profile.SkillList)
+                    ? new List<int>()
+                    : JsonSerializer.Deserialize<List<int>>(profile.SkillList);
+
+                response.CertificationIds = string.IsNullOrEmpty(profile.CertificationList)
+                    ? new List<int>()
+                    : JsonSerializer.Deserialize<List<int>>(profile.CertificationList);
+
+                return response;
+            }
 
 
     }
