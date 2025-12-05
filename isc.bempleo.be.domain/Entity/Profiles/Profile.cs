@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.domain.Entity.Experiences;
+using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Entity.Shared;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,13 @@ namespace isc.bempleo.be.domain.Entity.Profiles
     public class Profile : BaseEntity
     {
         public int GenderId { get; set; }
+        public int? MaritalStatusId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string IdentificationNumber { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
-        public string? MaritalStatus { get; set; }
         public DateOnly? BirthDate { get; set; }
         public string? Nationality { get; set; }
         public string? DisabilityCard { get; set; }
@@ -33,6 +34,8 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? CertificationList { get; set; }
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
+
 
     }
 }
