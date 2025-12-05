@@ -12,7 +12,6 @@ namespace isc.bempleo.be.application.Utils.Mapping
 {
     public class ExperienceProfile : Profile
     {
-
         public ExperienceProfile() 
         {
             CreateMap<Experience, ExperienceResponse>();

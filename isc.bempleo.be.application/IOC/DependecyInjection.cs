@@ -1,7 +1,11 @@
-﻿using isc.bempleo.be.application.Interfaces.Repository.Genders;
+﻿using isc.bempleo.be.application.Interfaces.Repository.ApplicationStatus;
+using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Skills;
+using isc.bempleo.be.application.Interfaces.Repository.Vacancies;
 using isc.bempleo.be.application.Interfaces.Service;
+using isc.bempleo.be.application.Interfaces.Service.ApplicationStatus;
+using isc.bempleo.be.application.Interfaces.Service.Careers;
 using isc.bempleo.be.application.Interfaces.Service.Certifications;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.Genders;
@@ -10,10 +14,14 @@ using isc.bempleo.be.application.Interfaces.Service.MaritalStatus;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using isc.bempleo.be.application.Interfaces.Service.Skills;
 using isc.bempleo.be.application.Interfaces.Service.Tools;
+using isc.bempleo.be.application.Interfaces.Service.Vacancies;
 using isc.bempleo.be.application.Services;
+using isc.bempleo.be.application.Services.ApplicationStatus;
+using isc.bempleo.be.application.Services.Careers;
 using isc.bempleo.be.application.Services.Certifications;
 using isc.bempleo.be.application.Services.Experiences;
 using isc.bempleo.be.application.Services.Genders;
@@ -22,9 +30,11 @@ using isc.bempleo.be.application.Services.MaritalStatus;
 using isc.bempleo.be.application.Services.NotificacionesApi;
 using isc.bempleo.be.application.Services.ProfileAccessCodes;
 using isc.bempleo.be.application.Services.Profiles;
+using isc.bempleo.be.application.Services.ProfileVacancies;
 using isc.bempleo.be.application.Services.S3Minio;
 using isc.bempleo.be.application.Services.Skills;
 using isc.bempleo.be.application.Services.Tools;
+using isc.bempleo.be.application.Services.Vacancies;
 using isc.bempleo.be.domain.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +61,11 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IExperienceService, ExperienceService>();
             services.AddScoped<IGenderService, GenderService>();
             services.AddScoped<IMaritalStatuService, MaritalStatuService>();
+            services.AddScoped<ICareerService, CareerService>();
+            services.AddScoped<IVacancyService, VacancyService>();
+            services.AddScoped<IApplicationStatuService, ApplicationStatuService>();
+            services.AddScoped<IProfileVacancyService, ProfileVacancyService>();
+
 
             services.AddScoped<IS3MinioService, S3MinioService>();
 
