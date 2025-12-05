@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.domain.Entity.Experiences;
+using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Entity.Shared;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? CertificationList { get; set; }
 
         public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
+
 
     }
 }
