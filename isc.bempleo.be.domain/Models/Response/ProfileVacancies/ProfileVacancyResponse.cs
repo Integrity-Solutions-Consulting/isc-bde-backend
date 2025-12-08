@@ -13,6 +13,5 @@ namespace isc.bempleo.be.domain.Models.Response.ProfileVacancies
         public int VacancyId { get; set; }
         public int ApplicationStatusId { get; set; }
         public DateTime ApplicationDate { get; set; }
-        //public DateTime? TerminationDate { get; set; }
     }
 }

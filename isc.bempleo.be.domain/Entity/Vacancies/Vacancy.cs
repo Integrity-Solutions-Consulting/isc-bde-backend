@@ -12,7 +12,8 @@ namespace isc.bempleo.be.domain.Entity.Vacancies
     {
         public string VacancyTitle { get; set; }   
         public string PositionDescription { get; set; }   
-        public string? Requirements { get; set; }                  
+        public string? Requirements { get; set; }
+        public DateTime? TerminationDate { get; set; } 
 
         public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
     }
