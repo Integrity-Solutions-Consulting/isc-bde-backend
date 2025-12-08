@@ -16,12 +16,12 @@ namespace isc.bempleo.be.api.Controllers.v1.ApplicationStatus
             _service = service;
         }
 
-        [HttpGet("get-all-application-status")]
-        public async Task<ActionResult> GetAllAsync([FromQuery] bool isActive)
-        {
-            var result = await _service.GetAllAsync(isActive);
-            return Ok(result);
-        }
+        //[HttpGet("get-all-application-status")]
+        //public async Task<ActionResult> GetAllAsync([FromQuery] bool isActive)
+        //{
+        //    var result = await _service.GetAllAsync(isActive);
+        //    return Ok(result);
+        //}
 
 
     }

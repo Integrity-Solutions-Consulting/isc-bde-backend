@@ -251,6 +251,7 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.VacancyTitle).HasColumnName("vacancy_title").IsRequired();
                 entity.Property(e => e.PositionDescription).HasColumnName("position_description").IsRequired();
                 entity.Property(e => e.Requirements).HasColumnName("requirements");
+                entity.Property(e => e.TerminationDate).HasColumnName("termination_date");
 
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
@@ -291,7 +292,6 @@ namespace isc.bempleo.be.infrastructure.Database
 
                 entity.Property(e => e.ApplicationDate).HasColumnName("application_date").IsRequired();
                 entity.Property(e => e.ApplicationStatusId).HasColumnName("ApplicationStatusID").IsRequired();
-                //entity.Property(e => e.TerminationDate).HasColumnName("termination_date");
 
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");
