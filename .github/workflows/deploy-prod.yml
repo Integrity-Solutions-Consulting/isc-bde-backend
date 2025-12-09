@@ -35,9 +35,8 @@ jobs:
 
 
             docker compose -f docker-compose.prod.yml down || true
-
-
-            docker compose -f docker-compose.prod.yml up -d --build --no-cache
+            docker compose -f docker-compose.prod.yml build --no-cache
+            docker compose -f docker-compose.prod.yml up -d
 
            
           EOF
