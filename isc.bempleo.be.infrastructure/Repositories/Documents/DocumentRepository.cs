@@ -21,18 +21,18 @@ namespace isc.bempleo.be.infrastructure.Repositories.Documents
             _dbContext = dbContext;
         }
 
+        public async Task<Document?> GetByIdentificationAsync(string identification)
+        {
+            return await _dbContext.Documents
+                .FirstOrDefaultAsync(d => d.DocumentName == identification);
+        }
+
         public async Task<Document> CreateAsync(Document document)
         {
             _dbContext.Documents.Add(document);
             await _dbContext.SaveChangesAsync();
             return document;
         }
-
-        //public async Task<Document> GetByProfileId(int profileId)
-        //{
-        //    return await _dbContext.Documents
-        //        .FirstOrDefaultAsync(d => d.ProfileId == profileId);
-        //}
 
         //public async Task<List<Document>> GetAllAsync()
         //{

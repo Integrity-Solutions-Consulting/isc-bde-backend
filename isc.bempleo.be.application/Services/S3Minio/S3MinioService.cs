@@ -1,7 +1,9 @@
-﻿using isc.bempleo.be.application.Interfaces.Repository.Documents;
+﻿using AutoMapper;
+using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using isc.bempleo.be.domain.Entity.Documents;
+using isc.bempleo.be.domain.Models.Request.Documents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace isc.bempleo.be.application.Services.S3Minio
     {
         private readonly IS3NimioRepository _repository;
         private readonly IDocumentRepository _documentRepository;
+        private readonly IMapper _mapper;
         private const long MaxFileSizeBytes = 5 * 1024 * 1024;
         private static readonly string[] AllowedContentTypes = new[]
         {
@@ -28,10 +31,11 @@ namespace isc.bempleo.be.application.Services.S3Minio
             ".docx"
         };
 
-        public S3MinioService(IS3NimioRepository repository, IDocumentRepository documentRepository)
+        public S3MinioService(IS3NimioRepository repository, IDocumentRepository documentRepository, IMapper mapper)
         {
             _repository = repository;
             _documentRepository = documentRepository;
+            _mapper = mapper;
         }
 
         public async Task UploadAsync(string bucket, string objectName, Stream data, string contentType)
@@ -47,12 +51,14 @@ namespace isc.bempleo.be.application.Services.S3Minio
                 !AllowedExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
                 throw new Exception("La extensión del archivo no es válida. Solo se permiten .pdf, .doc y .docx.");
 
-            var document = new Document
+            var documentDto = new DocumentRequest
             {
-                Document_name = objectName
+                DocumentName = objectName
             };
 
+            var document = _mapper.Map<Document>(documentDto);
             await _documentRepository.CreateAsync(document);
+
             await _repository.UploadAsync(bucket, objectName, data, contentType);
         }
 

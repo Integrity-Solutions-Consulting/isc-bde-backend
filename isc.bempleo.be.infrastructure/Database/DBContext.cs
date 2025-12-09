@@ -176,7 +176,7 @@ namespace isc.bempleo.be.infrastructure.Database
                 //entity.Property(e => e.Bucket).HasColumnName("bucket");
                 //entity.Property(e => e.ObjectName).HasColumnName("object_name");
                 //entity.Property(e => e.DocumentName).HasColumnName("document_name");
-                entity.Property(e => e.Document_name).HasColumnName("document_name");
+                entity.Property(e => e.DocumentName).HasColumnName("document_name");
 
                 entity.Property(e => e.Status).HasColumnName("status");
                 entity.Property(e => e.CreationUser).HasColumnName("creation_user");

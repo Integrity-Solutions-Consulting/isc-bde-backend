@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.application.Services.Documents
 {
-    public class DocumentService : IDocumentsService
+    public class DocumentService : IDocumentService
     {
         private readonly IDocumentRepository _repository;
         private readonly IMapper _mapper;
@@ -32,14 +32,15 @@ namespace isc.bempleo.be.application.Services.Documents
         //    return _mapper.Map<List<DocumentResponse>>(documents);
         //}
 
-        //public async Task<DocumentResponse> GetDocumentByProfileIdAsync(int profileId)
-        //{
-        //    var doc = await _repository.GetByProfileId(profileId);
-        //    if (doc == null)
-        //        throw new Exception($"No existe ningún documento asociado al perfil {profileId}");
+        public async Task<DocumentResponse> GetDocumentByIdentificationAsync(string identification)
+        {
+            var doc = await _repository.GetByIdentificationAsync(identification);
 
-        //    return _mapper.Map<DocumentResponse>(doc);
-        //}
+            if (doc == null)
+                throw new Exception($"No existe ningún documento asociado al perfil {identification}");
+
+            return _mapper.Map<DocumentResponse>(doc);
+        }
 
         public async Task<DocumentResponse> CreateDocumentAsync(DocumentRequest request)
         {

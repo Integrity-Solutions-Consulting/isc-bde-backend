@@ -10,7 +10,7 @@ namespace isc.bempleo.be.domain.Entity.Documents
 {
     public class Document : BaseEntity
     {
-        public string Document_name { get; set; }
+        public string DocumentName { get; set; }
 
     }
 }
