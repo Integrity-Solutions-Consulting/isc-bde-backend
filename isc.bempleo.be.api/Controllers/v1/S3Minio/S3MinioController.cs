@@ -18,9 +18,7 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
 
 
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload(
-            string name,
-            IFormFile file)
+        public async Task<IActionResult> Upload(string name, IFormFile file)
         {
             using var stream = file.OpenReadStream();
             var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
@@ -33,7 +31,6 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             );
             return Ok("Archivo subido");
         }
-
 
 
         // DESCARGAR ARCHIVO
