@@ -28,23 +28,23 @@ namespace isc.bempleo.be.infrastructure.Repositories.Documents
             return document;
         }
 
-        public async Task<Document> GetByProfileId(int profileId)
-        {
-            return await _dbContext.Documents
-                .FirstOrDefaultAsync(d => d.ProfileId == profileId);
-        }
+        //public async Task<Document> GetByProfileId(int profileId)
+        //{
+        //    return await _dbContext.Documents
+        //        .FirstOrDefaultAsync(d => d.ProfileId == profileId);
+        //}
 
-        public async Task<List<Document>> GetAllAsync()
-        {
-            return await _dbContext.Documents.ToListAsync();
-        }
+        //public async Task<List<Document>> GetAllAsync()
+        //{
+        //    return await _dbContext.Documents.ToListAsync();
+        //}
 
-        public async Task<Document> UpdateAsync(Document document)
-        {
-            _dbContext.Entry(document).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return document;
-        }
+        //public async Task<Document> UpdateAsync(Document document)
+        //{
+        //    _dbContext.Entry(document).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return document;
+        //}
 
     }
 }
