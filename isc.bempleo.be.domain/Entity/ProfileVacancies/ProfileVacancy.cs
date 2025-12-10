@@ -1,0 +1,23 @@
+﻿using isc.bempleo.be.domain.Entity.ApplicationStatus;
+using isc.bempleo.be.domain.Entity.Profiles;
+using isc.bempleo.be.domain.Entity.Shared;
+using isc.bempleo.be.domain.Entity.Vacancies;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace isc.bempleo.be.domain.Entity.ProfileVacancies
+{
+    public class ProfileVacancy : BaseEntity
+    {
+        public int ProfileId { get; set; }                 
+        public int VacancyId { get; set; }                
+        public DateTime ApplicationDate { get; set; }      
+        public int ApplicationStatusId { get; set; }       
+        public Profile Profile { get; set; } = null!;
+        public Vacancy Vacancy { get; set; } = null!;
+         public ApplicationStatu ApplicationStatus { get; set; } = null!;
+    }
+}

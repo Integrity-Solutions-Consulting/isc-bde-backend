@@ -9,10 +9,10 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Documents
 {
     public interface IDocumentRepository
     {
+        Task<Document?> GetByIdentificationAsync(string identification);
         Task<Document> CreateAsync(Document document);
-        Task<Document> GetByProfileId(int profileId);
-        Task<List<Document>> GetAllAsync();
-        Task<Document> UpdateAsync(Document document);
+        //Task<List<Document>> GetAllAsync();
+        //Task<Document> UpdateAsync(Document document);
 
     }
 }

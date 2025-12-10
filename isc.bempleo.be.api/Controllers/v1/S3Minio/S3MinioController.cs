@@ -16,28 +16,28 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             _service = service;
         }
 
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload(int profileId, string name, IFormFile file)
+    {
+        using var stream = file.OpenReadStream();
+        var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> Upload(
-            string name,
-            IFormFile file)
-        {
-            using var stream = file.OpenReadStream();
-            var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
+        await _service.UploadAsync(
+            "cvs",
+            newFileName,
+            stream,
+            file.ContentType,
+            profileId 
+        );
 
-            await _service.UploadAsync(
-                "cvs",
-                newFileName,
-                stream,
-                file.ContentType
-            );
-            return Ok("Archivo subido");
-        }
-
+        return Ok("Archivo subido");
+    }
 
 
-        // DESCARGAR ARCHIVO
-        [HttpGet("download/{fileName}")]
+
+
+    // DESCARGAR ARCHIVO
+    [HttpGet("download/{fileName}")]
         public async Task<IActionResult> Download(string fileName)
         {
             var stream = await _service.DownloadAsync("cvs", fileName);
@@ -61,4 +61,5 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             return Ok(url);
         }
     }
+
 }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.application.Services.Documents
 {
-    public class DocumentService : IDocumentsService
+    public class DocumentService : IDocumentService
     {
         private readonly IDocumentRepository _repository;
         private readonly IMapper _mapper;
@@ -26,19 +26,18 @@ namespace isc.bempleo.be.application.Services.Documents
             _mapper = mapper;
         }
 
+        //public async Task<List<DocumentResponse>> GetAllDocumentsAsync()
+        //{
+        //    var documents = await _repository.GetAllAsync();
+        //    return _mapper.Map<List<DocumentResponse>>(documents);
+        //}
 
-
-        public async Task<List<DocumentResponse>> GetAllDocumentsAsync()
+        public async Task<DocumentResponse> GetDocumentByIdentificationAsync(string identification)
         {
-            var documents = await _repository.GetAllAsync();
-            return _mapper.Map<List<DocumentResponse>>(documents);
-        }
+            var doc = await _repository.GetByIdentificationAsync(identification);
 
-        public async Task<DocumentResponse> GetDocumentByProfileIdAsync(int profileId)
-        {
-            var doc = await _repository.GetByProfileId(profileId);
             if (doc == null)
-                throw new Exception($"No existe ningún documento asociado al perfil {profileId}");
+                throw new Exception($"No existe ningún documento asociado al perfil {identification}");
 
             return _mapper.Map<DocumentResponse>(doc);
         }
@@ -50,24 +49,22 @@ namespace isc.bempleo.be.application.Services.Documents
             return _mapper.Map<DocumentResponse>(created);
         }
 
-        public async Task<DocumentResponse> UpdateDocumentAsync(int profileId, DocumentRequest request)
-        {
-            var current = await _repository.GetByProfileId(profileId);
-            if (current == null)
-                throw new Exception($"No existe ningún documento asociado al perfil {profileId}");
+        //public async Task<DocumentResponse> UpdateDocumentAsync(int profileId, DocumentRequest request)
+        //{
+        //    var current = await _repository.GetByProfileId(profileId);
+        //    if (current == null)
+        //        throw new Exception($"No existe ningún documento asociado al perfil {profileId}");
 
-            current.ProfileId = request.ProfileId;
-            current.Profile = request.Profile;
-            current.Bucket = request.Bucket;
-            current.ObjectName = request.ObjectName;
-            current.DocumentName = request.DocumentName;
+        //    current.ProfileId = request.ProfileId;
+        //    current.Profile = request.Profile;
+        //    current.Bucket = request.Bucket;
+        //    current.ObjectName = request.ObjectName;
+        //    current.DocumentName = request.DocumentName;
 
-            var updated = await _repository.UpdateAsync(current);
-            return _mapper.Map<DocumentResponse>(updated);
-            //}
+        //    var updated = await _repository.UpdateAsync(current);
+        //    return _mapper.Map<DocumentResponse>(updated);
+        //}
 
 
-
-        }
     }
 }

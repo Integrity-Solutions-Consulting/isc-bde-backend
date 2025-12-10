@@ -26,7 +26,7 @@ jobs:
 
       - name: Copy project to VPS
         run: |
-          rsync -avz --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back_prod
+          rsync -avz --delete --exclude '.git' ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:${{ secrets.VPS_DEPLOY_PATH }}/isc_bempleo_back_prod
 
       - name: Deploy on VPS
         run: |
@@ -35,9 +35,8 @@ jobs:
 
 
             docker compose -f docker-compose.prod.yml down || true
-
-
-            docker compose -f docker-compose.prod.yml up -d --build
+            docker compose -f docker-compose.prod.yml build --no-cache
+            docker compose -f docker-compose.prod.yml up -d
 
            
           EOF
