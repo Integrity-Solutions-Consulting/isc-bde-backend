@@ -12,6 +12,7 @@ namespace isc.bempleo.be.domain.Models.Request.Documents
     public class DocumentRequest 
     {
         public string DocumentName { get; set; }
+        public int ProfileId { get; set; }
 
     }
 }
