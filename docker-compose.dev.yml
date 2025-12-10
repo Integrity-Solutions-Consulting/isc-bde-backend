@@ -13,6 +13,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__ConexionBD=Server=sqlserver,1433;Database=ISC_JobBoard_dev;User=sa;Password=Zp8#kV42wLp@tR3m;MultipleActiveResultSets=true;Trust Server Certificate=true
       - Cors__AllowedOrigins=http://localhost:4200,https://localhost:4200,http://147.93.181.146:8083,https://147.93.181.146:8083
+      
     networks:
       - isctimereportbe_backend-net
 
