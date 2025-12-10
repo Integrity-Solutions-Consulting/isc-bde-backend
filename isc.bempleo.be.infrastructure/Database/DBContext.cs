@@ -171,11 +171,9 @@ namespace isc.bempleo.be.infrastructure.Database
             {
                 entity.ToTable("Documents");
                 entity.HasKey(e => e.Id);
+
                 entity.Property(e => e.Id).HasColumnName("DocumentID");
-                //entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
-                //entity.Property(e => e.Bucket).HasColumnName("bucket");
-                //entity.Property(e => e.ObjectName).HasColumnName("object_name");
-                //entity.Property(e => e.DocumentName).HasColumnName("document_name");
+                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
                 entity.Property(e => e.DocumentName).HasColumnName("document_name");
 
                 entity.Property(e => e.Status).HasColumnName("status");
@@ -186,8 +184,7 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
-                //entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
-
+                entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
 
             });
 

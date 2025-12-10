@@ -38,7 +38,7 @@ namespace isc.bempleo.be.application.Services.S3Minio
             _mapper = mapper;
         }
 
-        public async Task UploadAsync(string bucket, string objectName, Stream data, string contentType)
+        public async Task UploadAsync(string bucket, string objectName, Stream data, string contentType, int profileId)
         {
             if (data.CanSeek && data.Length > MaxFileSizeBytes)
                 throw new Exception("El archivo excede el tamaño máximo permitido de 5 MB.");
@@ -53,7 +53,8 @@ namespace isc.bempleo.be.application.Services.S3Minio
 
             var documentDto = new DocumentRequest
             {
-                DocumentName = objectName
+                DocumentName = objectName,
+                ProfileId = profileId  
             };
 
             var document = _mapper.Map<Document>(documentDto);
