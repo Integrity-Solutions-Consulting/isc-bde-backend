@@ -16,34 +16,31 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             _service = service;
         }
 
-    [HttpPost("upload")]
-    public async Task<IActionResult> Upload(int profileId, string name, IFormFile file)
-    {
-        using var stream = file.OpenReadStream();
-        var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
-
-        await _service.UploadAsync(
-            "cvs",
-            newFileName,
-            stream,
-            file.ContentType,
-            profileId 
-        );
-
-        return Ok("Archivo subido");
-    }
-
-
-
-
-    // DESCARGAR ARCHIVO
-    [HttpGet("download/{fileName}")]
-        public async Task<IActionResult> Download(string fileName)
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload(int profileId, string name, IFormFile file)
         {
-            var stream = await _service.DownloadAsync("cvs", fileName);
+            using var stream = file.OpenReadStream();
+            var newFileName = $"{name}{Path.GetExtension(file.FileName)}";
 
-            return File(stream.ToArray(), "application/octet-stream", fileName);
+            await _service.UploadAsync(
+                "cvs",
+                newFileName,
+                stream,
+                file.ContentType,
+                profileId 
+            );
+
+            return Ok("Archivo subido");
         }
+
+        // DESCARGAR ARCHIVO
+        [HttpGet("download/{fileName}")]
+            public async Task<IActionResult> Download(string fileName)
+            {
+                var stream = await _service.DownloadAsync("cvs", fileName);
+
+                return File(stream.ToArray(), "application/octet-stream", fileName);
+            }
 
         // VERIFICAR EXISTENCIA
         [HttpGet("exists/{fileName}")]
@@ -60,6 +57,6 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             var url = await _service.GeneratePresignedUrlAsync("cvs", fileName, 3600);
             return Ok(url);
         }
-    }
 
+    }
 }
