@@ -8,6 +8,7 @@ namespace isc.bempleo.be.domain.Models.Response.Profiles
 {
     public class ProfileResponse
     {
+        public int Id { get; set; }
         public int GenderId { get; set; }
         public int? MaritalStatusId { get; set; }
         public string FirstName { get; set; }
