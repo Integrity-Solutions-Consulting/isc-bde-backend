@@ -1,3 +1,4 @@
+using isc.bempleo.be.api.Exceptions;
 using isc.bempleo.be.application.IOC;
 using isc.bempleo.be.infrastructure.IOC;
 
@@ -37,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureExcepcionHandler();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
