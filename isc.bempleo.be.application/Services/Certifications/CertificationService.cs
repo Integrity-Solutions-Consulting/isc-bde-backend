@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Certifications;
 using isc.bempleo.be.application.Interfaces.Service.Certifications;
 using isc.bempleo.be.domain.Entity.Certifications;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Certifications;
 using isc.bempleo.be.domain.Models.Response.Certifications;
 
@@ -30,7 +31,7 @@ namespace isc.bempleo.be.application.Services.Certifications
         {
             var entity = await _certificationRepository.GetCertificationByIdAsync(certificationId);
             if (entity == null)
-                throw new Exception("No existe ninguna certificación con ese ID");
+                throw new ClientFaultException("No existe ninguna certificación con ese ID");
 
             return _mapper.Map<CertificationResponse>(entity);
         }
