@@ -24,6 +24,7 @@ namespace isc.bempleo.be.application.Services.Certifications
         {
             var entities = await _certificationRepository.GetAllCertificationsAsync(isActive, search);
             return _mapper.Map<List<CertificationResponse>>(entities);
+            //prueba
         }
 
         public async Task<CertificationResponse> GetCertificationByIdAsync(int certificationId)
