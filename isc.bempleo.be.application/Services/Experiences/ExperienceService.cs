@@ -29,14 +29,14 @@ namespace isc.bempleo.be.application.Services.Experiences
             return _mapper.Map<List<ExperienceResponse>>(experiences);
         }
 
-        public async Task<ExperienceResponse> GetExperienceById(int experienceId)
-        {
-            var exp = await _experienceRepository.GetExperienceByIdAsync(experienceId);
-            if (exp == null)
-                throw new Exception("No existe ninguna experiencia con ese ID");
+        //public async Task<ExperienceResponse> GetExperienceById(int experienceId)
+        //{
+        //    var exp = await _experienceRepository.GetExperienceByIdAsync(experienceId);
+        //    if (exp == null)
+        //        throw new Exception("No existe ninguna experiencia con ese ID");
 
-            return _mapper.Map<ExperienceResponse>(exp);
-        }
+        //    return _mapper.Map<ExperienceResponse>(exp);
+        //}
 
         public async Task<ExperienceResponse> CreateExperienceAsync(ExperienceRequest request)
         {
@@ -45,24 +45,24 @@ namespace isc.bempleo.be.application.Services.Experiences
             return _mapper.Map<ExperienceResponse>(created);
         }
 
-        public async Task<ExperienceResponse> UpdateExperienceAsync(int experienceId, ExperienceUpdateRequest request)
-        {
-            var current = await _experienceRepository.GetExperienceByIdAsync(experienceId);
-            if (current == null)
-                throw new Exception($"No existe una experiencia con ID {experienceId}");
+        //public async Task<ExperienceResponse> UpdateExperienceAsync(int experienceId, ExperienceUpdateRequest request)
+        //{
+        //    var current = await _experienceRepository.GetExperienceByIdAsync(experienceId);
+        //    if (current == null)
+        //        throw new Exception($"No existe una experiencia con ID {experienceId}");
 
-            current.CompanyName = request.CompanyName;
-            current.PositionHeld = request.PositionHeld;
-            current.ExperienceTime = request.ExperienceTime;
+        //    current.CompanyName = request.CompanyName;
+        //    current.PositionHeld = request.PositionHeld;
+        //    current.ExperienceTime = request.ExperienceTime;
 
-            var updated = await _experienceRepository.UpdateExperienceAsync(current);
-            return _mapper.Map<ExperienceResponse>(updated);
-        }
+        //    var updated = await _experienceRepository.UpdateExperienceAsync(current);
+        //    return _mapper.Map<ExperienceResponse>(updated);
+        //}
 
-        public async Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status)
-        {
-            return await _experienceRepository.ActiveInactiveExperienceAsync(experienceId, status);
-        }
+        //public async Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status)
+        //{
+        //    return await _experienceRepository.ActiveInactiveExperienceAsync(experienceId, status);
+        //}
 
     }
 }

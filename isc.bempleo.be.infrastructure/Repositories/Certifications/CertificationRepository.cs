@@ -33,11 +33,11 @@ namespace isc.bempleo.be.infrastructure.Repositories.Certifications
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Certification?> GetCertificationByIdAsync(int certificationId)
-        {
-            return await _dbContext.Certifications
-                .FirstOrDefaultAsync(c => c.Id == certificationId);
-        }
+        //public async Task<Certification?> GetCertificationByIdAsync(int certificationId)
+        //{
+        //    return await _dbContext.Certifications
+        //        .FirstOrDefaultAsync(c => c.Id == certificationId);
+        //}
 
         public async Task<Certification> CreateCertificationAsync(Certification certification)
         {
@@ -46,18 +46,18 @@ namespace isc.bempleo.be.infrastructure.Repositories.Certifications
             return certification;
         }
 
-        public async Task<Certification> UpdateCertificationAsync(Certification certification)
-        {
-            _dbContext.Entry(certification).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return certification;
-        }
+        //public async Task<Certification> UpdateCertificationAsync(Certification certification)
+        //{
+        //    _dbContext.Entry(certification).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return certification;
+        //}
 
-        public async Task<int> ActiveInactiveCertificationAsync(int certificationId, bool status)
-        {
-            return await _dbContext.Certifications
-                .Where(c => c.Id == certificationId)
-                .ExecuteUpdateAsync(update => update.SetProperty(c => c.Status, status));
-        }
+        //public async Task<int> ActiveInactiveCertificationAsync(int certificationId, bool status)
+        //{
+        //    return await _dbContext.Certifications
+        //        .Where(c => c.Id == certificationId)
+        //        .ExecuteUpdateAsync(update => update.SetProperty(c => c.Status, status));
+        //}
     }
 }

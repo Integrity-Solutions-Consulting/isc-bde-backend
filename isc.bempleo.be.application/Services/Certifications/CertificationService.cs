@@ -27,14 +27,14 @@ namespace isc.bempleo.be.application.Services.Certifications
             return _mapper.Map<List<CertificationResponse>>(entities);
         }
 
-        public async Task<CertificationResponse> GetCertificationByIdAsync(int certificationId)
-        {
-            var entity = await _certificationRepository.GetCertificationByIdAsync(certificationId);
-            if (entity == null)
-                throw new ClientFaultException("No existe ninguna certificación con ese ID");
+        //public async Task<CertificationResponse> GetCertificationByIdAsync(int certificationId)
+        //{
+        //    var entity = await _certificationRepository.GetCertificationByIdAsync(certificationId);
+        //    if (entity == null)
+        //        throw new ClientFaultException("No existe ninguna certificación con ese ID");
 
-            return _mapper.Map<CertificationResponse>(entity);
-        }
+        //    return _mapper.Map<CertificationResponse>(entity);
+        //}
 
         public async Task<CertificationResponse> CreateCertificationAsync(CertificationRequest request)
         {
@@ -43,18 +43,18 @@ namespace isc.bempleo.be.application.Services.Certifications
             return _mapper.Map<CertificationResponse>(created);
         }
 
-        public async Task<CertificationResponse> UpdateCertificationAsync(int certificationId, CertificationRequest request)
-        {
-            var entity = _mapper.Map<Certification>(request);
-            entity.Id = certificationId;
+        //public async Task<CertificationResponse> UpdateCertificationAsync(int certificationId, CertificationRequest request)
+        //{
+        //    var entity = _mapper.Map<Certification>(request);
+        //    entity.Id = certificationId;
 
-            var updated = await _certificationRepository.UpdateCertificationAsync(entity);
-            return _mapper.Map<CertificationResponse>(updated);
-        }
+        //    var updated = await _certificationRepository.UpdateCertificationAsync(entity);
+        //    return _mapper.Map<CertificationResponse>(updated);
+        //}
 
-        public async Task<int> ActiveInactiveCertificationAsync(int certificationId, bool status)
-        {
-            return await _certificationRepository.ActiveInactiveCertificationAsync(certificationId, status);
-        }
+        //public async Task<int> ActiveInactiveCertificationAsync(int certificationId, bool status)
+        //{
+        //    return await _certificationRepository.ActiveInactiveCertificationAsync(certificationId, status);
+        //}
     }
 }

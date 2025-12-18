@@ -42,30 +42,30 @@ namespace isc.bempleo.be.infrastructure.Repositories.S3Minio
             return ms;
         }
 
-        public async Task<bool> ExistsAsync(string bucket, string objectName)
-        {
-            try
-            {
-                await _s3.GetObjectMetadataAsync(bucket, objectName);
-                return true;
-            }
-            catch (AmazonS3Exception ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return false;
-            }
-        }
+        //public async Task<bool> ExistsAsync(string bucket, string objectName)
+        //{
+        //    try
+        //    {
+        //        await _s3.GetObjectMetadataAsync(bucket, objectName);
+        //        return true;
+        //    }
+        //    catch (AmazonS3Exception ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expirySeconds)
-        {
-            var request = new GetPreSignedUrlRequest
-            {
-                BucketName = bucket,
-                Key = objectName,
-                Expires = DateTime.UtcNow.AddSeconds(expirySeconds)
-            };
+        //public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expirySeconds)
+        //{
+        //    var request = new GetPreSignedUrlRequest
+        //    {
+        //        BucketName = bucket,
+        //        Key = objectName,
+        //        Expires = DateTime.UtcNow.AddSeconds(expirySeconds)
+        //    };
 
-            return _s3.GetPreSignedURL(request);
-        }
+        //    return _s3.GetPreSignedURL(request);
+        //}
 
     }
 

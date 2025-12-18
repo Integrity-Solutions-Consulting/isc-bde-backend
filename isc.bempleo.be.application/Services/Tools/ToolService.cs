@@ -30,14 +30,14 @@ namespace isc.bempleo.be.application.Services.Tools
         }
 
 
-        public async Task<ToolResponse> GetToolById(int toolId)
-        {
-            var tool = await _toolRepository.GetToolByIdAsync(toolId);
-            if (tool == null)
-                throw new Exception("No existe ninguna herramienta con ese ID");
+        //public async Task<ToolResponse> GetToolById(int toolId)
+        //{
+        //    var tool = await _toolRepository.GetToolByIdAsync(toolId);
+        //    if (tool == null)
+        //        throw new Exception("No existe ninguna herramienta con ese ID");
 
-            return _mapper.Map<ToolResponse>(tool);
-        }
+        //    return _mapper.Map<ToolResponse>(tool);
+        //}
 
         public async Task<ToolResponse> CreateToolAsync(ToolRequest request)
         {
@@ -47,19 +47,19 @@ namespace isc.bempleo.be.application.Services.Tools
             return _mapper.Map<ToolResponse>(createdEntity);
         }
 
-        public async Task<ToolResponse> UpdateToolAsync(int toolId, ToolRequest request)
-        {
-            var entity = _mapper.Map<Tool>(request);
-            entity.Id = toolId;
+        //public async Task<ToolResponse> UpdateToolAsync(int toolId, ToolRequest request)
+        //{
+        //    var entity = _mapper.Map<Tool>(request);
+        //    entity.Id = toolId;
 
-            var updatedEntity = await _toolRepository.UpdateToolAsync(entity);
-            return _mapper.Map<ToolResponse>(updatedEntity);
-        }
+        //    var updatedEntity = await _toolRepository.UpdateToolAsync(entity);
+        //    return _mapper.Map<ToolResponse>(updatedEntity);
+        //}
 
-        public async Task<int> ActiveInactiveToolAsync(int toolId, bool status)
-        {
-            return await _toolRepository.ActiveInactiveToolAsync(toolId, status);
-        }
+        //public async Task<int> ActiveInactiveToolAsync(int toolId, bool status)
+        //{
+        //    return await _toolRepository.ActiveInactiveToolAsync(toolId, status);
+        //}
 
 
 

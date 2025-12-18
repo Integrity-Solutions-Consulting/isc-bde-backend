@@ -47,11 +47,11 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
-        {
-            return await _dbContext.Experiences
-                .FirstOrDefaultAsync(e => e.Id == experienceId);
-        }
+        //public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
+        //{
+        //    return await _dbContext.Experiences
+        //        .FirstOrDefaultAsync(e => e.Id == experienceId);
+        //}
 
         public async Task<Experience> CreateExperienceAsync(Experience experience)
         {
@@ -60,19 +60,19 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
             return experience;
         }
 
-        public async Task<Experience> UpdateExperienceAsync(Experience experience)
-        {
-            _dbContext.Entry(experience).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return experience;
-        }
+        //public async Task<Experience> UpdateExperienceAsync(Experience experience)
+        //{
+        //    _dbContext.Entry(experience).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return experience;
+        //}
 
-        public async Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status)
-        {
-            return await _dbContext.Experiences
-                .Where(e => e.Id == experienceId)
-                .ExecuteUpdateAsync(update => update.SetProperty(e => e.Status, status));
-        }
+        //public async Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status)
+        //{
+        //    return await _dbContext.Experiences
+        //        .Where(e => e.Id == experienceId)
+        //        .ExecuteUpdateAsync(update => update.SetProperty(e => e.Status, status));
+        //}
 
     }
 }

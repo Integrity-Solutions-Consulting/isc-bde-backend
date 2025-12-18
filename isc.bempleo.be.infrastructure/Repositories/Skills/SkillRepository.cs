@@ -35,11 +35,11 @@ namespace isc.bempleo.be.infrastructure.Repositories.Skills
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Skill> GetSkillByIdAsync(int skillId)
-        {
-            return await _dbContext.Skills
-                .FirstOrDefaultAsync(s => s.Id == skillId);
-        }
+        //public async Task<Skill> GetSkillByIdAsync(int skillId)
+        //{
+        //    return await _dbContext.Skills
+        //        .FirstOrDefaultAsync(s => s.Id == skillId);
+        //}
 
         public async Task<Skill> CreateSkillAsync(Skill skill)
         {
@@ -48,18 +48,18 @@ namespace isc.bempleo.be.infrastructure.Repositories.Skills
             return skill;
         }
 
-        public async Task<Skill> UpdateSkillAsync(Skill skill)
-        {
-            _dbContext.Entry(skill).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return skill;
-        }
+        //public async Task<Skill> UpdateSkillAsync(Skill skill)
+        //{
+        //    _dbContext.Entry(skill).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return skill;
+        //}
 
-        public async Task<int> ActiveInactiveSkillAsync(int skillId, bool status)
-        {
-            return await _dbContext.Skills
-                .Where(s => s.Id == skillId)
-                .ExecuteUpdateAsync(update => update.SetProperty(s => s.Status, status));
-        }
+        //public async Task<int> ActiveInactiveSkillAsync(int skillId, bool status)
+        //{
+        //    return await _dbContext.Skills
+        //        .Where(s => s.Id == skillId)
+        //        .ExecuteUpdateAsync(update => update.SetProperty(s => s.Status, status));
+        //}
     }
 }

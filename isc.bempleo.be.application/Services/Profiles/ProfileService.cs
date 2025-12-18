@@ -29,25 +29,25 @@ namespace isc.bempleo.be.application.Services.Profiles
             _codeAccessRepository = codeAccessRepository;
         }
         
-        public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
-        {
-            var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
+        //public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
+        //{
+        //    var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
 
-            if (allprofiles == null || !allprofiles.Any())
-            {
-                return new List<ProfileResponse>();
-            }
+        //    if (allprofiles == null || !allprofiles.Any())
+        //    {
+        //        return new List<ProfileResponse>();
+        //    }
 
-            var result = new List<ProfileResponse>();
+        //    var result = new List<ProfileResponse>();
 
-            foreach (var profile in allprofiles)
-            {
-                var response = MapProfileWithLists(profile);
-                result.Add(response);
-            }
+        //    foreach (var profile in allprofiles)
+        //    {
+        //        var response = MapProfileWithLists(profile);
+        //        result.Add(response);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public async Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code)
         {
@@ -202,15 +202,15 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
         }
 
-        public async Task ActivateInactiveResourceAsync(int profileId, bool active)
-        {
-            var rowsAffected = await _profileRepository.ActiveInactiveProfileAsync(profileId, active);
+        //public async Task ActivateInactiveResourceAsync(int profileId, bool active)
+        //{
+        //    var rowsAffected = await _profileRepository.ActiveInactiveProfileAsync(profileId, active);
 
-            if (rowsAffected == 0)
-            {
-                throw new Exception($"El Perfil {profileId} no existe");
-            }
-        }
+        //    if (rowsAffected == 0)
+        //    {
+        //        throw new Exception($"El Perfil {profileId} no existe");
+        //    }
+        //}
 
         private ProfileResponse MapProfileWithLists(domain.Entity.Profiles.Profile profile)
             {

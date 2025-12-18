@@ -38,31 +38,31 @@ namespace isc.bempleo.be.infrastructure.Repositories.Knowledges
         }
 
 
-        public async Task<Knowledge> GetKnowledgeByIdAsync(int knowledgeId)
-        {
-            return await _dbContext.Knowledges
-                .FirstOrDefaultAsync(k => k.Id == knowledgeId);
-        }
+        //public async Task<Knowledge> GetKnowledgeByIdAsync(int knowledgeId)
+        //{
+        //    return await _dbContext.Knowledges
+        //        .FirstOrDefaultAsync(k => k.Id == knowledgeId);
+        //}
 
-        public async Task<Knowledge> CreateKnowledgeAsync(Knowledge knowledge)
-        {
-            await _dbContext.Knowledges.AddAsync(knowledge);
-            await _dbContext.SaveChangesAsync();
-            return knowledge;
-        }
+        //public async Task<Knowledge> CreateKnowledgeAsync(Knowledge knowledge)
+        //{
+        //    await _dbContext.Knowledges.AddAsync(knowledge);
+        //    await _dbContext.SaveChangesAsync();
+        //    return knowledge;
+        //}
 
-        public async Task<Knowledge> UpdateKnowledgeAsync(Knowledge knowledge)
-        {
-            _dbContext.Entry(knowledge).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return knowledge;
-        }
+        //public async Task<Knowledge> UpdateKnowledgeAsync(Knowledge knowledge)
+        //{
+        //    _dbContext.Entry(knowledge).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return knowledge;
+        //}
 
-        public async Task<int> ActiveInactiveKnowledgeAsync(int knowledgeId, bool status)
-        {
-            return await _dbContext.Knowledges
-                .Where(k => k.Id == knowledgeId)
-                .ExecuteUpdateAsync(update => update.SetProperty(k => k.Status, status));
-        }
+        //public async Task<int> ActiveInactiveKnowledgeAsync(int knowledgeId, bool status)
+        //{
+        //    return await _dbContext.Knowledges
+        //        .Where(k => k.Id == knowledgeId)
+        //        .ExecuteUpdateAsync(update => update.SetProperty(k => k.Status, status));
+        //}
     }
 }

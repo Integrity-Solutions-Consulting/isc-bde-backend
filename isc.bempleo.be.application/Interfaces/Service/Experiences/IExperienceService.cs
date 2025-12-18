@@ -11,9 +11,9 @@ namespace isc.bempleo.be.application.Interfaces.Service.Experiences
     public interface IExperienceService
     {
         Task<List<ExperienceResponse>> GetAllExperiencesAsync(bool isActive, int? profileId = null, string? search = null);
-        Task<ExperienceResponse> GetExperienceById(int experienceId);
+        //Task<ExperienceResponse> GetExperienceById(int experienceId);
         Task<ExperienceResponse> CreateExperienceAsync(ExperienceRequest request);
-        Task<ExperienceResponse> UpdateExperienceAsync(int experienceId, ExperienceUpdateRequest request);
-        Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status);
+        //Task<ExperienceResponse> UpdateExperienceAsync(int experienceId, ExperienceUpdateRequest request);
+        //Task<int> ActiveInactiveExperienceAsync(int experienceId, bool status);
     }
 }

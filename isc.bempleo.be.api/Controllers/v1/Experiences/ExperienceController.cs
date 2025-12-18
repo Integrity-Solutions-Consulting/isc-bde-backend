@@ -28,12 +28,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             return Ok(result);
         }
 
-        [HttpGet("get-by-id-{id}")]
-        public async Task<ActionResult<ExperienceResponse>> GetById(int id)
-        {
-            var result = await _service.GetExperienceById(id);
-            return Ok(result);
-        }
+        //[HttpGet("get-by-id-{id}")]
+        //public async Task<ActionResult<ExperienceResponse>> GetById(int id)
+        //{
+        //    var result = await _service.GetExperienceById(id);
+        //    return Ok(result);
+        //}
 
         [HttpPost("create-experience")]
         public async Task<ActionResult<ExperienceResponse>> Create([FromBody] ExperienceRequest request)
@@ -42,20 +42,20 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             return Ok(result);
         }
 
-        [HttpPut("update-experience-{id}")]
-        public async Task<ActionResult<ExperienceResponse>> Update(int id, [FromBody] ExperienceUpdateRequest request)
-        {
-            var result = await _service.UpdateExperienceAsync(id, request);
-            return Ok(result);
-        }
+        //[HttpPut("update-experience-{id}")]
+        //public async Task<ActionResult<ExperienceResponse>> Update(int id, [FromBody] ExperienceUpdateRequest request)
+        //{
+        //    var result = await _service.UpdateExperienceAsync(id, request);
+        //    return Ok(result);
+        //}
 
-        [HttpPatch("active-inactive-experience-{id}")]
-        public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
-        {
-            var rows = await _service.ActiveInactiveExperienceAsync(id, status);
-            if (rows == 0) return NotFound($"No existe la experiencia con ID {id}");
-            return NoContent();
-        }
+        //[HttpPatch("active-inactive-experience-{id}")]
+        //public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
+        //{
+        //    var rows = await _service.ActiveInactiveExperienceAsync(id, status);
+        //    if (rows == 0) return NotFound($"No existe la experiencia con ID {id}");
+        //    return NoContent();
+        //}
 
 
     }

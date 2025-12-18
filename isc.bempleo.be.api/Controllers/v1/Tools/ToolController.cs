@@ -27,12 +27,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
         }
 
 
-        [HttpGet("get-by-id-{id}")]
-        public async Task<ActionResult<ToolResponse>> GetById(int id)
-        {
-            var result = await _service.GetToolById(id);
-            return Ok(result);
-        }
+        //[HttpGet("get-by-id-{id}")]
+        //public async Task<ActionResult<ToolResponse>> GetById(int id)
+        //{
+        //    var result = await _service.GetToolById(id);
+        //    return Ok(result);
+        //}
 
         [HttpPost("create-tool")]
         public async Task<ActionResult<ToolResponse>> Create(ToolRequest request)
@@ -41,19 +41,19 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
             return Ok(result);
         }
 
-        [HttpPut("update-tool-{id}")]
-        public async Task<ActionResult<ToolResponse>> Update(int id, ToolRequest request)
-        {
-            var result = await _service.UpdateToolAsync(id, request);
-            return Ok(result);
-        }
+        //[HttpPut("update-tool-{id}")]
+        //public async Task<ActionResult<ToolResponse>> Update(int id, ToolRequest request)
+        //{
+        //    var result = await _service.UpdateToolAsync(id, request);
+        //    return Ok(result);
+        //}
 
-        [HttpPatch("active-inactive-tool-{id}")]
-        public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
-        {
-            var rows = await _service.ActiveInactiveToolAsync(id, status);
-            if (rows == 0) return NotFound($"No existe la herramienta con ID {id}");
-            return NoContent();
-        }
+        //[HttpPatch("active-inactive-tool-{id}")]
+        //public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
+        //{
+        //    var rows = await _service.ActiveInactiveToolAsync(id, status);
+        //    if (rows == 0) return NotFound($"No existe la herramienta con ID {id}");
+        //    return NoContent();
+        //}
     }
 }

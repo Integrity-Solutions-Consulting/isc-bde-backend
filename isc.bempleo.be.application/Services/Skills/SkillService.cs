@@ -27,16 +27,16 @@ namespace isc.bempleo.be.application.Services.Skills
             return _mapper.Map<List<SkillResponse>>(entities);
         }
 
-        public async Task<SkillResponse> GetSkillByIdAsync(int skillId)
-        {
-            var entity = await _skillRepository.GetSkillByIdAsync(skillId);
-            if (entity == null)
-            {
-                throw new Exception("No existe ninguna skill con ese ID");
-            }
+        //public async Task<SkillResponse> GetSkillByIdAsync(int skillId)
+        //{
+        //    var entity = await _skillRepository.GetSkillByIdAsync(skillId);
+        //    if (entity == null)
+        //    {
+        //        throw new Exception("No existe ninguna skill con ese ID");
+        //    }
 
-            return _mapper.Map<SkillResponse>(entity);
-        }
+        //    return _mapper.Map<SkillResponse>(entity);
+        //}
 
         public async Task<SkillResponse> CreateSkillAsync(SkillRequest request)
         {
@@ -45,18 +45,18 @@ namespace isc.bempleo.be.application.Services.Skills
             return _mapper.Map<SkillResponse>(created);
         }
 
-        public async Task<SkillResponse> UpdateSkillAsync(int skillId, SkillRequest request)
-        {
-            var entity = _mapper.Map<Skill>(request);
-            entity.Id = skillId;
+        //public async Task<SkillResponse> UpdateSkillAsync(int skillId, SkillRequest request)
+        //{
+        //    var entity = _mapper.Map<Skill>(request);
+        //    entity.Id = skillId;
 
-            var updated = await _skillRepository.UpdateSkillAsync(entity);
-            return _mapper.Map<SkillResponse>(updated);
-        }
+        //    var updated = await _skillRepository.UpdateSkillAsync(entity);
+        //    return _mapper.Map<SkillResponse>(updated);
+        //}
 
-        public async Task<int> ActiveInactiveSkillAsync(int skillId, bool status)
-        {
-            return await _skillRepository.ActiveInactiveSkillAsync(skillId, status);
-        }
+        //public async Task<int> ActiveInactiveSkillAsync(int skillId, bool status)
+        //{
+        //    return await _skillRepository.ActiveInactiveSkillAsync(skillId, status);
+        //}
     }
 }

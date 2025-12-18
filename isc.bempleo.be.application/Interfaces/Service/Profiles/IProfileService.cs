@@ -10,7 +10,7 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
 {
     public interface IProfileService
     {
-        Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive);
+        //Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive);
         Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code);
 
         // Pantalla 1
@@ -23,6 +23,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
         Task UpdateProfileTechnologiesAsync(int profileId, ProfileTechnologiesRequest request);
         Task<ProfileTechnologiesRequest> GetProfileTechnologiesAsync(int profileId);
 
-        Task ActivateInactiveResourceAsync(int profileId, bool active);
+        //Task ActivateInactiveResourceAsync(int profileId, bool active);
     }
 }

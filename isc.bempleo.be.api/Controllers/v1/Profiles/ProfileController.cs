@@ -19,13 +19,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             _service = service;
         }
 
-        [HttpGet("get-all-profiles")]
-        public async Task<ActionResult<List<ProfileResponse>>> GetAllAsync ([FromQuery] bool isActive)
-        {
-            var result = await _service.GetAllProfileAsync(isActive);
-            return Ok(result);
-
-        }
+        //[HttpGet("get-all-profiles")]
+        //public async Task<ActionResult<List<ProfileResponse>>> GetAllAsync ([FromQuery] bool isActive)
+        //{
+        //    var result = await _service.GetAllProfileAsync(isActive);
+        //    return Ok(result);
+        //}
                 
         [HttpGet("get-profile-by-email-cedula-code")]
         public async Task<ActionResult<ProfileResponse>> GetProfileByCode(string cedula, string email, string code)
@@ -84,12 +83,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
 
         }
 
-        [HttpPut("active-inactive-profile")]
-        public async Task<ActionResult> ActiveInactiveAsync(int id, [FromQuery] bool isActive)
-        {
-            await _service.ActivateInactiveResourceAsync(id, isActive);
-            return NoContent();
-        }
+        //[HttpPut("active-inactive-profile")]
+        //public async Task<ActionResult> ActiveInactiveAsync(int id, [FromQuery] bool isActive)
+        //{
+        //    await _service.ActivateInactiveResourceAsync(id, isActive);
+        //    return NoContent();
+        //}
 
 
     }
