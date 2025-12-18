@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.domain.Models.DTOs.Notificaciones;
+using isc.bempleo.be.domain.Models.Response.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi
 {
     public interface INotificacionesApiRepository
     {
-        Task<bool> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request);
+        Task<NotificacionApiResponse> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request);
     }
 }

@@ -35,6 +35,14 @@ namespace isc.bempleo.be.infrastructure.Repositories.Profiles
             return profile;
         }
 
+        public async Task<Profile> GetProfileByCedulaEmailAsync(string cedula, string email)
+        {
+            var profile = await _dbContext.Profiles
+                .Where(p => p.IdentificationNumber == cedula && p.Email == email)
+                .FirstOrDefaultAsync();
+
+            return profile;
+        }
         public async Task<Profile> CreateProfileAsync(Profile profile)
         {
             await _dbContext.AddAsync(profile);
