@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.domain.Models.DTOs.Notificaciones;
+using isc.bempleo.be.domain.Models.Response.Notifications;
 using isc.bempleo.be.infrastructure.Utils.Peticiones;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -21,12 +22,12 @@ namespace isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI
             _configuration = configuration;
         }
 
-        public async Task<bool> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request)
+        public async Task<NotificacionApiResponse> SendVerificationCodeAsync(NotificacionesSendVerificationCodeRequest request)
         {
             var url = $"{_configuration["Infrastructure:UrlApiBempleo"]}/send-verification-code";
-            var result = await _httpUtils.SendRequest<string>(url, HttpMethod.Post, request);
+            var result = await _httpUtils.SendRequest<NotificacionApiResponse>(url, HttpMethod.Post, request);
 
-            return !string.IsNullOrWhiteSpace(result);
+            return result ;
         }
 
 

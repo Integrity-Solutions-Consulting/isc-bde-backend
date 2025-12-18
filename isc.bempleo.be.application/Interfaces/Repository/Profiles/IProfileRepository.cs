@@ -17,6 +17,7 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Profiles
         Task<Profile> UpdateProfileAsync(Profile profile);
         Task<int> ActiveInactiveProfileAsync(int profileId, bool status);
         Task<Profile> GetProfileByEmailOrIdentificationAsync(string email, string identificationNumber);
+        Task<Profile> GetProfileByCedulaEmailAsync(string cedula, string email);
 
     }
 }

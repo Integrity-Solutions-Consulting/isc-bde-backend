@@ -24,5 +24,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
         Task<ProfileTechnologiesRequest> GetProfileTechnologiesAsync(int profileId);
 
         Task ActivateInactiveResourceAsync(int profileId, bool active);
+        Task<ProfileResponse> GetProfileForGenerateCode(string cedula, string email);
     }
 }

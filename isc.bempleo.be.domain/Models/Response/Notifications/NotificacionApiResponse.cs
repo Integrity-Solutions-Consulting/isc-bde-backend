@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace isc.bempleo.be.domain.Models.DTOs.Notificaciones
+namespace isc.bempleo.be.domain.Models.Response.Notifications
 {
-    public class NotificacionesSendVerificationCodeRequest  
+    public class NotificacionApiResponse
     {
         public string To { get; set; }
         public string Subject { get; set; }
         public string Username { get; set; }
+        public string Code { get; set; }
     }
 }

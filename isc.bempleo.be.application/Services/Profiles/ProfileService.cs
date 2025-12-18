@@ -69,6 +69,20 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
         }
 
+        public async Task<ProfileResponse> GetProfileForGenerateCode(string cedula, string email)
+        {
+            var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(email, cedula);
+
+            if (profile == null)
+            {
+                throw new Exception("No existe ningún perfil con esos datos.");
+            }
+
+            var response = MapProfileWithLists(profile);
+
+            return response;
+        }
+
         //Pantalla 1 del formulario
         public async Task<ProfileResponse> CreateProfileAsync(PersonalDataRequest request)
         {
