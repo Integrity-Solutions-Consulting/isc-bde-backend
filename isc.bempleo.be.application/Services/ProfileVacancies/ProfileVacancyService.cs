@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Response.ProfileVacancies;
 using System;
@@ -27,13 +28,14 @@ namespace isc.bempleo.be.application.Services.ProfileVacancies
         {
             var profileVacancies = await _repository.GetAllAsync(isActive);
 
-            if (profileVacancies == null || !profileVacancies.Any())
-            {
-                return new List<ProfileVacancyResponse>();
-            }
+            if (profileVacancies == null)
+                throw new ServerFaultException(
+                    "Error al obtener ProfileVacancies.");
 
-            var mapping = _mapper.Map<List<ProfileVacancyResponse>>(profileVacancies);
-            return mapping;
+            if (!profileVacancies.Any())
+                return new List<ProfileVacancyResponse>();
+
+            return _mapper.Map<List<ProfileVacancyResponse>>(profileVacancies);
         }
 
 
@@ -43,12 +45,17 @@ namespace isc.bempleo.be.application.Services.ProfileVacancies
             {
                 ProfileId = request.ProfileId,
                 VacancyId = request.VacancyId,
-                ApplicationStatusId = request.ApplicationStatusId ?? 1, 
+                ApplicationStatusId = request.ApplicationStatusId ?? 1,
                 ApplicationDate = DateTime.Now,
                 Status = true
             };
 
             var created = await _repository.CreateAsync(entity);
+
+            if (created == null)
+                throw new ServerFaultException(
+                    "Error al crear ProfileVacancy.");
+
             return _mapper.Map<ProfileVacancyResponse>(created);
         }
 

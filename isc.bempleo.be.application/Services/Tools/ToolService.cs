@@ -3,6 +3,7 @@ using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Repository.Tools;
 using isc.bempleo.be.application.Interfaces.Service.Tools;
 using isc.bempleo.be.domain.Entity.Tools;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Tools;
 using isc.bempleo.be.domain.Models.Response.Tools;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -25,8 +26,17 @@ namespace isc.bempleo.be.application.Services.Tools
 
         public async Task<List<ToolResponse>> GetAllToolsAsync(bool isActive, string? search)
         {
-            var allTools = await _toolRepository.GetAllToolsAsync(isActive, search);
-            return _mapper.Map<List<ToolResponse>>(allTools);
+            var tools = await _toolRepository.GetAllToolsAsync(isActive, search);
+
+            if (tools == null)
+                throw new ServerFaultException(
+                    "Error al obtener las herramientas."
+                );
+
+            if (!tools.Any())
+                return new List<ToolResponse>();
+
+            return _mapper.Map<List<ToolResponse>>(tools);
         }
 
 
@@ -41,10 +51,21 @@ namespace isc.bempleo.be.application.Services.Tools
 
         public async Task<ToolResponse> CreateToolAsync(ToolRequest request)
         {
-            var entity = _mapper.Map<Tool>(request);
-            var createdEntity = await _toolRepository.CreateToolAsync(entity);
+            if (request == null)
+                throw new ClientFaultException(
+                    "La información de la herramienta es inválida."
+                );
 
-            return _mapper.Map<ToolResponse>(createdEntity);
+            var entity = _mapper.Map<Tool>(request);
+
+            var created = await _toolRepository.CreateToolAsync(entity);
+
+            if (created == null)
+                throw new ServerFaultException(
+                    "Error al crear la herramienta."
+                );
+
+            return _mapper.Map<ToolResponse>(created);
         }
 
         //public async Task<ToolResponse> UpdateToolAsync(int toolId, ToolRequest request)

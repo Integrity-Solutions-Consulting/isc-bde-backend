@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.Vacancies;
 using isc.bempleo.be.application.Interfaces.Service.Vacancies;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Response.Vacancies;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,16 @@ namespace isc.bempleo.be.application.Services.Vacancies
         {
             var vacancies = await _repository.GetAllVacanciesAsync(isActive);
 
-            if (vacancies == null || !vacancies.Any())
-            {
-                return new List<VacancyResponse>();
-            }
+            if (vacancies == null)
+                throw new ServerFaultException(
+                    "Error al obtener las vacantes (resultado null)."
+                );
 
-            var mapping = _mapper.Map<List<VacancyResponse>>(vacancies);
-            return mapping;
+            if (!vacancies.Any())
+                return new List<VacancyResponse>();
+
+            return _mapper.Map<List<VacancyResponse>>(vacancies);
         }
+
     }
 }

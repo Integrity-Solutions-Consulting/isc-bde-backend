@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Tools;
+using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Tools;
 using isc.bempleo.be.domain.Models.Response.Tools;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,14 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
         }
 
         [HttpGet("get-all-tools")]
-        public async Task<ActionResult<List<ToolResponse>>> GetAllAsync(
-            [FromQuery] bool isActive = true,
-            [FromQuery] string? search = null)
+        public async Task<ActionResult<SuccessResponse<List<ToolResponse>>>> GetAllAsync(
+            [FromQuery] bool isActive,
+            [FromQuery] string? search)
         {
             var result = await _service.GetAllToolsAsync(isActive, search);
             return Ok(result);
         }
+
 
 
         //[HttpGet("get-by-id-{id}")]
@@ -35,7 +37,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
         //}
 
         [HttpPost("create-tool")]
-        public async Task<ActionResult<ToolResponse>> Create(ToolRequest request)
+        public async Task<ActionResult<SuccessResponse<ToolResponse>>> Create(
+            [FromBody] ToolRequest request)
         {
             var result = await _service.CreateToolAsync(request);
             return Ok(result);

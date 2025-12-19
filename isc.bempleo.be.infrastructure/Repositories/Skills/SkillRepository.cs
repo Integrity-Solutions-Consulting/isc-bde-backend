@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Skills;
 using isc.bempleo.be.domain.Entity.Skills;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,20 +20,32 @@ namespace isc.bempleo.be.infrastructure.Repositories.Skills
 
         public async Task<List<Skill>> GetAllSkillsAsync(bool isActive, string? search)
         {
-            var query = _dbContext.Skills
-                .AsQueryable()
-                .Where(s => s.Status == isActive);
-
-            if (!string.IsNullOrWhiteSpace(search))
+            try
             {
-                string normalized = search.Trim().ToLowerInvariant();
-                query = query.Where(s =>
-                    s.SkillName != null && s.SkillName.ToLower().Contains(normalized));
+                var query = _dbContext.Skills
+                    .Where(s => s.Status == isActive);
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    var normalized = search.Trim().ToLowerInvariant();
+                    query = query.Where(s =>
+                        s.SkillName != null &&
+                        s.SkillName.ToLower().Contains(normalized));
+                }
+
+                return await query
+                    .OrderBy(s => s.SkillName)
+                    .AsNoTracking()
+                    .ToListAsync();
             }
-
-            query = query.OrderBy(s => s.SkillName);
-
-            return await query.AsNoTracking().ToListAsync();
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Skills.",
+                    500,
+                    ex
+                );
+            }
         }
 
         //public async Task<Skill> GetSkillByIdAsync(int skillId)
@@ -43,9 +56,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.Skills
 
         public async Task<Skill> CreateSkillAsync(Skill skill)
         {
-            await _dbContext.Skills.AddAsync(skill);
-            await _dbContext.SaveChangesAsync();
-            return skill;
+            try
+            {
+                await _dbContext.Skills.AddAsync(skill);
+                await _dbContext.SaveChangesAsync();
+                return skill;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al crear Skill.",
+                    500,
+                    ex
+                );
+            }
         }
 
         //public async Task<Skill> UpdateSkillAsync(Skill skill)

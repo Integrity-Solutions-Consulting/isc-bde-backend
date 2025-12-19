@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Skills;
 using isc.bempleo.be.application.Interfaces.Service.Skills;
 using isc.bempleo.be.domain.Entity.Skills;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Skills;
 using isc.bempleo.be.domain.Models.Response.Skills;
 using System;
@@ -23,8 +24,14 @@ namespace isc.bempleo.be.application.Services.Skills
 
         public async Task<List<SkillResponse>> GetAllSkillsAsync(bool isActive, string? search)
         {
-            var entities = await _skillRepository.GetAllSkillsAsync(isActive, search);
-            return _mapper.Map<List<SkillResponse>>(entities);
+            var skills = await _skillRepository.GetAllSkillsAsync(isActive, search);
+            if (skills == null)
+                throw new ServerFaultException(
+                    "Error al obtener las skills (resultado null)."
+                );
+            if (!skills.Any())
+                return new List<SkillResponse>();
+            return _mapper.Map<List<SkillResponse>>(skills);
         }
 
         //public async Task<SkillResponse> GetSkillByIdAsync(int skillId)
@@ -40,8 +47,16 @@ namespace isc.bempleo.be.application.Services.Skills
 
         public async Task<SkillResponse> CreateSkillAsync(SkillRequest request)
         {
+            if (request == null)
+                throw new ClientFaultException("La información de la skill es inválida.");
+
             var entity = _mapper.Map<Skill>(request);
+
             var created = await _skillRepository.CreateSkillAsync(entity);
+
+            if (created == null)
+                throw new ServerFaultException("Error al crear la skill.");
+
             return _mapper.Map<SkillResponse>(created);
         }
 
