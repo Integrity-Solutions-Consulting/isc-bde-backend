@@ -28,12 +28,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Skills
             return Ok(result);
         }
 
-        [HttpGet("get-by-id-{id}")]
-        public async Task<ActionResult<SkillResponse>> GetById(int id)
-        {
-            var result = await _service.GetSkillByIdAsync(id);
-            return Ok(result);
-        }
+        //[HttpGet("get-by-id-{id}")]
+        //public async Task<ActionResult<SkillResponse>> GetById(int id)
+        //{
+        //    var result = await _service.GetSkillByIdAsync(id);
+        //    return Ok(result);
+        //}
 
         [HttpPost("create-skill")]
         public async Task<ActionResult<SkillResponse>> Create(SkillRequest request)
@@ -42,19 +42,19 @@ namespace isc.bempleo.be.api.Controllers.v1.Skills
             return Ok(result);
         }
 
-        [HttpPut("update-skill-{id}")]
-        public async Task<ActionResult<SkillResponse>> Update(int id, SkillRequest request)
-        {
-            var result = await _service.UpdateSkillAsync(id, request);
-            return Ok(result);
-        }
+        //[HttpPut("update-skill-{id}")]
+        //public async Task<ActionResult<SkillResponse>> Update(int id, SkillRequest request)
+        //{
+        //    var result = await _service.UpdateSkillAsync(id, request);
+        //    return Ok(result);
+        //}
 
-        [HttpPatch("active-inactive-skill-{id}")]
-        public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
-        {
-            var rows = await _service.ActiveInactiveSkillAsync(id, status);
-            if (rows == 0) return NotFound($"No existe la skill con ID {id}");
-            return NoContent();
-        }
+        //[HttpPatch("active-inactive-skill-{id}")]
+        //public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
+        //{
+        //    var rows = await _service.ActiveInactiveSkillAsync(id, status);
+        //    if (rows == 0) return NotFound($"No existe la skill con ID {id}");
+        //    return NoContent();
+        //}
     }
 }

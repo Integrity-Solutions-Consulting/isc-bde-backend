@@ -3,6 +3,7 @@ using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Knowledges;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
 using isc.bempleo.be.domain.Models.Response.Knowledges;
 using isc.bempleo.be.domain.Models.Response.ProfileAccessCode;
@@ -29,23 +30,29 @@ namespace isc.bempleo.be.application.Services.ProfileAccessCodes
             _mapper = mapper;
         }
 
-        public async Task<ProfileAccessCodeResponse> CreateProfileAccessCodeAsync(ProfileAccessCodeRequest request)
-        {
-            // 1. Generar código único de 6 dígitos
-            var code = await GenerateUniqueCodeAsync();
+        public async Task<ProfileAccessCodeResponse> CreateProfileAccessCodeAsync(
+            ProfileAccessCodeRequest request)
+            {
+                if (request == null)
+                    throw new ClientFaultException("La solicitud es inválida.");
 
-            // 2. Asignarlo al request (si el DTO lo tiene)
-            request.Code = code;
+                var code = await GenerateUniqueCodeAsync();
 
-            // 3. Mapear y guardar
-            var entity = _mapper.Map<ProfileAccessCode>(request);
-            entity.Code = code; // por si acaso, lo seteamos directo también
+                request.Code = code;
 
-            var created = await _repo.CreateProfileAccessCodeAsync(entity);
-            return _mapper.Map<ProfileAccessCodeResponse>(created);
-        }
+                var entity = _mapper.Map<ProfileAccessCode>(request);
+                entity.Code = code;
 
-        private async Task<string> GenerateUniqueCodeAsync()
+                var created = await _repo.CreateProfileAccessCodeAsync(entity);
+
+                if (created == null)
+                    throw new ServerFaultException("Error al crear el código de acceso.");
+
+                return _mapper.Map<ProfileAccessCodeResponse>(created);
+            }
+
+
+    private async Task<string> GenerateUniqueCodeAsync()
         {
             const int maxAttempts = 10;
 
@@ -60,7 +67,8 @@ namespace isc.bempleo.be.application.Services.ProfileAccessCodes
                     return code;
             }
 
-            throw new InvalidOperationException("No se pudo generar un código único después de varios intentos.");
+            throw new ServerFaultException(
+                "No se pudo generar un código único después de varios intentos.");
         }
 
 

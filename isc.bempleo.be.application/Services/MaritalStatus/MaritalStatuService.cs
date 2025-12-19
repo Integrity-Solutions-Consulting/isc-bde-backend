@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.application.Interfaces.Repository.MaritalStatus;
 using isc.bempleo.be.application.Interfaces.Service.MaritalStatus;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Response.MaritalStatus;
 using System;
 using System.Collections.Generic;
@@ -24,18 +25,18 @@ namespace isc.bempleo.be.application.Services.MaritalStatus
 
         public async Task<List<MaritalStatuResponse>> GetAllMaritalStatusAsync(bool isActive)
         {
-            var allStatuses = await _repo.GetAllMaritalStatusAsync(isActive);
+            var statuses = await _repo.GetAllMaritalStatusAsync(isActive);
 
-            if (allStatuses == null || !allStatuses.Any())
-            {
+            if (statuses == null)
+                throw new ServerFaultException(
+                    "Error al obtener los estados civiles (resultado null)."
+                );
+
+            if (!statuses.Any())
                 return new List<MaritalStatuResponse>();
-            }
 
-            var mapping = _mapper.Map<List<MaritalStatuResponse>>(allStatuses);
-            return mapping;
+            return _mapper.Map<List<MaritalStatuResponse>>(statuses);
         }
-
-
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.domain.Entity.Genders;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,9 +21,21 @@ namespace isc.bempleo.be.infrastructure.Repositories.Genders
 
         public async Task<List<Gender>> GetAllGendersAsync(bool isActive)
         {
-            return await _dbContext.Genders
-                .Where(g => g.Status == isActive)
-                .ToListAsync();
+            try
+            {
+                return await _dbContext.Genders
+                    .Where(g => g.Status == isActive)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Genders.",
+                    500,
+                    ex
+                );
+            }
         }
+
     }
 }

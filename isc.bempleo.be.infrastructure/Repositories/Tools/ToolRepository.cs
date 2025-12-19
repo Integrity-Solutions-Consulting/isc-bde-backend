@@ -38,11 +38,11 @@ namespace isc.bempleo.be.infrastructure.Repositories.Tools
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Tool> GetToolByIdAsync(int toolId)
-        {
-            return await _dbContext.Tools
-                .FirstOrDefaultAsync(t => t.Id == toolId);
-        }
+        //public async Task<Tool> GetToolByIdAsync(int toolId)
+        //{
+        //    return await _dbContext.Tools
+        //        .FirstOrDefaultAsync(t => t.Id == toolId);
+        //}
 
         public async Task<Tool> CreateToolAsync(Tool tool)
         {
@@ -51,18 +51,18 @@ namespace isc.bempleo.be.infrastructure.Repositories.Tools
             return tool;
         }
 
-        public async Task<Tool> UpdateToolAsync(Tool tool)
-        {
-            _dbContext.Entry(tool).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-            return tool;
-        }
+        //public async Task<Tool> UpdateToolAsync(Tool tool)
+        //{
+        //    _dbContext.Entry(tool).State = EntityState.Modified;
+        //    await _dbContext.SaveChangesAsync();
+        //    return tool;
+        //}
 
-        public async Task<int> ActiveInactiveToolAsync(int toolId, bool status)
-        {
-            return await _dbContext.Tools
-                .Where(t => t.Id == toolId)
-                .ExecuteUpdateAsync(update => update.SetProperty(t => t.Status, status));
-        }
+        //public async Task<int> ActiveInactiveToolAsync(int toolId, bool status)
+        //{
+        //    return await _dbContext.Tools
+        //        .Where(t => t.Id == toolId)
+        //        .ExecuteUpdateAsync(update => update.SetProperty(t => t.Status, status));
+        //}
     }
 }

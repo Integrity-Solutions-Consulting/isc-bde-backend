@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Genders;
 using isc.bempleo.be.application.Services.Genders;
+using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Response.Genders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Genders
         }
 
         [HttpGet("get-all-genders")]
-        public async Task<ActionResult<List<GenderResponse>>> GetAllAsync(bool isActive)
+        public async Task<ActionResult<SuccessResponse<List<GenderResponse>>>> GetAllAsync(bool isActive)
         {
             var result = await _service.GetAllGenderAsync(isActive);
             return Ok(result);

@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Experiences;
+using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Experiences;
 using isc.bempleo.be.domain.Models.Response.Experiences;
 using Microsoft.AspNetCore.Mvc;
@@ -19,43 +20,43 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
         }
 
         [HttpGet("get-all-experiences")]
-        public async Task<ActionResult<List<ExperienceResponse>>> GetAllAsync(
+        public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
+            [FromQuery] int profileId,
             [FromQuery] bool isActive = true,
-            [FromQuery] int? profileId = null,
             [FromQuery] string? search = null)
         {
-            var result = await _service.GetAllExperiencesAsync(isActive, profileId, search);
+            var result = await _service.GetAllExperiencesAsync(profileId, isActive, search);
             return Ok(result);
         }
 
-        [HttpGet("get-by-id-{id}")]
-        public async Task<ActionResult<ExperienceResponse>> GetById(int id)
-        {
-            var result = await _service.GetExperienceById(id);
-            return Ok(result);
-        }
+        //[HttpGet("get-by-id-{id}")]
+        //public async Task<ActionResult<ExperienceResponse>> GetById(int id)
+        //{
+        //    var result = await _service.GetExperienceById(id);
+        //    return Ok(result);
+        //}
 
         [HttpPost("create-experience")]
-        public async Task<ActionResult<ExperienceResponse>> Create([FromBody] ExperienceRequest request)
+        public async Task<ActionResult<SuccessResponse<ExperienceResponse>>> Create([FromBody] ExperienceRequest request)
         {
             var result = await _service.CreateExperienceAsync(request);
             return Ok(result);
         }
 
-        [HttpPut("update-experience-{id}")]
-        public async Task<ActionResult<ExperienceResponse>> Update(int id, [FromBody] ExperienceUpdateRequest request)
-        {
-            var result = await _service.UpdateExperienceAsync(id, request);
-            return Ok(result);
-        }
+        //[HttpPut("update-experience-{id}")]
+        //public async Task<ActionResult<ExperienceResponse>> Update(int id, [FromBody] ExperienceUpdateRequest request)
+        //{
+        //    var result = await _service.UpdateExperienceAsync(id, request);
+        //    return Ok(result);
+        //}
 
-        [HttpPatch("active-inactive-experience-{id}")]
-        public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
-        {
-            var rows = await _service.ActiveInactiveExperienceAsync(id, status);
-            if (rows == 0) return NotFound($"No existe la experiencia con ID {id}");
-            return NoContent();
-        }
+        //[HttpPatch("active-inactive-experience-{id}")]
+        //public async Task<IActionResult> ActiveInactive(int id, [FromQuery] bool status)
+        //{
+        //    var rows = await _service.ActiveInactiveExperienceAsync(id, status);
+        //    if (rows == 0) return NotFound($"No existe la experiencia con ID {id}");
+        //    return NoContent();
+        //}
 
 
     }

@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.ApplicationStatus;
 using isc.bempleo.be.domain.Entity.ApplicationStatus;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,11 +22,23 @@ namespace isc.bempleo.be.infrastructure.Repositories.ApplicationStatus
 
         public async Task<List<ApplicationStatu>> GetAllApplicationStatusAsync(bool isActive)
         {
-            var statuses = await _context.ApplicationStatus
-                .Where(a => a.Status == isActive)
-                .ToListAsync();
+            try
+            {
+                var statuses = await _context.ApplicationStatus
+                    .Where(a => a.Status == isActive)
+                    .ToListAsync();
 
-            return statuses;
+                return statuses;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar ApplicationStatus.",
+                    500,
+                    ex
+                );
+            }
         }
+
     }
 }

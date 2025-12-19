@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Careers;
 using isc.bempleo.be.domain.Entity.Careers;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,15 +23,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.Careers
 
         public async Task<List<Career>> GetAllCareeraAsync(bool isActive)
         {
-            var careers = await _context.Careers
-                .Where(c => c.Status == isActive)
-                .ToListAsync();
-            return careers;
+            try
+            {
+                var careers = await _context.Careers.Where(c => c.Status == isActive).ToListAsync();
+                return careers;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Careers.",
+                    500,
+                    ex
+                );
+            }
         }
-
-
-
-
 
     }
 }

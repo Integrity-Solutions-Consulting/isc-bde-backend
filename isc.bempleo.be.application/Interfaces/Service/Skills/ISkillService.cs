@@ -11,9 +11,9 @@ namespace isc.bempleo.be.application.Interfaces.Service.Skills
     public interface ISkillService
     {
         Task<List<SkillResponse>> GetAllSkillsAsync(bool isActive, string? search = null);
-        Task<SkillResponse> GetSkillByIdAsync(int skillId);
+        //Task<SkillResponse> GetSkillByIdAsync(int skillId);
         Task<SkillResponse> CreateSkillAsync(SkillRequest request);
-        Task<SkillResponse> UpdateSkillAsync(int skillId, SkillRequest request);
-        Task<int> ActiveInactiveSkillAsync(int skillId, bool status);
+        //Task<SkillResponse> UpdateSkillAsync(int skillId, SkillRequest request);
+        //Task<int> ActiveInactiveSkillAsync(int skillId, bool status);
     }
 }

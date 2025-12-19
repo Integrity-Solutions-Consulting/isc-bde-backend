@@ -43,20 +43,20 @@ namespace isc.bempleo.be.api.Controllers.v1.S3Minio
             }
 
         // VERIFICAR EXISTENCIA
-        [HttpGet("exists/{fileName}")]
-        public async Task<IActionResult> Exists(string fileName)
-        {
-            bool exists = await _service.ExistsAsync("cvs", fileName);
-            return Ok(exists);
-        }
+        //[HttpGet("exists/{fileName}")]
+        //public async Task<IActionResult> Exists(string fileName)
+        //{
+        //    bool exists = await _service.ExistsAsync("cvs", fileName);
+        //    return Ok(exists);
+        //}
 
         // URL FIRMADA
-        [HttpGet("url/{fileName}")]
-        public async Task<IActionResult> GetUrl(string fileName)
-        {
-            var url = await _service.GeneratePresignedUrlAsync("cvs", fileName, 3600);
-            return Ok(url);
-        }
+        //[HttpGet("url/{fileName}")]
+        //public async Task<IActionResult> GetUrl(string fileName)
+        //{
+        //    var url = await _service.GeneratePresignedUrlAsync("cvs", fileName, 3600);
+        //    return Ok(url);
+        //}
 
     }
 }

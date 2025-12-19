@@ -10,9 +10,9 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Tools
     public interface IToolRepository
     {
         Task<List<Tool>> GetAllToolsAsync(bool isActive, string? search = null);
-        Task<Tool> GetToolByIdAsync(int toolId);
+        //Task<Tool> GetToolByIdAsync(int toolId);
         Task<Tool> CreateToolAsync(Tool tool);
-        Task<Tool> UpdateToolAsync(Tool tool);
-        Task<int> ActiveInactiveToolAsync(int toolId, bool status);
+        //Task<Tool> UpdateToolAsync(Tool tool);
+        //Task<int> ActiveInactiveToolAsync(int toolId, bool status);
     }
 }

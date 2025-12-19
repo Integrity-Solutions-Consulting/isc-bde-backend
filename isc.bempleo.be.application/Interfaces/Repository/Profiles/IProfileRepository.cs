@@ -11,11 +11,11 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Profiles
 {
     public interface IProfileRepository
     {
-        Task<List<Profile>> GetAllProfilesAsync(bool isActive);
+        //Task<List<Profile>> GetAllProfilesAsync(bool isActive);
         Task<Profile> GetProfileByIdAsync(int profileId);
         Task<Profile> CreateProfileAsync(Profile profile);
         Task<Profile> UpdateProfileAsync(Profile profile);
-        Task<int> ActiveInactiveProfileAsync(int profileId, bool status);
+        //Task<int> ActiveInactiveProfileAsync(int profileId, bool status);
         Task<Profile> GetProfileByEmailOrIdentificationAsync(string email, string identificationNumber);
         Task<Profile> GetProfileByCedulaEmailAsync(string cedula, string email);
 

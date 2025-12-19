@@ -68,14 +68,14 @@ namespace isc.bempleo.be.application.Services.S3Minio
             return await _repository.DownloadAsync(bucket, objectName);
         }
 
-        public async Task<bool> ExistsAsync(string bucket, string objectName)
-        {
-            return await _repository.ExistsAsync(bucket, objectName);
-        }
+        //public async Task<bool> ExistsAsync(string bucket, string objectName)
+        //{
+        //    return await _repository.ExistsAsync(bucket, objectName);
+        //}
 
-        public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expiresInSeconds)
-        {
-            return await _repository.GeneratePresignedUrlAsync(bucket, objectName, expiresInSeconds);
-        }
+        //public async Task<string> GeneratePresignedUrlAsync(string bucket, string objectName, int expiresInSeconds)
+        //{
+        //    return await _repository.GeneratePresignedUrlAsync(bucket, objectName, expiresInSeconds);
+        //}
     }
 }

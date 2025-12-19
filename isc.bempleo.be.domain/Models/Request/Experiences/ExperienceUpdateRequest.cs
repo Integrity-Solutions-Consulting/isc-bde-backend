@@ -8,8 +8,8 @@ namespace isc.bempleo.be.domain.Models.Request.Experiences
 {
     public class ExperienceUpdateRequest
     {
-        public string CompanyName { get; set; } = null!;
-        public string PositionHeld { get; set; } = null!;
+        public string CompanyName { get; set; }
+        public string PositionHeld { get; set; } 
         public int? ExperienceTime { get; set; }
 
     }
