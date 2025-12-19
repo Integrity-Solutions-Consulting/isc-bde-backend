@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.domain.Entity.Experiences;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Experiences;
 using isc.bempleo.be.domain.Models.Response.Experiences;
 using System;
@@ -26,6 +27,13 @@ namespace isc.bempleo.be.application.Services.Experiences
         public async Task<List<ExperienceResponse>> GetAllExperiencesAsync(bool isActive, int? profileId, string? search)
         {
             var experiences = await _experienceRepository.GetAllExperiencesAsync(isActive, profileId, search);
+
+            if (experiences == null)
+                throw new ServerFaultException("Error al obtener las experiencias (resultado null).");
+
+            if (!experiences.Any())
+                return new List<ExperienceResponse>();
+
             return _mapper.Map<List<ExperienceResponse>>(experiences);
         }
 
@@ -41,7 +49,12 @@ namespace isc.bempleo.be.application.Services.Experiences
         public async Task<ExperienceResponse> CreateExperienceAsync(ExperienceRequest request)
         {
             var entity = _mapper.Map<Experience>(request);
+
             var created = await _experienceRepository.CreateExperienceAsync(entity);
+
+            if (created == null)
+                throw new ServerFaultException("Error al crear la experiencia (resultado null).");
+
             return _mapper.Map<ExperienceResponse>(created);
         }
 

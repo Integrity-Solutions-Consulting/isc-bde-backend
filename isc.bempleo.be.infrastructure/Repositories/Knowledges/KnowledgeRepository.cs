@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.domain.Entity.Knowledges;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -18,23 +19,35 @@ namespace isc.bempleo.be.infrastructure.Repositories.Knowledges
 
         public async Task<List<Knowledge>> GetAllKnowledgesAsync(bool isActive, string? search = null)
         {
-            var query = _dbContext.Knowledges
-                .AsQueryable()
-                .Where(k => k.Status == isActive);
-
-            if (!string.IsNullOrWhiteSpace(search))
+            try
             {
-                string normalizedSearch = search.Trim().ToLowerInvariant();
+                var query = _dbContext.Knowledges
+                    .AsQueryable()
+                    .Where(k => k.Status == isActive);
 
-                query = query.Where(k =>
-                    (k.KnowledgeName != null && k.KnowledgeName.ToLower().Contains(normalizedSearch))
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    var normalizedSearch = search.Trim().ToLowerInvariant();
+
+                    query = query.Where(k =>
+                        k.KnowledgeName != null &&
+                        k.KnowledgeName.ToLower().Contains(normalizedSearch)
+                    );
+                }
+
+                return await query
+                    .OrderBy(k => k.KnowledgeName)
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Knowledges.",
+                    500,
+                    ex
                 );
             }
-
-            query = query
-                .OrderBy(k => k.KnowledgeName);
-
-            return await query.AsNoTracking().ToListAsync();
         }
 
 

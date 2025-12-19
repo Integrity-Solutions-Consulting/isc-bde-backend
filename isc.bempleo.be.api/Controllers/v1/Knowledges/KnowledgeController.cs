@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Knowledges;
+using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Knowledges;
 using isc.bempleo.be.domain.Models.Response.Knowledges;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,14 @@ namespace isc.bempleo.be.api.Controllers.v1.Knowledges
         }
 
         [HttpGet("get-all-knowledges")]
-        public async Task<ActionResult<List<KnowledgeResponse>>> GetAllAsync(
-            [FromQuery] bool isActive = true,
-            [FromQuery] string? search = null)
+        public async Task<ActionResult<SuccessResponse<List<KnowledgeResponse>>>> GetAllAsync(
+        [FromQuery] bool isActive = true,
+        [FromQuery] string? search = null)
         {
             var result = await _service.GetAllKnowledgesAsync(isActive, search);
             return Ok(result);
         }
+
 
         //[HttpGet("get-by-id-{id}")]
         //public async Task<ActionResult<KnowledgeResponse>> GetById(int id)

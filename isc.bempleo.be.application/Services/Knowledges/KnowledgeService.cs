@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.application.Interfaces.Service.Knowledges;
 using isc.bempleo.be.domain.Entity.Knowledges;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Knowledges;
 using isc.bempleo.be.domain.Models.Response.Knowledges;
 using System.Collections.Generic;
@@ -23,8 +24,17 @@ namespace isc.bempleo.be.application.Services.Knowledges
 
         public async Task<List<KnowledgeResponse>> GetAllKnowledgesAsync(bool isActive, string? search = null)
         {
-            var all = await _repo.GetAllKnowledgesAsync(isActive, search);
-            return _mapper.Map<List<KnowledgeResponse>>(all);
+            var knowledges = await _repo.GetAllKnowledgesAsync(isActive, search);
+
+            if (knowledges == null)
+                throw new ServerFaultException(
+                    "Error al obtener los conocimientos (resultado null)."
+                );
+
+            if (!knowledges.Any())
+                return new List<KnowledgeResponse>();
+
+            return _mapper.Map<List<KnowledgeResponse>>(knowledges);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Experiences;
 using isc.bempleo.be.domain.Entity.Experiences;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,29 +23,39 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
 
         public async Task<List<Experience>> GetAllExperiencesAsync(bool isActive, int? profileId = null, string? search = null)
         {
-            var query = _dbContext.Experiences
-                .AsQueryable()
-                .Where(e => e.Status == isActive);
-
-            if (profileId.HasValue)
+            try
             {
-                query = query.Where(e => e.ProfileId == profileId.Value);
+                var query = _dbContext.Experiences
+                    .AsQueryable()
+                    .Where(e => e.Status == isActive);
+
+                if (profileId.HasValue)
+                {
+                    query = query.Where(e => e.ProfileId == profileId.Value);
+                }
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    var normalizedSearch = search.Trim().ToLowerInvariant();
+
+                    query = query.Where(e =>
+                           (e.CompanyName != null && e.CompanyName.ToLower().Contains(normalizedSearch))
+                        || (e.PositionHeld != null && e.PositionHeld.ToLower().Contains(normalizedSearch))
+                    );
+                }
+
+                query = query.OrderByDescending(e => e.CreationDate);
+
+                return await query.AsNoTracking().ToListAsync();
             }
-
-            if (!string.IsNullOrWhiteSpace(search))
+            catch (Exception ex)
             {
-                var normalizedSearch = search.Trim().ToLowerInvariant();
-
-                query = query.Where(e =>
-                       (e.CompanyName != null && e.CompanyName.ToLower().Contains(normalizedSearch))
-                    || (e.PositionHeld != null && e.PositionHeld.ToLower().Contains(normalizedSearch))
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Experiences.",
+                    500,
+                    ex
                 );
             }
-
-            query = query
-                .OrderByDescending(e => e.CreationDate);
-
-            return await query.AsNoTracking().ToListAsync();
         }
 
         //public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
@@ -55,9 +66,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
 
         public async Task<Experience> CreateExperienceAsync(Experience experience)
         {
-            await _dbContext.Experiences.AddAsync(experience);
-            await _dbContext.SaveChangesAsync();
-            return experience;
+            try
+            {
+                await _dbContext.Experiences.AddAsync(experience);
+                await _dbContext.SaveChangesAsync();
+                return experience;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al crear Experience.",
+                    500,
+                    ex
+                );
+            }
         }
 
         //public async Task<Experience> UpdateExperienceAsync(Experience experience)

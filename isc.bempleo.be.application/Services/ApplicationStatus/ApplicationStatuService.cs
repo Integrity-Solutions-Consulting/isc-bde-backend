@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.ApplicationStatus;
 using isc.bempleo.be.application.Interfaces.Service.ApplicationStatus;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Response.ApplicationStatus;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,13 @@ namespace isc.bempleo.be.application.Services.ApplicationStatus
         {
             var statuses = await _repository.GetAllApplicationStatusAsync(isActive);
 
-            if (statuses == null || !statuses.Any())
-            {
-                return new List<ApplicationStatuResponse>();
-            }
+            if (statuses == null)
+                throw new ServerFaultException("Error al obtener los estados de aplicación (resultado null).");
 
-            var mapping = _mapper.Map<List<ApplicationStatuResponse>>(statuses);
-            return mapping;
+            if (!statuses.Any())
+                return new List<ApplicationStatuResponse>();
+
+            return _mapper.Map<List<ApplicationStatuResponse>>(statuses);
         }
 
 

@@ -24,6 +24,13 @@ namespace isc.bempleo.be.application.Services.Certifications
         public async Task<List<CertificationResponse>> GetAllCertificationsAsync(bool isActive, string? search)
         {
             var entities = await _certificationRepository.GetAllCertificationsAsync(isActive, search);
+
+            if (entities == null)
+                throw new ServerFaultException("Error al obtener las certificaciones (resultado null).");
+
+            if (!entities.Any())
+                return new List<CertificationResponse>();
+
             return _mapper.Map<List<CertificationResponse>>(entities);
         }
 
@@ -39,7 +46,12 @@ namespace isc.bempleo.be.application.Services.Certifications
         public async Task<CertificationResponse> CreateCertificationAsync(CertificationRequest request)
         {
             var entity = _mapper.Map<Certification>(request);
+
             var created = await _certificationRepository.CreateCertificationAsync(entity);
+
+            if (created == null)
+                throw new ServerFaultException("Error al crear la certificación (resultado null).");
+
             return _mapper.Map<CertificationResponse>(created);
         }
 

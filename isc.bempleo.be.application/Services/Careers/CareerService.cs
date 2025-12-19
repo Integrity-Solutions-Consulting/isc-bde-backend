@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.Careers;
 using isc.bempleo.be.application.Interfaces.Service.Careers;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Response.Careers;
 using isc.bempleo.be.domain.Models.Response.Genders;
 using System;
@@ -27,15 +28,13 @@ namespace isc.bempleo.be.application.Services.Careers
         {
             var careers = await _repository.GetAllCareeraAsync(isActive);
 
-            if(careers == null || !careers.Any())
-            {
+            if (careers == null)
+                throw new ServerFaultException("Error al obtener las carreras (resultado null).");
+
+            if (!careers.Any())
                 return new List<CareerResponse>();
 
-            }
-
-            var mapping = _mapper.Map<List<CareerResponse>>(careers);
-            return mapping; 
-
+            return _mapper.Map<List<CareerResponse>>(careers);
         }
 
 

@@ -17,12 +17,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Document
             _service = service;
         }
 
-        [HttpGet("by-identification")]
-        public async Task<ActionResult> GetByIdentification([FromQuery] string identification)
-        {
-            var result = await _service.GetDocumentByIdentificationAsync(identification);
-            return Ok(result);
-        }
+        //[HttpGet("by-identification")]
+        //public async Task<ActionResult> GetByIdentification([FromQuery] string identification)
+        //{
+        //    var result = await _service.GetDocumentByIdentificationAsync(identification);
+        //    return Ok(result);
+        //}
 
     }
 }

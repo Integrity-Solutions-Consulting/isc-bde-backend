@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.MaritalStatus;
 using isc.bempleo.be.domain.Entity.MaritalStatus;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,9 +21,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.MaritalStatus
 
         public async Task<List<MaritalStatu>> GetAllMaritalStatusAsync(bool isActive)
         {
-            return await _dbContext.MaritalStatus
-                .Where(m => m.Status == isActive)
-                .ToListAsync();
+            try
+            {
+                return await _dbContext.MaritalStatus
+                    .Where(m => m.Status == isActive)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar MaritalStatus.",
+                    500,
+                    ex
+                );
+            }
         }
 
     }

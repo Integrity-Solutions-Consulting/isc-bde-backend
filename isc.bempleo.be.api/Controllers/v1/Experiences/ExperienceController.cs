@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Experiences;
+using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Experiences;
 using isc.bempleo.be.domain.Models.Response.Experiences;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
         }
 
         [HttpGet("get-all-experiences")]
-        public async Task<ActionResult<List<ExperienceResponse>>> GetAllAsync(
+        public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
             [FromQuery] bool isActive = true,
             [FromQuery] int? profileId = null,
             [FromQuery] string? search = null)
@@ -36,7 +37,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
         //}
 
         [HttpPost("create-experience")]
-        public async Task<ActionResult<ExperienceResponse>> Create([FromBody] ExperienceRequest request)
+        public async Task<ActionResult<SuccessResponse<ExperienceResponse>>> Create([FromBody] ExperienceRequest request)
         {
             var result = await _service.CreateExperienceAsync(request);
             return Ok(result);

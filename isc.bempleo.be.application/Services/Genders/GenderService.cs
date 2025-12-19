@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.application.Interfaces.Repository.Knowledges;
 using isc.bempleo.be.application.Interfaces.Service.Genders;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Response.Genders;
 using System;
 using System.Collections.Generic;
@@ -26,13 +27,13 @@ namespace isc.bempleo.be.application.Services.Genders
         {
             var allGenders = await _repo.GetAllGendersAsync(isActive);
 
-            if (allGenders == null || !allGenders.Any())
-            {
-                return new List<GenderResponse>();
-            }
+            if (allGenders == null)
+                throw new ServerFaultException("Error al obtener los géneros (resultado null).");
 
-            var mapping = _mapper.Map<List<GenderResponse>>(allGenders);
-            return mapping;
+            if (!allGenders.Any())
+                return new List<GenderResponse>();
+
+            return _mapper.Map<List<GenderResponse>>(allGenders);
         }
 
 
