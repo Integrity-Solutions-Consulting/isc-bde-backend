@@ -10,12 +10,12 @@ namespace isc.bempleo.be.domain.Entity.Experiences
 {
     public class Experience : BaseEntity
     {
-        public string CompanyName { get; set; } = null!;
-        public string PositionHeld { get; set; } = null!;
+        public string CompanyName { get; set; } 
+        public string PositionHeld { get; set; }
         public int? ExperienceTime { get; set; }
 
         public int ProfileId { get; set; }
-        public Profile Profile { get; set; } = null!;
+        public Profile Profile { get; set; }
 
     }
 }

@@ -24,9 +24,9 @@ namespace isc.bempleo.be.application.Services.Experiences
             _mapper = mapper;
         }
 
-        public async Task<List<ExperienceResponse>> GetAllExperiencesAsync(bool isActive, int? profileId, string? search)
+        public async Task<List<ExperienceResponse>> GetAllExperiencesAsync(int profileId,bool isActive, string? search)
         {
-            var experiences = await _experienceRepository.GetAllExperiencesAsync(isActive, profileId, search);
+            var experiences = await _experienceRepository.GetAllExperiencesAsync(profileId, isActive, search);
 
             if (experiences == null)
                 throw new ServerFaultException("Error al obtener las experiencias (resultado null).");

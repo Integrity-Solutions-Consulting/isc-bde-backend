@@ -21,11 +21,11 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
 
         [HttpGet("get-all-experiences")]
         public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
+            [FromQuery] int profileId,
             [FromQuery] bool isActive = true,
-            [FromQuery] int? profileId = null,
             [FromQuery] string? search = null)
         {
-            var result = await _service.GetAllExperiencesAsync(isActive, profileId, search);
+            var result = await _service.GetAllExperiencesAsync(profileId, isActive, search);
             return Ok(result);
         }
 

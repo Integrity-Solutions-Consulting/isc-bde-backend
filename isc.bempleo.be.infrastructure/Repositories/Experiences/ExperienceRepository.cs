@@ -21,18 +21,14 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
             _dbContext = context;
         }
 
-        public async Task<List<Experience>> GetAllExperiencesAsync(bool isActive, int? profileId = null, string? search = null)
+        public async Task<List<Experience>> GetAllExperiencesAsync(int profileId, bool isActive, string? search = null)
         {
             try
             {
                 var query = _dbContext.Experiences
                     .AsQueryable()
-                    .Where(e => e.Status == isActive);
+                    .Where(e => e.Status == isActive && e.ProfileId == profileId);
 
-                if (profileId.HasValue)
-                {
-                    query = query.Where(e => e.ProfileId == profileId.Value);
-                }
 
                 if (!string.IsNullOrWhiteSpace(search))
                 {
@@ -57,6 +53,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
                 );
             }
         }
+
 
         //public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
         //{

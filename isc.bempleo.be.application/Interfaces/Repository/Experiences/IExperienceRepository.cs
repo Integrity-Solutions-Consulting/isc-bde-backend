@@ -9,7 +9,7 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Experiences
 {
     public interface IExperienceRepository
     {
-        Task<List<Experience>> GetAllExperiencesAsync(bool isActive, int? profileId = null, string? search = null);
+        Task<List<Experience>> GetAllExperiencesAsync(int profileId, bool isActive, string? search = null);
         //Task<Experience?> GetExperienceByIdAsync(int experienceId);
         Task<Experience> CreateExperienceAsync(Experience experience);
         //Task<Experience> UpdateExperienceAsync(Experience experience);
