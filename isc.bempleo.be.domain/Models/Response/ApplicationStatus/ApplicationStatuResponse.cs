@@ -8,6 +8,6 @@ namespace isc.bempleo.be.domain.Models.Response.ApplicationStatus
 {
     public class ApplicationStatuResponse
     {
-        public string StatusName { get; set; } = null!;
+        public string StatusName { get; set; }
     }
 }

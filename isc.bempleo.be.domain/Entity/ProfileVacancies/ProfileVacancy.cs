@@ -16,8 +16,8 @@ namespace isc.bempleo.be.domain.Entity.ProfileVacancies
         public int VacancyId { get; set; }                
         public DateTime ApplicationDate { get; set; }      
         public int ApplicationStatusId { get; set; }       
-        public Profile Profile { get; set; } = null!;
-        public Vacancy Vacancy { get; set; } = null!;
-         public ApplicationStatu ApplicationStatus { get; set; } = null!;
+        public Profile Profile { get; set; }
+        public Vacancy Vacancy { get; set; }
+         public ApplicationStatu ApplicationStatus { get; set; }
     }
 }

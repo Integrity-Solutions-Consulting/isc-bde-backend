@@ -111,9 +111,12 @@ namespace isc.bempleo.be.application.Services.Profiles
         public async Task<ProfileResponse> CreateProfileAsync(FormationRequest request,int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+
             if (entity == null)
                 throw new ClientFaultException("No existe el perfil con ese ID.");
+
             var mapping = _mapper.Map(request, entity);
+            entity.CareerList = JsonSerializer.Serialize(request.CareerIds);
             var updateEntity = await _profileRepository.UpdateProfileAsync(entity);
             var response = _mapper.Map<ProfileResponse>(updateEntity);
             return response;

@@ -13,5 +13,7 @@ namespace isc.bempleo.be.domain.Models.Request.Profiles
         public string? AcademicInstitution { get; set; }
         public string? CountryOfStudy { get; set; }
         public string? EnglishLevel { get; set; }
+        public List<int> CareerIds { get; set; } = new();
+
     }
 }

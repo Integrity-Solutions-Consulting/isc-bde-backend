@@ -53,6 +53,7 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ToolList).HasColumnName("tool_list");
                 entity.Property(e => e.SkillList).HasColumnName("skill_list");
                 entity.Property(e => e.CertificationList).HasColumnName("certification_list");
+                entity.Property(e => e.CareerList).HasColumnName("career_list");
                 entity.Property(e => e.AcademicInstitution).HasColumnName("academic_institution");
                 entity.Property(e => e.CountryOfStudy).HasColumnName("country_of_study");
                 entity.Property(e => e.EnglishLevel).HasColumnName("english_level");
