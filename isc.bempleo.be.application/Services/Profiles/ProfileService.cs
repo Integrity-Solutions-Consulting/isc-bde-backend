@@ -52,7 +52,7 @@ namespace isc.bempleo.be.application.Services.Profiles
             var codeAccess = await _codeAccessRepository.ValidateCode(code);
             if (codeAccess == null)
             {
-                throw new ClientFaultException("El código de acceso proporcionado no es válido.");
+                throw new ClientFaultException("El código de acceso proporcionado no es válido o expiro.");
             }
 
             var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(email, cedula);

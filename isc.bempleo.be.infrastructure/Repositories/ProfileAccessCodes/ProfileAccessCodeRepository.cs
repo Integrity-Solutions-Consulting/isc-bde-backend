@@ -41,7 +41,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes
         public async Task<ProfileAccessCode> ValidateCode(string code)
         {
             var codeAccess = await _dbContext.ProfileAccessCodes
-                 .Where(c => c.Code == code)
+                 .Where(c => c.Code == code && c.Status == true)
                  .FirstOrDefaultAsync();
             return codeAccess;
         }
