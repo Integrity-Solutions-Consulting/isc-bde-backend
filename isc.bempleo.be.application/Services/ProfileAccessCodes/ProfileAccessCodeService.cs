@@ -22,12 +22,12 @@ namespace isc.bempleo.be.application.Services.ProfileAccessCodes
     {
 
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly TimeSpan _intervalo = TimeSpan.FromMinutes(1);
+        private readonly TimeSpan _intervalo = TimeSpan.FromMinutes(12);
         public ProfileAccessCodeService(
             IServiceScopeFactory scopeFactory)
         {
             _scopeFactory = scopeFactory;
-            _intervalo = TimeSpan.FromMinutes(1); ;
+            _intervalo = TimeSpan.FromMinutes(12); ;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -44,7 +44,7 @@ namespace isc.bempleo.be.application.Services.ProfileAccessCodes
                     {
                         var repo = scope.ServiceProvider.GetRequiredService<IProfileAccessCodeRepository>();
 
-                        await ActualizarEstados(repo);
+                        await ActualizarEstados(repo, stoppingToken);
                     }
                 }
                 catch (Exception ex)
@@ -54,9 +54,13 @@ namespace isc.bempleo.be.application.Services.ProfileAccessCodes
             }
         }
 
-        private async Task ActualizarEstados(IProfileAccessCodeRepository repo)
+        private async Task ActualizarEstados(
+            IProfileAccessCodeRepository repo,
+            CancellationToken cancellationToken)
         {
-            bool actualizarStatus = await repo.InactiveCode();
+            var expirationLimit = DateTime.UtcNow.Subtract(_intervalo);
+
+            await repo.InactiveCode(expirationLimit, cancellationToken);
         }
     }
 
