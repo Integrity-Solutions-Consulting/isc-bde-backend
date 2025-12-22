@@ -2,6 +2,7 @@
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +21,37 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes
             _dbContext = dbContext;
         }
 
-        public async Task<ProfileAccessCode> CreateProfileAccessCodeAsync(ProfileAccessCode entity)
+
+        public async Task<bool> InactiveCode()
         {
-            await _dbContext.ProfileAccessCodes.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
-            return entity;
+            var expirationTime = DateTime.UtcNow.AddMinutes(-1);
+
+            int rowsAffected = await _dbContext.ProfileAccessCodes
+                .Where(p => p.Status == true &&
+                            p.CreationDate <= expirationTime)
+                .ExecuteUpdateAsync(update =>
+                    update
+                        .SetProperty(p => p.Status, false)
+                        .SetProperty(p => p.ModificationDate, DateTime.UtcNow)
+                );
+
+            return rowsAffected > 0;
         }
 
-        public async Task<bool> CodeExistsAsync(string code)
-        {
-            return await _dbContext.ProfileAccessCodes
-                .AnyAsync(x => x.Code == code);
-        }
-        public async Task<ProfileAccessCode> ValidateCode(string code) 
+
+        public async Task<ProfileAccessCode> ValidateCode(string code)
         {
             var codeAccess = await _dbContext.ProfileAccessCodes
                  .Where(c => c.Code == code)
                  .FirstOrDefaultAsync();
             return codeAccess;
         }
-
-
+        public async Task<ProfileAccessCode> CreateProfileAccessCodeAsync(ProfileAccessCode entity)
+        {
+            await _dbContext.ProfileAccessCodes.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
 
 
     }

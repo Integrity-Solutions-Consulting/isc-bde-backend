@@ -1,5 +1,6 @@
 using isc.bempleo.be.api.Exceptions;
 using isc.bempleo.be.application.IOC;
+using isc.bempleo.be.application.Services.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHostedService<ProfileAccessCodeService>();
 
 builder.Services.AddDbConfiguration(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);

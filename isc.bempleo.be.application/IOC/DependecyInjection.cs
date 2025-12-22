@@ -12,7 +12,6 @@ using isc.bempleo.be.application.Interfaces.Service.Genders;
 using isc.bempleo.be.application.Interfaces.Service.Knowledges;
 using isc.bempleo.be.application.Interfaces.Service.MaritalStatus;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
-using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
@@ -54,7 +53,6 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IToolService, ToolService>();
             services.AddScoped<IKnowledgeService, KnowledgeService>();
-            services.AddScoped<IProfileAccessCodeService, ProfileAccessCodeService>();
             services.AddScoped<INotificacionesApiService, NotificacionesApiService>();
             services.AddScoped<ISkillService, SkillService>();
             services.AddScoped<ICertificationService, CertificationService>();
