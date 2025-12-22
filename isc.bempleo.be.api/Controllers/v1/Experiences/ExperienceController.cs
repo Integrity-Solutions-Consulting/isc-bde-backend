@@ -19,7 +19,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             _service = service;
         }
 
-        [HttpGet("get-all-experiences-by-ptofile")]
+        [HttpGet("get-all-experiences-by-profile")]
         public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
             [FromQuery] int profileId,
             [FromQuery] bool isActive = true,
