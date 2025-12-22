@@ -37,17 +37,6 @@ namespace isc.bempleo.be.application.Services.Experiences
             return _mapper.Map<List<ExperienceResponse>>(experiences);
         }
 
-        public async Task<List<ExperienceResponse>> GetExperiencesByProfileId(int profileId)
-        {
-            var experienceList = await _experienceRepository.GetExperiencesByProfileIdAsync(profileId);
-
-            if (experienceList == null || !experienceList.Any())
-            {
-                return new List<ExperienceResponse>();
-            }
-            return _mapper.Map<List<ExperienceResponse>>(experienceList);
-        }
-
         public async Task<ExperienceResponse> CreateExperienceAsync(ExperienceRequest request)
         {
             var entity = _mapper.Map<Experience>(request);
