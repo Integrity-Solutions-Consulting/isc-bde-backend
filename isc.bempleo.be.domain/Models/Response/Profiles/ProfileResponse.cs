@@ -30,6 +30,7 @@ namespace isc.bempleo.be.domain.Models.Response.Profiles
         public List<int> ToolIds { get; set; } = new();
         public List<int> SkillIds { get; set; } = new();
         public List<int> CertificationIds { get; set; } = new();
+        public List<int> CareerIds { get; set; } = new();
     }
 
 

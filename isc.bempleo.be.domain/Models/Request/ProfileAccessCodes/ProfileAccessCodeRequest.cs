@@ -8,7 +8,7 @@ namespace isc.bempleo.be.domain.Models.Request.ProfileAccessCodes
 {
     public class ProfileAccessCodeRequest
     {
-        public string Code { get; set; } = null!;
+        public string Code { get; set; }
 
     }
 }

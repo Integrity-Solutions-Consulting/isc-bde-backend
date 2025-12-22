@@ -1,6 +1,7 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Vacancies;
 using isc.bempleo.be.domain.Entity.Careers;
 using isc.bempleo.be.domain.Entity.Vacancies;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,12 +23,22 @@ namespace isc.bempleo.be.infrastructure.Repositories.Vacancies
 
         public async Task<List<Vacancy>> GetAllVacanciesAsync(bool isActive)
         {
-            var vacancies = await _context.Vacancies
-                .Where(v => v.Status == isActive)
-                .ToListAsync();
-
-            return vacancies;
-        }
+            try
+            {
+                return await _context.Vacancies
+                    .Where(v => v.Status == isActive)
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Vacancies.",
+                    500,
+                    ex
+                );
+            }
+        } 
 
 
 

@@ -19,7 +19,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             _service = service;
         }
 
-        [HttpGet("get-all-experiences")]
+        [HttpGet("get-all-experiences-by-profile")]
         public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
             [FromQuery] int profileId,
             [FromQuery] bool isActive = true,
@@ -28,13 +28,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             var result = await _service.GetAllExperiencesAsync(profileId, isActive, search);
             return Ok(result);
         }
-
-        //[HttpGet("get-by-id-{id}")]
-        //public async Task<ActionResult<ExperienceResponse>> GetById(int id)
-        //{
-        //    var result = await _service.GetExperienceById(id);
-        //    return Ok(result);
-        //}
 
         [HttpPost("create-experience")]
         public async Task<ActionResult<SuccessResponse<ExperienceResponse>>> Create([FromBody] ExperienceRequest request)

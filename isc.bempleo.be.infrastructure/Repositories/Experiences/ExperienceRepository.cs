@@ -54,13 +54,6 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
             }
         }
 
-
-        //public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
-        //{
-        //    return await _dbContext.Experiences
-        //        .FirstOrDefaultAsync(e => e.Id == experienceId);
-        //}
-
         public async Task<Experience> CreateExperienceAsync(Experience experience)
         {
             try

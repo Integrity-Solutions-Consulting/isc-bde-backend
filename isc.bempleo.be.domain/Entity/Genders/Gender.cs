@@ -9,7 +9,7 @@ namespace isc.bempleo.be.domain.Entity.Genders
 {
     public class Gender : BaseEntity
     {
-        public string GenderCode { get; set; } = null!;
-        public string GenderName { get; set; } = null!;
+        public string GenderCode { get; set; }
+        public string GenderName { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Profiles
 {
     public interface IProfileRepository
     {
-        //Task<List<Profile>> GetAllProfilesAsync(bool isActive);
+        Task<List<Profile>> GetAllProfilesAsync(bool isActive);
         Task<Profile> GetProfileByIdAsync(int profileId);
         Task<Profile> CreateProfileAsync(Profile profile);
         Task<Profile> UpdateProfileAsync(Profile profile);

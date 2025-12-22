@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.ProfileVacancies;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,20 +22,41 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileVacancies
 
         public async Task<List<ProfileVacancy>> GetAllAsync(bool isActive)
         {
-            var result = await _context.ProfileVacancies
-                .Where(pv => pv.Status == isActive)
-                .ToListAsync();
+            try
+            {
+                var result = await _context.ProfileVacancies
+                    .Where(pv => pv.Status == isActive)
+                    .ToListAsync();
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar ProfileVacancies.",
+                    500,
+                    ex
+                );
+            }
         }
 
         public async Task<ProfileVacancy> CreateAsync(ProfileVacancy entity)
         {
-            await _context.ProfileVacancies.AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                await _context.ProfileVacancies.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al crear ProfileVacancy.",
+                    500,
+                    ex
+                );
+            }
         }
-
 
     }
 }
