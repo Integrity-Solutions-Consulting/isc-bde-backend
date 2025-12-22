@@ -55,11 +55,12 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
         }
 
 
-        //public async Task<Experience?> GetExperienceByIdAsync(int experienceId)
-        //{
-        //    return await _dbContext.Experiences
-        //        .FirstOrDefaultAsync(e => e.Id == experienceId);
-        //}
+        public async Task<List<Experience>> GetExperiencesByProfileIdAsync(int profileId)
+        {
+            return await _dbContext.Experiences
+                .Where(e => e.ProfileId == profileId) 
+                .ToListAsync();
+        }
 
         public async Task<Experience> CreateExperienceAsync(Experience experience)
         {

@@ -29,26 +29,26 @@ namespace isc.bempleo.be.application.Services.Profiles
             _serviceCode = code;
             _codeAccessRepository = codeAccessRepository;
         }
-        
-        //public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
-        //{
-        //    var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
 
-        //    if (allprofiles == null || !allprofiles.Any())
-        //    {
-        //        return new List<ProfileResponse>();
-        //    }
+        public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
+        {
+            var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
 
-        //    var result = new List<ProfileResponse>();
+            if (allprofiles == null || !allprofiles.Any())
+            {
+                throw new ClientFaultException("No existe ningún perfil con esos datos.");
+            }
 
-        //    foreach (var profile in allprofiles)
-        //    {
-        //        var response = MapProfileWithLists(profile);
-        //        result.Add(response);
-        //    }
+            var result = new List<ProfileResponse>();
 
-        //    return result;
-        //}
+            foreach (var profile in allprofiles)
+            {
+                var response = MapProfileWithLists(profile);
+                result.Add(response);
+            }
+
+            return result;
+        }
 
         public async Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code)
         {

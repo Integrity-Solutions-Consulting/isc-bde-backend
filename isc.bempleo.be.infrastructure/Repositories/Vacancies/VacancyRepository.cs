@@ -38,7 +38,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Vacancies
                     ex
                 );
             }
-        }
+        } 
 
 
 

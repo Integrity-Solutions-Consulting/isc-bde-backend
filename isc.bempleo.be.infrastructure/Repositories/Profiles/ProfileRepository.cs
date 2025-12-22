@@ -17,14 +17,14 @@ namespace isc.bempleo.be.infrastructure.Repositories.Profiles
             _dbContext = context;
         }
 
-        //public async Task<List<Profile>> GetAllProfilesAsync(bool isActive)
-        //{
-        //    List<Profile> allProfiles = await _dbContext.Profiles
-        //        .Where(p => p.Status == isActive)
-        //        .ToListAsync();
+        public async Task<List<Profile>> GetAllProfilesAsync(bool isActive)
+        {
+            List<Profile> allProfiles = await _dbContext.Profiles
+                .Where(p => p.Status == isActive)
+                .ToListAsync();
 
-        //    return allProfiles;
-        //}
+            return allProfiles;
+        }
 
         public async Task<Profile> GetProfileByIdAsync(int profileId)
         {

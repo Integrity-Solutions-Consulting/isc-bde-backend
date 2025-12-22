@@ -29,12 +29,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
             return Ok(result);
         }
 
-        //[HttpGet("get-by-id-{id}")]
-        //public async Task<ActionResult<ExperienceResponse>> GetById(int id)
-        //{
-        //    var result = await _service.GetExperienceById(id);
-        //    return Ok(result);
-        //}
+        [HttpGet("get-by-profile/{profileId}")]
+        public async Task<ActionResult<List<ExperienceResponse>>> GetByProfileId(int profileId)
+        {
+            var result = await _service.GetExperiencesByProfileId(profileId);
+            return Ok(result);
+        }
 
         [HttpPost("create-experience")]
         public async Task<ActionResult<SuccessResponse<ExperienceResponse>>> Create([FromBody] ExperienceRequest request)

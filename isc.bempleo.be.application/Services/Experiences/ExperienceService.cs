@@ -37,14 +37,16 @@ namespace isc.bempleo.be.application.Services.Experiences
             return _mapper.Map<List<ExperienceResponse>>(experiences);
         }
 
-        //public async Task<ExperienceResponse> GetExperienceById(int experienceId)
-        //{
-        //    var exp = await _experienceRepository.GetExperienceByIdAsync(experienceId);
-        //    if (exp == null)
-        //        throw new Exception("No existe ninguna experiencia con ese ID");
+        public async Task<List<ExperienceResponse>> GetExperiencesByProfileId(int profileId)
+        {
+            var experienceList = await _experienceRepository.GetExperiencesByProfileIdAsync(profileId);
 
-        //    return _mapper.Map<ExperienceResponse>(exp);
-        //}
+            if (experienceList == null || !experienceList.Any())
+            {
+                return new List<ExperienceResponse>();
+            }
+            return _mapper.Map<List<ExperienceResponse>>(experienceList);
+        }
 
         public async Task<ExperienceResponse> CreateExperienceAsync(ExperienceRequest request)
         {
