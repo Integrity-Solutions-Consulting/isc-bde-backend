@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Tools;
 using isc.bempleo.be.domain.Entity.Tools;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,23 +20,32 @@ namespace isc.bempleo.be.infrastructure.Repositories.Tools
 
         public async Task<List<Tool>> GetAllToolsAsync(bool isActive, string? search)
         {
-            var query = _dbContext.Tools
-                .AsQueryable()
-                .Where(t => t.Status == isActive);
-
-            if (!string.IsNullOrWhiteSpace(search))
+            try
             {
-                string normalizedSearch = search.Trim().ToLowerInvariant();
+                var query = _dbContext.Tools
+                    .Where(t => t.Status == isActive);
 
-                query = query.Where(t =>
-                    (t.ToolName != null && t.ToolName.ToLower().Contains(normalizedSearch))
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    var normalized = search.Trim().ToLowerInvariant();
+                    query = query.Where(t =>
+                        t.ToolName != null &&
+                        t.ToolName.ToLower().Contains(normalized));
+                }
+
+                return await query
+                    .OrderBy(t => t.ToolName)
+                    .AsNoTracking()
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al consultar Tools.",
+                    500,
+                    ex
                 );
             }
-
-            query = query
-                .OrderBy(t => t.ToolName);
-
-            return await query.AsNoTracking().ToListAsync();
         }
 
         //public async Task<Tool> GetToolByIdAsync(int toolId)
@@ -46,9 +56,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.Tools
 
         public async Task<Tool> CreateToolAsync(Tool tool)
         {
-            await _dbContext.Tools.AddAsync(tool);
-            await _dbContext.SaveChangesAsync();
-            return tool;
+            try
+            {
+                await _dbContext.Tools.AddAsync(tool);
+                await _dbContext.SaveChangesAsync();
+                return tool;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerFaultException(
+                    "Error en base de datos al crear Tool.",
+                    500,
+                    ex
+                );
+            }
         }
 
         //public async Task<Tool> UpdateToolAsync(Tool tool)

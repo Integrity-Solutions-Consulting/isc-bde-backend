@@ -9,7 +9,7 @@ namespace isc.bempleo.be.domain.Models.Response.ProfileAccessCode
     public class ProfileAccessCodeResponse
     {
         public int Id { get; set; }
-        public string Code { get; set; } = null!;
+        public string Code { get; set; }
         public bool Status { get; set; }
 
     }

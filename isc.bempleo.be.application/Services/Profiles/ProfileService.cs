@@ -2,6 +2,7 @@
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
 using isc.bempleo.be.domain.Models.Request.Profiles;
 using isc.bempleo.be.domain.Models.Response.Profiles;
@@ -25,40 +26,40 @@ namespace isc.bempleo.be.application.Services.Profiles
             _mapper = mapper;
             _codeAccessRepository = codeAccessRepository;
         }
-        
-        //public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
-        //{
-        //    var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
 
-        //    if (allprofiles == null || !allprofiles.Any())
-        //    {
-        //        return new List<ProfileResponse>();
-        //    }
+        public async Task<List<ProfileResponse>> GetAllProfileAsync(bool isActive)
+        {
+            var allprofiles = await _profileRepository.GetAllProfilesAsync(isActive);
 
-        //    var result = new List<ProfileResponse>();
+            if (allprofiles == null || !allprofiles.Any())
+            {
+                throw new ClientFaultException("No existe ningún perfil con esos datos.");
+            }
 
-        //    foreach (var profile in allprofiles)
-        //    {
-        //        var response = MapProfileWithLists(profile);
-        //        result.Add(response);
-        //    }
+            var result = new List<ProfileResponse>();
 
-        //    return result;
-        //}
+            foreach (var profile in allprofiles)
+            {
+                var response = MapProfileWithLists(profile);
+                result.Add(response);
+            }
+
+            return result;
+        }
 
         public async Task<ProfileResponse> GetProfileByCodeAsync(string cedula, string email, string code)
         {
             var codeAccess = await _codeAccessRepository.ValidateCode(code);
             if (codeAccess == null)
             {
-                throw new Exception("El codigo de acceso que proporciono no es valido");
+                throw new ClientFaultException("El código de acceso proporcionado no es válido.");
             }
 
             var profile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(email, cedula);
 
             if (profile == null)
             {
-                throw new Exception("No existe ningún perfil con esos datos.");
+                throw new ClientFaultException("No existe ningún perfil con esos datos.");
             }
 
             var response = MapProfileWithLists(profile);
@@ -72,7 +73,7 @@ namespace isc.bempleo.be.application.Services.Profiles
 
             if (profile == null)
             {
-                throw new Exception("No existe ningún perfil con esos datos.");
+                throw new ClientFaultException("No existe ningún perfil con esos datos.");
             }
 
             var response = MapProfileWithLists(profile);
@@ -89,10 +90,10 @@ namespace isc.bempleo.be.application.Services.Profiles
             if (existingProfile != null)
             {
                 if (existingProfile.Email == request.Email)
-                    throw new Exception("El correo electrónico ya está registrado en otro perfil.");
+                    throw new ClientFaultException("El correo electrónico ya está registrado en otro perfil.");
 
                 if (existingProfile.IdentificationNumber == request.IdentificationNumber)
-                    throw new Exception("El número de identificación ya está registrado en otro perfil.");
+                    throw new ClientFaultException("El número de identificación ya está registrado en otro perfil.");
             }
 
             var entity = _mapper.Map<domain.Entity.Profiles.Profile>(request);
@@ -107,7 +108,12 @@ namespace isc.bempleo.be.application.Services.Profiles
         public async Task<ProfileResponse> CreateProfileAsync(FormationRequest request,int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+
+            if (entity == null)
+                throw new ClientFaultException("No existe el perfil con ese ID.");
+
             var mapping = _mapper.Map(request, entity);
+            entity.CareerList = JsonSerializer.Serialize(request.CareerIds);
             var updateEntity = await _profileRepository.UpdateProfileAsync(entity);
             var response = _mapper.Map<ProfileResponse>(updateEntity);
             return response;
@@ -119,7 +125,7 @@ namespace isc.bempleo.be.application.Services.Profiles
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
 
             if (profile == null)
-                throw new Exception("No existe el perfil con ese ID");
+                throw new ClientFaultException("No existe el perfil con ese ID.");
 
             profile.KnowledgeList = JsonSerializer.Serialize(request.KnowledgeIds);
             profile.ToolList = JsonSerializer.Serialize(request.ToolIds);
@@ -134,7 +140,7 @@ namespace isc.bempleo.be.application.Services.Profiles
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
 
             if (profile == null)
-                throw new Exception("No existe el perfil con ese ID");
+                throw new ClientFaultException("No existe el perfil con ese ID.");
 
             return new ProfileTechnologiesRequest
             {
@@ -161,18 +167,16 @@ namespace isc.bempleo.be.application.Services.Profiles
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
             if (entity == null)
-            {
-                throw new Exception("No existe el perfil con ese ID");
-            }
+                throw new ClientFaultException("No existe el perfil con ese ID.");
             var existingProfile = await _profileRepository.GetProfileByEmailOrIdentificationAsync(request.Email, request.IdentificationNumber);
 
             if (existingProfile != null && existingProfile.Id != profileId)
             {
                 if (existingProfile.Email == request.Email)
-                    throw new Exception("El correo electronico ya esta registrado en otro perfil.");
+                    throw new ClientFaultException("El correo electrónico ya está registrado en otro perfil.");
 
                 if (existingProfile.IdentificationNumber == request.IdentificationNumber)
-                    throw new Exception("El numero de identificacion ya esta registrado en otro perfil.");
+                    throw new ClientFaultException("El número de identificación ya está registrado en otro perfil.");
             }
 
             entity.GenderId = request.GenderId;
@@ -197,10 +201,10 @@ namespace isc.bempleo.be.application.Services.Profiles
         public async Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId)
         {
             var entity = await _profileRepository.GetProfileByIdAsync(profileId);
+
             if (entity == null)
-            {
-                throw new Exception("No existe el perfil con ese ID");
-            }
+                throw new ClientFaultException("No existe el perfil con ese ID.");
+
             entity.EducationLevel = request.EducationLevel;
             entity.EducationStatus = request.EducationStatus;
             entity.AcademicInstitution = request.AcademicInstitution;

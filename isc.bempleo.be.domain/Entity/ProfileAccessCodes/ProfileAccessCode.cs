@@ -9,7 +9,7 @@ namespace isc.bempleo.be.domain.Entity.ProfileAccessCodes
 {
     public class ProfileAccessCode : BaseEntity
     {
-        public string Code { get; set; } = null!;
+        public string Code { get; set; }
 
     
     }
