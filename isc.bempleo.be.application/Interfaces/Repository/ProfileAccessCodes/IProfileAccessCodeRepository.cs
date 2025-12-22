@@ -11,7 +11,7 @@ namespace isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes
 {
     public interface IProfileAccessCodeRepository
     {
-        Task<bool> InactiveCode();
+        Task InactiveCode(DateTime expirationLimit, CancellationToken cancellationToken);
         Task<ProfileAccessCode> ValidateCode(string code);
         Task<ProfileAccessCode> CreateProfileAccessCodeAsync(ProfileAccessCode entity);
     }

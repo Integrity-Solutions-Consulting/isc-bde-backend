@@ -22,21 +22,20 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes
         }
 
 
-        public async Task<bool> InactiveCode()
+        public async Task InactiveCode(
+            DateTime expirationLimit,
+            CancellationToken cancellationToken)
         {
-            var expirationTime = DateTime.UtcNow.AddMinutes(-1);
-
-            int rowsAffected = await _dbContext.ProfileAccessCodes
-                .Where(p => p.Status == true &&
-                            p.CreationDate <= expirationTime)
+            await _dbContext.ProfileAccessCodes
+                .Where(p => p.Status &&
+                            p.CreationDate <= expirationLimit)
                 .ExecuteUpdateAsync(update =>
                     update
                         .SetProperty(p => p.Status, false)
-                        .SetProperty(p => p.ModificationDate, DateTime.UtcNow)
-                );
-
-            return rowsAffected > 0;
+                        .SetProperty(p => p.ModificationDate, DateTime.UtcNow),
+                    cancellationToken);
         }
+
 
 
         public async Task<ProfileAccessCode> ValidateCode(string code)
