@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
-using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
@@ -21,12 +20,10 @@ namespace isc.bempleo.be.application.Services.Profiles
     {
         private readonly IProfileRepository _profileRepository;
         private readonly IMapper _mapper;
-        private readonly IProfileAccessCodeService _serviceCode;
         private readonly IProfileAccessCodeRepository _codeAccessRepository;
-        public ProfileService(IProfileRepository profileRepository, IMapper mapper, IProfileAccessCodeService code, IProfileAccessCodeRepository codeAccessRepository) {
+        public ProfileService(IProfileRepository profileRepository, IMapper mapper, IProfileAccessCodeRepository codeAccessRepository) {
             _profileRepository = profileRepository;
             _mapper = mapper;
-            _serviceCode = code;
             _codeAccessRepository = codeAccessRepository;
         }
 

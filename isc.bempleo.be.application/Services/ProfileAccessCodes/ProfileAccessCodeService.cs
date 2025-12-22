@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
-using isc.bempleo.be.application.Interfaces.Service.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Knowledges;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
 using isc.bempleo.be.domain.Models.Response.Knowledges;
 using isc.bempleo.be.domain.Models.Response.ProfileAccessCode;
+using isc.bempleo.be.domain.Exceptions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,61 +18,48 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.application.Services.ProfileAccessCodes
 {
-    public class ProfileAccessCodeService : IProfileAccessCodeService
+    public class ProfileAccessCodeService : BackgroundService
     {
 
-        private readonly IProfileAccessCodeRepository _repo;
-        private readonly IMapper _mapper;
-
+        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly TimeSpan _intervalo = TimeSpan.FromMinutes(1);
         public ProfileAccessCodeService(
-            IProfileAccessCodeRepository repository,
-            IMapper mapper)
+            IServiceScopeFactory scopeFactory)
         {
-            _repo = repository;
-            _mapper = mapper;
+            _scopeFactory = scopeFactory;
+            _intervalo = TimeSpan.FromMinutes(1); ;
         }
 
-        public async Task<ProfileAccessCodeResponse> CreateProfileAccessCodeAsync(
-            ProfileAccessCodeRequest request)
-            {
-                if (request == null)
-                    throw new ClientFaultException("La solicitud es inválida.");
-
-                var code = await GenerateUniqueCodeAsync();
-
-                request.Code = code;
-
-                var entity = _mapper.Map<ProfileAccessCode>(request);
-                entity.Code = code;
-
-                var created = await _repo.CreateProfileAccessCodeAsync(entity);
-
-                if (created == null)
-                    throw new ServerFaultException("Error al crear el código de acceso.");
-
-                return _mapper.Map<ProfileAccessCodeResponse>(created);
-            }
-
-
-    private async Task<string> GenerateUniqueCodeAsync()
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            const int maxAttempts = 10;
 
-            for (int i = 0; i < maxAttempts; i++)
+            using PeriodicTimer timer = new PeriodicTimer(_intervalo);
+
+            while (await timer.WaitForNextTickAsync(stoppingToken))
             {
-                // Genera un número entre 000000 y 999999
-                var number = RandomNumberGenerator.GetInt32(0, 1_000_000);
-                var code = number.ToString("D6"); // siempre 6 dígitos, con ceros a la izquierda
 
-                var exists = await _repo.CodeExistsAsync(code);
-                if (!exists)
-                    return code;
+                try
+                {
+                    using (IServiceScope scope = _scopeFactory.CreateScope())
+                    {
+                        var repo = scope.ServiceProvider.GetRequiredService<IProfileAccessCodeRepository>();
+
+                        await ActualizarEstados(repo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
-
-            throw new ServerFaultException(
-                "No se pudo generar un código único después de varios intentos.");
         }
 
-
+        private async Task ActualizarEstados(IProfileAccessCodeRepository repo)
+        {
+            bool actualizarStatus = await repo.InactiveCode();
+        }
     }
+
+
 }
+

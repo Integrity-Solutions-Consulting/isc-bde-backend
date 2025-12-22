@@ -11,5 +11,6 @@ namespace isc.bempleo.be.domain.Entity.ProfileAccessCodes
     {
         public string Code { get; set; }
 
+    
     }
 }
