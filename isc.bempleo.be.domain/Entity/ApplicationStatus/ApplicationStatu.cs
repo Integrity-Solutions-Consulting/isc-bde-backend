@@ -11,7 +11,5 @@ namespace isc.bempleo.be.domain.Entity.ApplicationStatus
     public class ApplicationStatu : BaseEntity
     {
         public string StatusName { get; set; } 
-
-        public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
     }
 }

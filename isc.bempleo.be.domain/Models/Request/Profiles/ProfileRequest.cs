@@ -1,17 +1,16 @@
 ﻿using isc.bempleo.be.domain.Entity.Experiences;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
-using isc.bempleo.be.domain.Entity.Shared;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace isc.bempleo.be.domain.Entity.Profiles
+namespace isc.bempleo.be.domain.Models.Request.Profiles
 {
-    public class Profile : BaseEntity
+    public class ProfileRequest
     {
+        public int Id { get; set; }
         public int GenderId { get; set; }
         public int? MaritalStatusId { get; set; }
         public string FirstName { get; set; }
@@ -23,7 +22,7 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public DateOnly? BirthDate { get; set; }
         public string? Nationality { get; set; }
         public string? DisabilityCard { get; set; }
-        public string? EducationLevel {  get; set; }
+        public string? EducationLevel { get; set; }
         public string? EducationStatus { get; set; }
         public string? AcademicInstitution { get; set; }
         public string? CountryOfStudy { get; set; }
@@ -33,5 +32,8 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? SkillList { get; set; }
         public string? CertificationList { get; set; }
         public string? CareerList { get; set; }
+
+        public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
+        public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
     }
 }

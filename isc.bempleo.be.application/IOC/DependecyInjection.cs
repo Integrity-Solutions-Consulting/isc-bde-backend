@@ -1,4 +1,5 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.ApplicationStatus;
+using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Genders;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Skills;
@@ -7,6 +8,7 @@ using isc.bempleo.be.application.Interfaces.Service;
 using isc.bempleo.be.application.Interfaces.Service.ApplicationStatus;
 using isc.bempleo.be.application.Interfaces.Service.Careers;
 using isc.bempleo.be.application.Interfaces.Service.Certifications;
+using isc.bempleo.be.application.Interfaces.Service.Documents;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.Genders;
 using isc.bempleo.be.application.Interfaces.Service.Knowledges;
@@ -22,6 +24,7 @@ using isc.bempleo.be.application.Services;
 using isc.bempleo.be.application.Services.ApplicationStatus;
 using isc.bempleo.be.application.Services.Careers;
 using isc.bempleo.be.application.Services.Certifications;
+using isc.bempleo.be.application.Services.Documents;
 using isc.bempleo.be.application.Services.Experiences;
 using isc.bempleo.be.application.Services.Genders;
 using isc.bempleo.be.application.Services.Knowledges;
@@ -63,10 +66,8 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IVacancyService, VacancyService>();
             services.AddScoped<IApplicationStatuService, ApplicationStatuService>();
             services.AddScoped<IProfileVacancyService, ProfileVacancyService>();
-
-
+            services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IS3MinioService, S3MinioService>();
-
 
             return services;
         }

@@ -20,8 +20,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Certifications
 
         [HttpGet("get-all-certifications")]
         public async Task<ActionResult<SuccessResponse<List<CertificationResponse>>>> GetAllAsync(
-            [FromQuery] bool isActive = true,
-            [FromQuery] string? search = null)
+            [FromQuery] bool isActive,
+            [FromQuery] string? search)
         {
             var result = await _service.GetAllCertificationsAsync(isActive, search);
             return Ok(result);

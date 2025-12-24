@@ -19,8 +19,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Knowledges
 
         [HttpGet("get-all-knowledges")]
         public async Task<ActionResult<SuccessResponse<List<KnowledgeResponse>>>> GetAllAsync(
-        [FromQuery] bool isActive = true,
-        [FromQuery] string? search = null)
+        [FromQuery] bool isActive,
+        [FromQuery] string? search)
         {
             var result = await _service.GetAllKnowledgesAsync(isActive, search);
             return Ok(result);

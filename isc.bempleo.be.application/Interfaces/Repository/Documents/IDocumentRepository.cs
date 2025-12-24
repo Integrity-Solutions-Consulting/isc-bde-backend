@@ -9,10 +9,8 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Documents
 {
     public interface IDocumentRepository
     {
-        Task<Document?> GetByIdentificationAsync(string identification);
+        Task<List<Document>> GetAllDocumentsAsync(bool isActive);
         Task<Document> CreateAsync(Document document);
-        //Task<List<Document>> GetAllAsync();
-        //Task<Document> UpdateAsync(Document document);
 
     }
 }

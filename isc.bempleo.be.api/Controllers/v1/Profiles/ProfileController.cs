@@ -21,7 +21,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
         }
 
         [HttpGet("get-all-profiles")]
-        public async Task<ActionResult<List<ProfileResponse>>> GetAllAsync([FromQuery] bool isActive)
+        public async Task<ActionResult<List<ProfileResponse>>> GetAllAsync(bool isActive)
         {
             var result = await _service.GetAllProfileAsync(isActive);
             return Ok(result);
@@ -44,7 +44,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
         }
 
         // Pantalla 2 del formulario
-        [HttpPost("create-profile-formation")]
+        [HttpPut("create-profile-formation")]
         public async Task<ActionResult<SuccessResponse<ProfileResponse>>> CreateAsync(
             FormationRequest request, int profileId)
         {
@@ -53,14 +53,14 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
         }
 
         // Pantalla 3 - guardar herramientas, habilidadesBlandas, cursos y certificaciones asociadas al perfil
-        [HttpPut("update-profile-technologies-{profileId}")]
-        public async Task<IActionResult> UpdateTechnologies(int profileId, ProfileTechnologiesRequest request)
+        [HttpPut("create-profile-technologies")]
+        public async Task<ActionResult> CreateAsync(int profileId, ProfileTechnologiesRequest request)
         {
-            await _service.UpdateProfileTechnologiesAsync(profileId, request);
+            await _service.CreateProfileAsync(profileId, request);
             return NoContent();
         }
 
-        // Pantalla 3 - obtener tecnologías asociadas (para editar)
+        // Pantalla 3 - obtener tecnologías asociadas
         [HttpGet("get-profile-technologies-{profileId}")]
         public async Task<ActionResult<SuccessResponse<ProfileTechnologiesRequest>>> GetTechnologies(
             int profileId)
@@ -77,14 +77,14 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
             return Ok(result);
         }
 
-        // Actualizar formación (pantalla 2)
-        [HttpPut("update-formation")]
-        public async Task<ActionResult<SuccessResponse<ProfileResponse>>> UpdateAsync(int id, FormationRequest request)
-        {
-            var result = await _service.UpdateProfile(request, id);
-            return Ok(result);
-        }
 
+        // Actualizar formación (pantalla 2)
+        //[HttpPut("update-formation")]
+        //public async Task<ActionResult<SuccessResponse<ProfileResponse>>> UpdateAsync(int id, FormationRequest request)
+        //{
+        //    var result = await _service.UpdateProfile(request, id);
+        //    return Ok(result);
+        //}
 
         //[HttpPut("active-inactive-profile")]
         //public async Task<ActionResult> ActiveInactiveAsync(int id, [FromQuery] bool isActive)

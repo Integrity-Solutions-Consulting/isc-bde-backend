@@ -22,8 +22,8 @@ namespace isc.bempleo.be.api.Controllers.v1.Experiences
         [HttpGet("get-all-experiences-by-profile")]
         public async Task<ActionResult<SuccessResponse<List<ExperienceResponse>>>> GetAllAsync(
             [FromQuery] int profileId,
-            [FromQuery] bool isActive = true,
-            [FromQuery] string? search = null)
+            [FromQuery] bool isActive,
+            [FromQuery] string? search)
         {
             var result = await _service.GetAllExperiencesAsync(profileId, isActive, search);
             return Ok(result);
