@@ -62,8 +62,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Profiles
 
         // Pantalla 3 - obtener tecnologías asociadas
         [HttpGet("get-profile-technologies-{profileId}")]
-        public async Task<ActionResult<SuccessResponse<ProfileTechnologiesRequest>>> GetTechnologies(
-            int profileId)
+        public async Task<ActionResult<SuccessResponse<ProfileTechnologiesResponse>>> GetTechnologies(int profileId)
         {
             var result = await _service.GetProfileTechnologiesAsync(profileId);
             return Ok(result);

@@ -14,8 +14,7 @@ namespace isc.bempleo.be.application.Services.Certifications
         private readonly IMapper _mapper;
 
         public CertificationService(
-            ICertificationRepository certificationRepository,
-            IMapper mapper)
+            ICertificationRepository certificationRepository,IMapper mapper)
         {
             _certificationRepository = certificationRepository;
             _mapper = mapper;

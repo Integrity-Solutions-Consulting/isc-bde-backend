@@ -24,7 +24,7 @@ namespace isc.bempleo.be.application.Interfaces.Service.Profiles
         // Pantalla 2
         //Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId);
 
-        Task<ProfileTechnologiesRequest> GetProfileTechnologiesAsync(int profileId);
+        Task<ProfileTechnologiesResponse> GetProfileTechnologiesAsync(int profileId);
         //Task<ProfileResponse> GetProfileForGenerateCode(string cedula, string email);
     }
 }

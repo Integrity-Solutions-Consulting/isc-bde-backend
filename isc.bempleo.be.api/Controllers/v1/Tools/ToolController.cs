@@ -27,8 +27,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
             return Ok(result);
         }
 
-
-
         //[HttpGet("get-by-id-{id}")]
         //public async Task<ActionResult<ToolResponse>> GetById(int id)
         //{
@@ -37,8 +35,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Tools
         //}
 
         [HttpPost("create-tool")]
-        public async Task<ActionResult<SuccessResponse<ToolResponse>>> Create(
-            [FromBody] ToolRequest request)
+        public async Task<ActionResult<SuccessResponse<ToolResponse>>> Create([FromBody] ToolRequest request)
         {
             var result = await _service.CreateToolAsync(request);
             return Ok(result);

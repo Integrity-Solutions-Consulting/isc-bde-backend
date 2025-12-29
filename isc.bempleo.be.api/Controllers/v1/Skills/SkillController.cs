@@ -37,8 +37,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Skills
         //}
 
         [HttpPost("create-skill")]
-        public async Task<ActionResult<SuccessResponse<SkillResponse>>> Create(
-            [FromBody] SkillRequest request)
+        public async Task<ActionResult<SuccessResponse<SkillResponse>>> Create([FromBody] SkillRequest request)
         {
             var result = await _service.CreateSkillAsync(request);
             return Ok(result);

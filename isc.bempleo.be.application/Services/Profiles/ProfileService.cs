@@ -126,14 +126,14 @@ namespace isc.bempleo.be.application.Services.Profiles
             await _profileRepository.UpdateProfileAsync(profile);
         }
 
-        public async Task<ProfileTechnologiesRequest> GetProfileTechnologiesAsync(int profileId)
+        public async Task<ProfileTechnologiesResponse> GetProfileTechnologiesAsync(int profileId)
         {
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
 
             if (profile == null)
                 throw new ClientFaultException("No existe el perfil con ese ID.");
 
-            return new ProfileTechnologiesRequest
+            return new ProfileTechnologiesResponse
             {
                 KnowledgeIds = string.IsNullOrEmpty(profile.KnowledgeList)
                     ? new List<int>()
@@ -215,14 +215,6 @@ namespace isc.bempleo.be.application.Services.Profiles
             return response;
         }
 
-
-
-
-
-
-
-
-
         // Actualizar datos de la pantalla 2
         //public async Task<ProfileResponse> UpdateProfile(FormationRequest request, int profileId)
         //{
@@ -269,8 +261,6 @@ namespace isc.bempleo.be.application.Services.Profiles
 
 
         // Deserealiza la listas JSON y las asigna a las propiedades correspondientes en ProfileResponse
-
-
 
     }
 }
