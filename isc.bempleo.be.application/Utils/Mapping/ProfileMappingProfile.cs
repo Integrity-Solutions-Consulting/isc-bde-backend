@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using isc.bempleo.be.domain.Entity.Knowledges;
-using isc.bempleo.be.domain.Entity.Tools;
 using isc.bempleo.be.domain.Models.Request.Profiles;
 using isc.bempleo.be.domain.Models.Response.Profiles;
 using Microsoft.AspNetCore.Identity;

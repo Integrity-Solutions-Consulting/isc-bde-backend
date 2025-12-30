@@ -18,12 +18,6 @@ namespace isc.bempleo.be.api.Controllers.v1.Document
             _service = service;
         }
 
-        [HttpGet("get-all-documents")]
-        public async Task<ActionResult<SuccessResponse<List<DocumentResponse>>>> GetAllAsync(bool isActive)
-        {
-            var result = await _service.GetAllDocumentsAsync(isActive);
-            return Ok(result); 
-        }
 
     }
 }

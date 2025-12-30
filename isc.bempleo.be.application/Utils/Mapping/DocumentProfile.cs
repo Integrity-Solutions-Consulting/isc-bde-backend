@@ -14,13 +14,9 @@ namespace isc.bempleo.be.application.Utils.Mapping
     {
         public DocumentProfile()
         {
-            CreateMap<Document, DocumentResponse>();
-            CreateMap<DocumentResponse, Document>();
-
 
             CreateMap<Document, DocumentRequest>();
             CreateMap<DocumentRequest, Document>();
-
         
         }
     }

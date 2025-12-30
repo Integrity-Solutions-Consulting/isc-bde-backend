@@ -1,5 +1,4 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Documents;
-using isc.bempleo.be.domain.Entity.Certifications;
 using isc.bempleo.be.domain.Entity.Documents;
 using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;

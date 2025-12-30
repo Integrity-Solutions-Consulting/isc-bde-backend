@@ -21,7 +21,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
             _dbContext = context;
         }
 
-        public async Task<List<Experience>> GetAllExperiencesAsync(int profileId, bool isActive, string? search = null)
+        public async Task<List<Experience>> GetAllExperiencesAsync(int profileId, bool isActive, string? search)
         {
             try
             {

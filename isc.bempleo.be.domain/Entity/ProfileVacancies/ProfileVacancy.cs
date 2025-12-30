@@ -1,7 +1,6 @@
-﻿using isc.bempleo.be.domain.Entity.ApplicationStatus;
+﻿using isc.bempleo.be.domain.Entity.Catalogs;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.Shared;
-using isc.bempleo.be.domain.Entity.Vacancies;
 using System;
 using System.Collections.Generic;
 using System.Linq;

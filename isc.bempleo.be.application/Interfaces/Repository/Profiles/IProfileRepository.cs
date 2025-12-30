@@ -1,6 +1,4 @@
-﻿using isc.bempleo.be.domain.Entity.Knowledges;
-using isc.bempleo.be.domain.Entity.Profiles;
-using isc.bempleo.be.domain.Entity.Tools;
+﻿using isc.bempleo.be.domain.Entity.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
