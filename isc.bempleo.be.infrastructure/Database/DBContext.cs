@@ -5,6 +5,7 @@ using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Response;
+using isc.bempleo.be.domain.Models.Response.Catalogs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -273,6 +274,7 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.HasOne(pv => pv.ApplicationStatus).WithMany().HasForeignKey(pv => pv.ApplicationStatusId);
             });
 
+            modelBuilder.Entity<StudyStatuResponse>().HasNoKey().ToView(null);
 
             base.OnModelCreating(modelBuilder);
 
@@ -292,5 +294,5 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<ProfileVacancy> ProfileVacancies { get; set; }
         public DbSet<domain.Entity.Documents.Document> Documents { get; set; }
 
-    }
+        }
 }

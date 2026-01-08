@@ -108,13 +108,33 @@ namespace isc.bempleo.be.application.Services.Catalogs
         public async Task<List<SkillResponse>> GetAllSkills(bool isActive, string? search)
         {
             var skills = await _catalogRepository.GetAllSkillsAsync(isActive, search);
+
             if (skills == null)
                 throw new ServerFaultException(
                     "Error al obtener las skills (resultado null)."
                 );
             if (!skills.Any())
                 return new List<SkillResponse>();
+
             return _mapper.Map<List<SkillResponse>>(skills);
+        }
+
+        public async Task<List<StudyStatuResponse>> GetAllStudyStatus()
+        {
+            var studyStatus = await _catalogRepository.GetAllStudyStatusAsync();
+
+            if (studyStatus == null)
+            {
+                throw new ServerFaultException(
+                    "Error interno: La consulta de estatus de estudio retornó un valor nulo."
+                );
+            }
+            if (!studyStatus.Any())
+            {
+                return new List<StudyStatuResponse>();
+            }
+
+            return studyStatus;
         }
 
         public async Task<List<ToolResponse>> GetAllTools(bool isActive, string? search)
@@ -125,7 +145,7 @@ namespace isc.bempleo.be.application.Services.Catalogs
                 throw new ServerFaultException(
                     "Error al obtener las herramientas."
                 );
-
+           
             if (!tools.Any())
                 return new List<ToolResponse>();
 

@@ -19,11 +19,10 @@ namespace isc.bempleo.be.infrastructure.Repositories.Profiles
 
         public async Task<List<Profile>> GetAllProfilesAsync(bool isActive)
         {
-            List<Profile> allProfiles = await _dbContext.Profiles
+            return await _dbContext.Profiles
+                .AsNoTracking()
                 .Where(p => p.Status == isActive)
                 .ToListAsync();
-
-            return allProfiles;
         }
 
         public async Task<Profile> GetProfileByIdAsync(int profileId)

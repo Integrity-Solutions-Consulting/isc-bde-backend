@@ -33,9 +33,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Catalogs
         }
 
         [HttpGet("get-all-certifications")]
-        public async Task<ActionResult<SuccessResponse<List<CertificationResponse>>>> GetAllCertificationsAsync(
-            [FromQuery]bool isActive,
-            [FromQuery] string? search)
+        public async Task<ActionResult<SuccessResponse<List<CertificationResponse>>>> GetAllCertificationsAsync(bool isActive, string? search)
         {
             var result = await _catalogService.GetAllCertifications(isActive, search);
             return Ok(result);
@@ -49,9 +47,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Catalogs
         }
 
         [HttpGet("get-all-knowledges")]
-        public async Task<ActionResult<SuccessResponse<List<KnowledgeResponse>>>> GetAllKnowledgesAsync(
-            [FromQuery] bool isActive,
-            [FromQuery] string? search)
+        public async Task<ActionResult<SuccessResponse<List<KnowledgeResponse>>>> GetAllKnowledgesAsync(bool isActive, string? search)
         {
             var result = await _catalogService.GetAllKnowledges(isActive, search);
             return Ok(result);
@@ -65,29 +61,34 @@ namespace isc.bempleo.be.api.Controllers.v1.Catalogs
         }
 
         [HttpGet("get-all-skills")]
-        public async Task<ActionResult<SuccessResponse<List<SkillResponse>>>> GetAllSkillsAsync(
-            [FromQuery] bool isActive,
-            [FromQuery] string? search)
+        public async Task<ActionResult<SuccessResponse<List<SkillResponse>>>> GetAllSkillsAsync(bool isActive, string? search)
         {
             var result = await _catalogService.GetAllSkills(isActive, search);
             return Ok(result);
         }
 
         [HttpGet("get-all-tools")]
-        public async Task<ActionResult<SuccessResponse<List<ToolResponse>>>> GetAllToolsAsync(
-            [FromQuery] bool isActive,
-            [FromQuery] string? search)
+        public async Task<ActionResult<SuccessResponse<List<ToolResponse>>>> GetAllToolsAsync(bool isActive, string? search)
         {
             var result = await _catalogService.GetAllTools(isActive, search);
             return Ok(result);
         }
 
         [HttpGet("get-all-vacancies")]
-        public async Task<ActionResult<SuccessResponse<List<VacancyResponse>>>> GetAllVacanciesAsync([FromQuery] bool isActive)
+        public async Task<ActionResult<SuccessResponse<List<VacancyResponse>>>> GetAllVacanciesAsync(bool isActive)
         {
             var result = await _catalogService.GetAllVacancies(isActive);
             return Ok(result);
         }
+
+        [HttpGet("get-all-study-status")]
+        public async Task<ActionResult<SuccessResponse<List<StudyStatuResponse>>>> GetAllStudyStatusAsync()
+        {
+            var result = await _catalogService.GetAllStudyStatus();
+            return Ok(result);
+        }
+
+
 
     }
 }

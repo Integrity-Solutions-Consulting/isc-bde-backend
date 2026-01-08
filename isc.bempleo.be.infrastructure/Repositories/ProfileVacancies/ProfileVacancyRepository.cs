@@ -22,40 +22,17 @@ namespace isc.bempleo.be.infrastructure.Repositories.ProfileVacancies
 
         public async Task<List<ProfileVacancy>> GetAllAsync(bool isActive)
         {
-            try
-            {
-                var result = await _context.ProfileVacancies
-                    .Where(pv => pv.Status == isActive)
-                    .ToListAsync();
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw new ServerFaultException(
-                    "Error en base de datos al consultar ProfileVacancies.",
-                    500,
-                    ex
-                );
-            }
+            return await _context.ProfileVacancies
+                .AsNoTracking()
+                .Where(pv => pv.Status == isActive)
+                .ToListAsync();
         }
 
         public async Task<ProfileVacancy> CreateAsync(ProfileVacancy entity)
         {
-            try
-            {
-                await _context.ProfileVacancies.AddAsync(entity);
-                await _context.SaveChangesAsync();
-                return entity;
-            }
-            catch (Exception ex)
-            {
-                throw new ServerFaultException(
-                    "Error en base de datos al crear ProfileVacancy.",
-                    500,
-                    ex
-                );
-            }
+            await _context.ProfileVacancies.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.domain.Entity.Catalogs;
 using isc.bempleo.be.domain.Entity.Documents;
+using isc.bempleo.be.domain.Models.Response.Catalogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,6 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Catalogs
         Task<List<Skill>> GetAllSkillsAsync(bool isActive, string? search);
         Task<List<Tool>> GetAllToolsAsync(bool isActive, string? search);
         Task<List<Vacancy>> GetAllVacanciesAsync(bool isActive);
-
+        Task<List<StudyStatuResponse>> GetAllStudyStatusAsync();
     }
 }

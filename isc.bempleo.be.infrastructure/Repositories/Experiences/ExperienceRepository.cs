@@ -23,53 +23,23 @@ namespace isc.bempleo.be.infrastructure.Repositories.Experiences
 
         public async Task<List<Experience>> GetAllExperiencesAsync(int profileId, bool isActive, string? search)
         {
-            try
-            {
-                var query = _dbContext.Experiences
-                    .AsQueryable()
-                    .Where(e => e.Status == isActive && e.ProfileId == profileId);
+            var normalizedSearch = search?.Trim().ToLowerInvariant();
 
-
-                if (!string.IsNullOrWhiteSpace(search))
-                {
-                    var normalizedSearch = search.Trim().ToLowerInvariant();
-
-                    query = query.Where(e =>
-                           (e.CompanyName != null && e.CompanyName.ToLower().Contains(normalizedSearch))
-                        || (e.PositionHeld != null && e.PositionHeld.ToLower().Contains(normalizedSearch))
-                    );
-                }
-
-                query = query.OrderByDescending(e => e.CreationDate);
-
-                return await query.AsNoTracking().ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new ServerFaultException(
-                    "Error en base de datos al consultar Experiences.",
-                    500,
-                    ex
-                );
-            }
+            return await _dbContext.Experiences
+                .AsNoTracking()
+                .Where(e => e.Status == isActive && e.ProfileId == profileId)
+                .Where(e => string.IsNullOrWhiteSpace(normalizedSearch) ||
+                            (e.CompanyName != null && e.CompanyName.ToLower().Contains(normalizedSearch)) ||
+                            (e.PositionHeld != null && e.PositionHeld.ToLower().Contains(normalizedSearch)))
+                .OrderByDescending(e => e.CreationDate)
+                .ToListAsync();
         }
 
         public async Task<Experience> CreateExperienceAsync(Experience experience)
         {
-            try
-            {
-                await _dbContext.Experiences.AddAsync(experience);
-                await _dbContext.SaveChangesAsync();
-                return experience;
-            }
-            catch (Exception ex)
-            {
-                throw new ServerFaultException(
-                    "Error en base de datos al crear Experience.",
-                    500,
-                    ex
-                );
-            }
+            await _dbContext.Experiences.AddAsync(experience);
+            await _dbContext.SaveChangesAsync();
+            return experience;
         }
 
         //public async Task<Experience> UpdateExperienceAsync(Experience experience)
