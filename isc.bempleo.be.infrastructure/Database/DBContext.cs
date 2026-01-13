@@ -5,6 +5,7 @@ using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Response;
+using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.domain.Models.Response.Catalogs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -275,6 +276,8 @@ namespace isc.bempleo.be.infrastructure.Database
             });
 
             modelBuilder.Entity<StudyStatuResponse>().HasNoKey().ToView(null);
+
+            modelBuilder.Entity<BookletResponse>().HasNoKey().ToView(null);
 
             base.OnModelCreating(modelBuilder);
 
