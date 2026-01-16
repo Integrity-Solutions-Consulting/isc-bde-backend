@@ -1,17 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# 1. Copiamos SOLO el csproj de la API para aprovechar cache
+# 1. Copiamos SOLO el csproj de la API
 COPY ["isc.bempleo.be.api/isc.bempleo.be.api.csproj", "isc.bempleo.be.api/"]
 
-# 2. Restauramos dependencias apuntando al proyecto
-RUN dotnet restore "isc.bempleo.be.api/Properties/isc.bempleo.be.api.csproj"
+# 2. Restauramos dependencias (RUTA CORRECTA)
+RUN dotnet restore "isc.bempleo.be.api/isc.bempleo.be.api.csproj"
 
 # 3. Copiamos todo el resto del código
 COPY . .
 
 # 4. Nos movemos al directorio del proyecto API
-WORKDIR "/src/isc.bempleo.be.api"
+WORKDIR /src/isc.bempleo.be.api
 
 # 5. Publicamos
 RUN dotnet publish "isc.bempleo.be.api.csproj" \
