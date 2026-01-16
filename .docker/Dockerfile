@@ -2,13 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copiar todo el código
 COPY . .
 
-# Restaurar dependencias
-RUN dotnet restore
+# Restaurar usando la solución
+RUN dotnet restore isc.bempleo.be.sln
 
-# Publicar el proyecto API
+# Publicar la API
 RUN dotnet publish isc.bempleo.be.api/isc.bempleo.be.api.csproj \
     -c Release \
     -o /app/publish \
@@ -18,11 +17,7 @@ RUN dotnet publish isc.bempleo.be.api/isc.bempleo.be.api.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# Copiar el resultado del publish
 COPY --from=build /app/publish .
 
-# Exponer puerto
 EXPOSE 8080
-
-# Arranque de la aplicación
 ENTRYPOINT ["dotnet", "isc.bempleo.be.api.dll"]
