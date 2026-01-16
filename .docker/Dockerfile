@@ -5,7 +5,7 @@ WORKDIR /src
 COPY ["isc.bempleo.be.api/isc.bempleo.be.api.csproj", "isc.bempleo.be.api/"]
 
 # 2. Restauramos dependencias apuntando al proyecto
-RUN dotnet restore "isc.bempleo.be.api/isc.bempleo.be.api.csproj"
+RUN dotnet restore "isc.bempleo.be.api/Properties/isc.bempleo.be.api.csproj"
 
 # 3. Copiamos todo el resto del código
 COPY . .
