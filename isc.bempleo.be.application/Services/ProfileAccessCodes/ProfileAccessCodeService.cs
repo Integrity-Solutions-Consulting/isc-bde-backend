@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
-using isc.bempleo.be.domain.Entity.Knowledges;
-using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
-using isc.bempleo.be.domain.Exceptions;
-using isc.bempleo.be.domain.Models.Request.ProfileAccessCodes;
-using isc.bempleo.be.domain.Models.Response.Knowledges;
-using isc.bempleo.be.domain.Models.Response.ProfileAccessCode;
 using isc.bempleo.be.domain.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

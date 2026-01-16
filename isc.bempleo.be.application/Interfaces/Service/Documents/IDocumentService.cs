@@ -11,7 +11,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.Documents
 {
     public interface IDocumentService 
     {
-        Task<DocumentResponse> GetDocumentByIdentificationAsync(string identification);
-        Task<DocumentResponse> CreateDocumentAsync(DocumentRequest request);
+        Task<List<DocumentResponse>> GetAllDocumentsAsync(bool isActive);
     }
 }

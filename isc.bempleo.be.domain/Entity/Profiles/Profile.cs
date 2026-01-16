@@ -33,10 +33,5 @@ namespace isc.bempleo.be.domain.Entity.Profiles
         public string? SkillList { get; set; }
         public string? CertificationList { get; set; }
         public string? CareerList { get; set; }
-
-        public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
-        public ICollection<ProfileVacancy> ProfileVacancies { get; set; } = new List<ProfileVacancy>();
-
-
     }
 }

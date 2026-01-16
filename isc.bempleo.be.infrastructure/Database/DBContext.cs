@@ -1,18 +1,11 @@
 ﻿using Amazon.S3;
-using isc.bempleo.be.domain.Entity.ApplicationStatus;
-using isc.bempleo.be.domain.Entity.Careers;
-using isc.bempleo.be.domain.Entity.Certifications;
+using isc.bempleo.be.domain.Entity.Catalogs;
 using isc.bempleo.be.domain.Entity.Experiences;
-using isc.bempleo.be.domain.Entity.Genders;
-using isc.bempleo.be.domain.Entity.Knowledges;
-using isc.bempleo.be.domain.Entity.MaritalStatus;
 using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
-using isc.bempleo.be.domain.Entity.Skills;
-using isc.bempleo.be.domain.Entity.Tools;
-using isc.bempleo.be.domain.Entity.Vacancies;
 using isc.bempleo.be.domain.Models.Response;
+using isc.bempleo.be.domain.Models.Response.Catalogs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -164,9 +157,8 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
-                entity.HasOne(e => e.Profile).WithMany(p => p.Experiences).HasForeignKey(e => e.ProfileId);
+                entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
             });
-
 
             modelBuilder.Entity<domain.Entity.Documents.Document>(entity =>
             {
@@ -186,24 +178,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
                 entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
-
-            });
-
-            modelBuilder.Entity<Gender>(entity =>
-            {
-                entity.ToTable("Genders");
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Id).HasColumnName("GenderID");
-                entity.Property(e => e.GenderCode).HasColumnName("gender_code");
-                entity.Property(e => e.GenderName).HasColumnName("gender_name");
-
-                entity.Property(e => e.Status).HasColumnName("status");
-                entity.Property(e => e.CreationUser).HasColumnName("creation_user");
-                entity.Property(e => e.ModificationUser).HasColumnName("modification_user");
-                entity.Property(e => e.CreationDate).HasColumnName("creation_date");
-                entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
-                entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
-                entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
             modelBuilder.Entity<MaritalStatu>(entity =>
@@ -238,7 +212,6 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationDate).HasColumnName("modification_date");
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
-
             });
 
             modelBuilder.Entity<Vacancy>(entity =>
@@ -278,17 +251,13 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
             });
 
-
             modelBuilder.Entity<ProfileVacancy>(entity =>
             {
                 entity.ToTable("ProfileVacancies");
                 entity.HasKey(e => e.Id);
-
                 entity.Property(e => e.Id).HasColumnName("ProfileVacancyID");
-
                 entity.Property(e => e.ProfileId).HasColumnName("ProfileID").IsRequired();
                 entity.Property(e => e.VacancyId).HasColumnName("VacancyID").IsRequired();
-
                 entity.Property(e => e.ApplicationDate).HasColumnName("application_date").IsRequired();
                 entity.Property(e => e.ApplicationStatusId).HasColumnName("ApplicationStatusID").IsRequired();
 
@@ -300,12 +269,12 @@ namespace isc.bempleo.be.infrastructure.Database
                 entity.Property(e => e.CreationIp).HasColumnName("creation_ip");
                 entity.Property(e => e.ModificationIp).HasColumnName("modification_ip");
 
-                entity.HasOne(e => e.Profile).WithMany(p => p.ProfileVacancies).HasForeignKey(e => e.ProfileId);
-                entity.HasOne(e => e.Vacancy).WithMany(v => v.ProfileVacancies).HasForeignKey(e => e.VacancyId);
-                entity.HasOne(pv => pv.ApplicationStatus).WithMany(a => a.ProfileVacancies).HasForeignKey(pv => pv.ApplicationStatusId);
-
+                entity.HasOne(e => e.Profile).WithMany().HasForeignKey(e => e.ProfileId);
+                entity.HasOne(e => e.Vacancy).WithMany().HasForeignKey(e => e.VacancyId);
+                entity.HasOne(pv => pv.ApplicationStatus).WithMany().HasForeignKey(pv => pv.ApplicationStatusId);
             });
 
+            modelBuilder.Entity<StudyStatuResponse>().HasNoKey().ToView(null);
 
             base.OnModelCreating(modelBuilder);
 
@@ -318,21 +287,12 @@ namespace isc.bempleo.be.infrastructure.Database
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Certification> Certifications { get; set; }
         public DbSet<Experience> Experiences { get; set; }
-        public DbSet<Gender> Genders { get; set; }
         public DbSet<MaritalStatu> MaritalStatus { get; set; }
         public DbSet<Career> Careers { get; set; }
-
-
-
-        public virtual DbSet<Vacancy> Vacancies { get; set; }
-        public virtual DbSet<ApplicationStatu> ApplicationStatus { get; set; }
-        public virtual DbSet<ProfileVacancy> ProfileVacancies { get; set; }
-
-
-
-
+        public DbSet<Vacancy> Vacancies { get; set; }
+        public DbSet<ApplicationStatu> ApplicationStatus { get; set; }
+        public DbSet<ProfileVacancy> ProfileVacancies { get; set; }
         public DbSet<domain.Entity.Documents.Document> Documents { get; set; }
 
-
-    }
+        }
 }

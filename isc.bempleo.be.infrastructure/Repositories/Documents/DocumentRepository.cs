@@ -1,6 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Repository.Documents;
-using isc.bempleo.be.domain.Entity.Certifications;
 using isc.bempleo.be.domain.Entity.Documents;
+using isc.bempleo.be.domain.Exceptions;
 using isc.bempleo.be.infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,10 +21,12 @@ namespace isc.bempleo.be.infrastructure.Repositories.Documents
             _dbContext = dbContext;
         }
 
-        public async Task<Document?> GetByIdentificationAsync(string identification)
+        public async Task<List<Document>> GetAllDocumentsAsync(bool isActive)
         {
             return await _dbContext.Documents
-                .FirstOrDefaultAsync(d => d.DocumentName == identification);
+                .AsNoTracking()
+                .Where(d => d.Status == isActive)
+                .ToListAsync();
         }
 
         public async Task<Document> CreateAsync(Document document)
@@ -33,18 +35,6 @@ namespace isc.bempleo.be.infrastructure.Repositories.Documents
             await _dbContext.SaveChangesAsync();
             return document;
         }
-
-        //public async Task<List<Document>> GetAllAsync()
-        //{
-        //    return await _dbContext.Documents.ToListAsync();
-        //}
-
-        //public async Task<Document> UpdateAsync(Document document)
-        //{
-        //    _dbContext.Entry(document).State = EntityState.Modified;
-        //    await _dbContext.SaveChangesAsync();
-        //    return document;
-        //}
 
     }
 }
