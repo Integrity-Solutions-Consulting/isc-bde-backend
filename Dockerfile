@@ -9,7 +9,7 @@ RUN dotnet restore "isc.bempleo.be.api/Properties/isc.bempleo.be.api.csproj"
 
 # 3. Copiamos todo el resto del código
 COPY . .
- 
+
 # 4. Nos movemos al directorio del proyecto API
 WORKDIR "/src/isc.bempleo.be.api"
 
