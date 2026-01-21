@@ -64,9 +64,15 @@ namespace isc.bempleo.be.infrastructure.IOC
 
         public static IServiceCollection AddDbConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("ConexionBD");
+
             services.AddDbContext<DBContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("ConexionBD"))
-                       .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+                options.UseMySql(
+                        connectionString,
+                        ServerVersion.AutoDetect(connectionString)
+                    )
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            );
 
             return services;
         }
