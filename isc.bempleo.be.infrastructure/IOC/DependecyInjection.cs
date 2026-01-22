@@ -67,9 +67,18 @@ namespace isc.bempleo.be.infrastructure.IOC
             var connectionString = configuration.GetConnectionString("ConexionBD");
 
             services.AddDbContext<DBContext>(options =>
-                options.UseMySql(
+                    options.UseMySql(
                         connectionString,
-                        ServerVersion.AutoDetect(connectionString)
+                        new MySqlServerVersion(new Version(8, 0, 21)),
+                        mysqlOptions =>
+                        {
+                            mysqlOptions.EnableRetryOnFailure(
+                                maxRetryCount: 5,                       
+                                maxRetryDelay: TimeSpan.FromSeconds(10), 
+                                errorNumbersToAdd: null
+                            );
+                        }
+
                     )
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
