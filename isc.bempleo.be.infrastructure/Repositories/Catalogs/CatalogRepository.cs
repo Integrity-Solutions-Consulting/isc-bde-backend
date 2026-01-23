@@ -127,7 +127,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
         {
             return await _dbContext
                 .Set<EducationLevelResponse>()
-                .FromSqlRaw("CALL ---------- ")
+                .FromSqlRaw("CALL SP_GetEducationLevel()")
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -136,7 +136,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
         {
             return await _dbContext
                 .Set<EnglishLevelResponse>()
-                .FromSqlRaw("CALL ----------- ")
+                .FromSqlRaw("CALL SP_GetEnglishLevels()")
                 .AsNoTracking()
                 .ToListAsync();
         }
