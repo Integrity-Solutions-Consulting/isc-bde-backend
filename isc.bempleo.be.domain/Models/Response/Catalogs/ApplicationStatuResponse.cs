@@ -8,6 +8,7 @@ namespace isc.bempleo.be.domain.Models.Response.Catalogs
 {
     public class ApplicationStatuResponse
     {
+        public int Id { get; set; }
         public string StatusName { get; set; }
     }
 }
