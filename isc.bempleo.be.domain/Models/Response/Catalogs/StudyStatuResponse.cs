@@ -8,8 +8,8 @@ namespace isc.bempleo.be.domain.Models.Response.Catalogs
 {
     public record StudyStatuResponse
     {
-        public int Id { get; set; }
-        public string StudyName { get; set; }
+        public int EducationStatusID { get; set; }
+        public string EducationStatusName{ get; set; }
 
     }
 }
