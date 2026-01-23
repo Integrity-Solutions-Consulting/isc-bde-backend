@@ -204,8 +204,5 @@ namespace isc.bempleo.be.application.Services.Catalogs
             return englishLevel;
         }
 
-
-
-
     }
 }
