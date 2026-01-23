@@ -88,7 +88,19 @@ namespace isc.bempleo.be.api.Controllers.v1.Catalogs
             return Ok(result);
         }
 
+        [HttpGet("get-all-study-status")]
+        public async Task<ActionResult<SuccessResponse<List<EducationLevelResponse>>>> GetAllEducationLevelAsync()
+        {
+            var result = await _catalogService.GetAllEducationLevel();
+            return Ok(result);
+        }
 
+        [HttpGet("get-all-study-status")]
+        public async Task<ActionResult<SuccessResponse<List<EnglishLevelResponse>>>> GetAllEnglishLevelAsync()
+        {
+            var result = await _catalogService.GetAllEnglishLevel();
+            return Ok(result);
+        }
 
     }
 }

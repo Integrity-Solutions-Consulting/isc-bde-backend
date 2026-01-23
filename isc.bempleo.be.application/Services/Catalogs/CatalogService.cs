@@ -167,5 +167,45 @@ namespace isc.bempleo.be.application.Services.Catalogs
             return _mapper.Map<List<VacancyResponse>>(vacancies);
         }
 
+        public async Task<List<EducationLevelResponse>> GetAllEducationLevel()
+        {
+            var educationLevel = await _catalogRepository.GetAllEducationLevelAsync();
+
+            if (educationLevel == null)
+            {
+                throw new ServerFaultException(
+                    "Error interno: La consulta de estatus de estudio retornó un valor nulo."
+                );
+            }
+            if (!educationLevel.Any())
+            {
+                return new List<EducationLevelResponse>();
+            }
+
+            return educationLevel;
+        }
+
+
+        public async Task<List<EnglishLevelResponse>> GetAllEnglishLevel()
+        {
+            var englishLevel = await _catalogRepository.GetEnglishLevelAsync();
+
+            if (englishLevel == null)
+            {
+                throw new ServerFaultException(
+                    "Error interno: La consulta de estatus de estudio retornó un valor nulo."
+                );
+            }
+            if (!englishLevel.Any())
+            {
+                return new List<EnglishLevelResponse>();
+            }
+
+            return englishLevel;
+        }
+
+
+
+
     }
 }

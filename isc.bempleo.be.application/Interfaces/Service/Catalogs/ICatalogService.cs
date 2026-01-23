@@ -20,5 +20,7 @@ namespace isc.bempleo.be.application.Interfaces.Service.Catalogs
         Task<List<ToolResponse>> GetAllTools(bool isActive, string? search);
         Task<List<VacancyResponse>> GetAllVacancies(bool isActive);
         Task<List<StudyStatuResponse>> GetAllStudyStatus();
+        Task<List<EducationLevelResponse>> GetAllEducationLevel();
+        Task<List<EnglishLevelResponse>> GetAllEnglishLevel();
     }
 }

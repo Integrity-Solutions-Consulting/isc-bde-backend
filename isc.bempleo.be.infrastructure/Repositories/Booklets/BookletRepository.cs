@@ -2,8 +2,9 @@
 using isc.bempleo.be.domain.Models.Request.Booklets;
 using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.infrastructure.Database;
-using Microsoft.Data.SqlClient;
+using MySqlConnector;
 using Microsoft.EntityFrameworkCore;
+using isc.bempleo.be.domain.Models.Response.Catalogs;
 
 namespace isc.bempleo.be.infrastructure.Repositories.Booklets
 {
@@ -18,24 +19,28 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
 
         public async Task<BookletResponse> CreateBookletAsync(BookletRequest request)
         {
+            var pBookletName = new MySqlParameter("@BookletName", request.BookletName);
+            var pKnowledge = new MySqlParameter("@Knowledge", request.Knowledge);
+            var pTools = new MySqlParameter("@Tools", request.Tools);
+
             var result = await _dbContext
-              .Set<BookletResponse>()
-              .FromSqlRaw("EXEC dbo.sp_create_booklet @BookletName, @Knowledge, @Tools",
-                           new SqlParameter("@BookletName", request.BookletName),
-                           new SqlParameter("@Knowledge", request.Knowledge),
-                           new SqlParameter("@Tools", request.Tools))
-              .AsNoTracking()
-              .FirstOrDefaultAsync();
-            return result;
+                .Set<BookletResponse>()
+                .FromSqlRaw("CALL sp_create_booklet(@BookletName, @Knowledge, @Tools)",
+                            pBookletName, pKnowledge, pTools)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return result.FirstOrDefault();
         }
 
         public async Task<List<BookletResponse>> GetBookletAsync()
         {
             return await _dbContext
-              .Set<BookletResponse>()
-              .FromSqlRaw("EXEC dbo.sp_  nombresp   ")
-              .AsNoTracking()
-              .ToListAsync();
+                .Set<BookletResponse>()
+                .FromSqlRaw("CALL sp_nombresp()")
+                .AsNoTracking()
+                .ToListAsync();
         }
+
     }
 }
