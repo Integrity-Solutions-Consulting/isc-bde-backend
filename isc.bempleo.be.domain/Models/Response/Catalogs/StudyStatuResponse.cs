@@ -9,7 +9,7 @@ namespace isc.bempleo.be.domain.Models.Response.Catalogs
     public record StudyStatuResponse
     {
         public int EducationStatusID { get; set; }
-        public string EducationStatusName{ get; set; }
+        public string educationstatus_name { get; set; }
 
     }
 }
