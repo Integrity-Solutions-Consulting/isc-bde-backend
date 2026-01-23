@@ -97,7 +97,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
         {
             return await _dbContext
                 .Set<StudyStatuResponse>()
-                .FromSqlRaw("EXEC dbo.sp_  nombresp   ")
+                .FromSqlRaw("CALL SP_GetEducationStatus()")
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -119,6 +119,24 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
         {
             return await _dbContext.Vacancies
                 .Where(v => v.Status == isActive)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<EducationLevelResponse>> GetAllEducationLevelAsync()
+        {
+            return await _dbContext
+                .Set<EducationLevelResponse>()
+                .FromSqlRaw("CALL ---------- ")
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<EnglishLevelResponse>> GetEnglishLevelAsync()
+        {
+            return await _dbContext
+                .Set<EnglishLevelResponse>()
+                .FromSqlRaw("CALL ----------- ")
                 .AsNoTracking()
                 .ToListAsync();
         }

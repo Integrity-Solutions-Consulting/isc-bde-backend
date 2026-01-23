@@ -1,10 +1,12 @@
-﻿using isc.bempleo.be.application.Interfaces.Service.Catalogs;
+﻿using isc.bempleo.be.application.Interfaces.Service.Booklets;
+using isc.bempleo.be.application.Interfaces.Service.Catalogs;
 using isc.bempleo.be.application.Interfaces.Service.Documents;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
+using isc.bempleo.be.application.Services.Booklets;
 using isc.bempleo.be.application.Services.Catalogs;
 using isc.bempleo.be.application.Services.Documents;
 using isc.bempleo.be.application.Services.Experiences;
@@ -14,11 +16,6 @@ using isc.bempleo.be.application.Services.ProfileVacancies;
 using isc.bempleo.be.application.Services.S3Minio;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace isc.bempleo.be.application.IOC
 {
@@ -34,6 +31,7 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IS3MinioService, S3MinioService>();
             services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<IBookletService, BookletService>();
 
             return services;
         }

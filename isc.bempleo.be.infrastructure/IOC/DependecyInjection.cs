@@ -1,4 +1,5 @@
 ﻿using Amazon.S3;
+using isc.bempleo.be.application.Interfaces.Repository.Booklets;
 using isc.bempleo.be.application.Interfaces.Repository.Catalogs;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
 using isc.bempleo.be.application.Interfaces.Repository.Experiences;
@@ -8,6 +9,7 @@ using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
 using isc.bempleo.be.infrastructure.Database;
+using isc.bempleo.be.infrastructure.Repositories.Booklets;
 using isc.bempleo.be.infrastructure.Repositories.Catalogs;
 using isc.bempleo.be.infrastructure.Repositories.Documents;
 using isc.bempleo.be.infrastructure.Repositories.Experiences;
@@ -57,6 +59,7 @@ namespace isc.bempleo.be.infrastructure.IOC
             services.AddScoped<IExperienceRepository, ExperienceRepository>();    
             services.AddScoped<IProfileVacancyRepository, ProfileVacancyRepository>();
             services.AddScoped<ICatalogRepository, CatalogRepository>();
+            services.AddScoped<IBookletRepository, BookletRepository>();
 
             services.AddScoped<HttpUtils>();
                 return services;
