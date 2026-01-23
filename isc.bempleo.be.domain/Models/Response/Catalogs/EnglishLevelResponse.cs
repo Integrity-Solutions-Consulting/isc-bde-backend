@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.domain.Models.Response.Catalogs
 {
-    public class EnglishLevelResponse
+    public record class EnglishLevelResponse
     {
         public int Id { get; set; }
         public string EnglishLevelName { get; set; }
