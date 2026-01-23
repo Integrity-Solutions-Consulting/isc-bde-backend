@@ -8,7 +8,7 @@ namespace isc.bempleo.be.domain.Models.Response.Catalogs
 {
     public record class EnglishLevelResponse
     {
-        public int EnglishLevelId { get; set; }
-        public string EnglishLevelName { get; set; }
+        public int EnglishLevelID { get; set; }
+        public string english_name { get; set; }
     }
 }
