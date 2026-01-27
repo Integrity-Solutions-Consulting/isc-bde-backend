@@ -278,8 +278,8 @@ namespace isc.bempleo.be.infrastructure.Database
 
             modelBuilder.Entity<StudyStatuResponse>().HasNoKey().ToView(null);
 
-            modelBuilder.Entity<BookletResponse>().HasNoKey().ToView(null);
-            modelBuilder.Entity<BookletRequest>().HasNoKey().ToView(null);
+            modelBuilder.Entity<TemplateResponse>().HasNoKey().ToView(null);
+            modelBuilder.Entity<TemplateRequest>().HasNoKey().ToView(null);
             modelBuilder.Entity<EducationLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<EnglishLevelResponse>().HasNoKey().ToView(null);
 

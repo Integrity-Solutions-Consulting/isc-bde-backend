@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace isc.bempleo.be.domain.Models.Response.Booklets
 {
-    public record class BookletResponse
+    public record class TemplateResponse
     {
-        public string Knowledge { get; set; }
-        public string Tools { get; set; }
+        public string TemplateID { get; set; }
     }
 }
