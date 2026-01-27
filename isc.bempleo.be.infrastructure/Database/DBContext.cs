@@ -5,6 +5,7 @@ using isc.bempleo.be.domain.Entity.ProfileAccessCodes;
 using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Request.Booklets;
+using isc.bempleo.be.domain.Models.Request.Contacts;
 using isc.bempleo.be.domain.Models.Response;
 using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.domain.Models.Response.Catalogs;
@@ -282,6 +283,8 @@ namespace isc.bempleo.be.infrastructure.Database
             modelBuilder.Entity<TemplateRequest>().HasNoKey().ToView(null);
             modelBuilder.Entity<EducationLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<EnglishLevelResponse>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ContactRequest>().HasNoKey().ToView(null);
+
 
             base.OnModelCreating(modelBuilder);
 

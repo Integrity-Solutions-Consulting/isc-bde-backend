@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Booklets;
 using isc.bempleo.be.application.Interfaces.Service.Catalogs;
+using isc.bempleo.be.application.Interfaces.Service.Contacts;
 using isc.bempleo.be.application.Interfaces.Service.Documents;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
@@ -8,6 +9,7 @@ using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using isc.bempleo.be.application.Services.Booklets;
 using isc.bempleo.be.application.Services.Catalogs;
+using isc.bempleo.be.application.Services.Contacts;
 using isc.bempleo.be.application.Services.Documents;
 using isc.bempleo.be.application.Services.Experiences;
 using isc.bempleo.be.application.Services.NotificacionesApi;
@@ -32,6 +34,7 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IS3MinioService, S3MinioService>();
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<ITemplateService, TemplateService>();
+            services.AddScoped<IContactService, ContactService>();
 
             return services;
         }

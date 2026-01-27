@@ -50,7 +50,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Booklets
             string currentUser = "";
             string currentIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
-            var newTemplateId = await _bookletService.CreateTemplate(request, currentUser, currentIp);
+            var newTemplateId = await _bookletService.CreateTemplate(request);
 
             return Ok();
         }
