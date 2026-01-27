@@ -59,7 +59,7 @@ namespace isc.bempleo.be.infrastructure.IOC
             services.AddScoped<IExperienceRepository, ExperienceRepository>();    
             services.AddScoped<IProfileVacancyRepository, ProfileVacancyRepository>();
             services.AddScoped<ICatalogRepository, CatalogRepository>();
-            services.AddScoped<IBookletRepository, BookletRepository>();
+            services.AddScoped<ITemplateRepository, TemplateRepository>();
 
             services.AddScoped<HttpUtils>();
                 return services;

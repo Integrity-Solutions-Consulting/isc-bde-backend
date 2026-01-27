@@ -31,7 +31,7 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IS3MinioService, S3MinioService>();
             services.AddScoped<ICatalogService, CatalogService>();
-            services.AddScoped<IBookletService, BookletService>();
+            services.AddScoped<ITemplateService, TemplateService>();
 
             return services;
         }
