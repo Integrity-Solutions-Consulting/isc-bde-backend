@@ -50,22 +50,15 @@ namespace isc.bempleo.be.application.Services.Booklets
             return booklet;
         }
 
-        public async Task<int> CreateTemplate(TemplateRequest request, string currentUser, string currentIp)
+        public async Task<int> CreateTemplate(TemplateRequest request)
         {
-
-            // 2. PREPARACIÓN DE DATOS (Responsabilidad del Servicio)
-            // Convertimos las listas a String JSON aquí
             string jsonKnowledge = JsonSerializer.Serialize(request.KnowledgeIds);
             string jsonTools = JsonSerializer.Serialize(request.ToolIds);
 
-            // 3. Llamada al Repositorio
-            // Le pasamos los strings ya procesados
             var newTemplateId = await _bookletRepository.CreateTemplateAsync(
                 request.TemplateName,
                 jsonKnowledge,
-                jsonTools,
-                currentUser,
-                currentIp
+                jsonTools
             );
 
             return newTemplateId;

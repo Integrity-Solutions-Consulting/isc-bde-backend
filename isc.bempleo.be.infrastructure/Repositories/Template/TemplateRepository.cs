@@ -32,7 +32,6 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
         {
             var response = new TemplateDetailResponse();
 
-            // 1. Obtener conexión (Asumimos que viene cerrada o gestionada por el DI)
             var connection = _dbContext.Database.GetDbConnection();
             await connection.OpenAsync();
 
@@ -41,7 +40,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             command.CommandType = CommandType.StoredProcedure;
 
             var param = command.CreateParameter();
-            param.ParameterName = "p_template_id"; // Ajusta si tu DB usa @p_template_id
+            param.ParameterName = "p_template_id";
             param.Value = id;
             command.Parameters.Add(param);
 
@@ -91,7 +90,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             return response;
         }
 
-        public async Task<int> CreateTemplateAsync(string name, string knowledgeIdsJson, string toolIdsJson, string user, string ip)
+        public async Task<int> CreateTemplateAsync(string name, string knowledgeIdsJson, string toolIdsJson)
         {
             var connection = _dbContext.Database.GetDbConnection();
             await connection.OpenAsync();
@@ -100,36 +99,21 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             command.CommandText = "SP_SaveTemplate_JSON";
             command.CommandType = CommandType.StoredProcedure;
 
-            // 1. Nombre
             var pName = command.CreateParameter();
             pName.ParameterName = "p_template_name";
             pName.Value = name;
             command.Parameters.Add(pName);
 
-            // 2. Knowledge IDs (Recibe el JSON string ya listo)
             var pKnowledge = command.CreateParameter();
             pKnowledge.ParameterName = "p_knowledge_ids";
             pKnowledge.Value = knowledgeIdsJson;
             command.Parameters.Add(pKnowledge);
 
-            // 3. Tool IDs (Recibe el JSON string ya listo)
             var pTools = command.CreateParameter();
             pTools.ParameterName = "p_tool_ids";
             pTools.Value = toolIdsJson;
             command.Parameters.Add(pTools);
 
-            // 4. Auditoría
-            var pUser = command.CreateParameter();
-            pUser.ParameterName = "p_user";
-            pUser.Value = user;
-            command.Parameters.Add(pUser);
-
-            var pIp = command.CreateParameter();
-            pIp.ParameterName = "p_ip";
-            pIp.Value = ip;
-            command.Parameters.Add(pIp);
-
-            // Ejecución
             var result = await command.ExecuteScalarAsync();
             return result != null ? Convert.ToInt32(result) : 0;
         }
