@@ -47,19 +47,13 @@ namespace isc.bempleo.be.api.Controllers.v1.Booklets
         [HttpPost("create-template")]
         public async Task<ActionResult<SuccessResponse<int>>> CreateTemplate([FromBody] TemplateRequest request)
         {
-            // 1. Obtener datos de auditoría
-            // (En un entorno real, esto vendría de User.Identity.Name o Claims)
-            string currentUser = "Admin";
+            string currentUser = "";
+            string currentIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
 
-            // Obtener IP del cliente de forma segura
-            string currentIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1";
-
-            // 2. Llamar al servicio
-            // El controlador pasa el request "bonito" (con List<int>), el servicio se encargará de "ensuciarse" serializando.
             var newTemplateId = await _bookletService.CreateTemplate(request, currentUser, currentIp);
 
-            // 3. Retornar respuesta
             return Ok();
         }
+
     }
 }

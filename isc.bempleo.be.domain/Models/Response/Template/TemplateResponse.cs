@@ -8,6 +8,6 @@ namespace isc.bempleo.be.domain.Models.Response.Booklets
 {
     public record class TemplateResponse
     {
-        public string TemplateID { get; set; }
+        public int TemplateID { get; set; }
     }
 }
