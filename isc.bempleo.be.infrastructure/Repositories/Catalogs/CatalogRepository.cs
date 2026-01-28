@@ -136,7 +136,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
         {
             return await _dbContext
                 .Set<EnglishLevelResponse>()
-                .FromSqlRaw("CALL SP_GetEnglishLevels()")
+                .FromSqlRaw("CALL SP_GetEnglishLevel()")
                 .AsNoTracking()
                 .ToListAsync();
         }
