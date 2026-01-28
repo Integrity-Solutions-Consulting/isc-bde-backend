@@ -204,5 +204,22 @@ namespace isc.bempleo.be.application.Services.Catalogs
             return englishLevel;
         }
 
+        public async Task<List<WorkCityResponse>> GetAllWorkCity()
+        {
+            var workcity = await _catalogRepository.GetWorkCityAsync();
+            if(workcity== null)
+            {
+                throw new ServerFaultException(
+                  "Error interno: La consulta de estatus de estudio retornó un valor nulo."
+                );
+            }
+            if (!workcity.Any())
+            {
+                return new List<WorkCityResponse>();
+            }
+            return workcity;
+
+
+        }
     }
 }

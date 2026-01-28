@@ -22,5 +22,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.Catalogs
         Task<List<StudyStatuResponse>> GetAllStudyStatus();
         Task<List<EducationLevelResponse>> GetAllEducationLevel();
         Task<List<EnglishLevelResponse>> GetAllEnglishLevel();
+        Task<List<WorkCityResponse>> GetAllWorkCity();
     }
 }
