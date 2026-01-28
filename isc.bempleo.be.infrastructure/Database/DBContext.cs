@@ -284,6 +284,7 @@ namespace isc.bempleo.be.infrastructure.Database
             modelBuilder.Entity<EducationLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<EnglishLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<ContactRequest>().HasNoKey().ToView(null);
+            modelBuilder.Entity<WorkCityResponse>().HasNoKey().ToView(null);
 
 
             base.OnModelCreating(modelBuilder);

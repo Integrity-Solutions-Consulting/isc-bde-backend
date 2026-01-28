@@ -23,5 +23,6 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Catalogs
         Task<List<StudyStatuResponse>> GetAllStudyStatusAsync();
         Task<List<EducationLevelResponse>> GetAllEducationLevelAsync();
         Task<List<EnglishLevelResponse>> GetEnglishLevelAsync();
+        Task<List<WorkCityResponse>> GetWorkCityAsync();
     }
 }

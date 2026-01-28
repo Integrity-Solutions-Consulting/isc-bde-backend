@@ -141,5 +141,14 @@ namespace isc.bempleo.be.infrastructure.Repositories.Catalogs
                 .ToListAsync();
         }
 
+        public async Task<List<WorkCityResponse>> GetWorkCityAsync()
+        {
+            return await _dbContext
+                .Set<WorkCityResponse>()
+                .FromSqlRaw("CALL SP_GetWorkCity()")
+                .AsNoTracking()
+                .ToListAsync();
+
+        }
     }
 }

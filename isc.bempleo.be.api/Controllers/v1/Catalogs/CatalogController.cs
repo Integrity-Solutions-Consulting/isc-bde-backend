@@ -102,5 +102,12 @@ namespace isc.bempleo.be.api.Controllers.v1.Catalogs
             return Ok(result);
         }
 
+        [HttpGet("get-all-work-city")]
+        public async Task<ActionResult<SuccessResponse<List<WorkCityResponse>>>> GetAllWorkCityAsync()
+        {
+            var result = await _catalogService.GetAllWorkCity();
+            return Ok(result);
+        }
+
     }
 }
