@@ -14,7 +14,6 @@ namespace isc.bempleo.be.infrastructure.Repositories.Contacts
 {
     public class ContactRepository : IContactRepository
     {
-
         private readonly DBContext _dbContext;
 
         public ContactRepository(DBContext dbContext)
@@ -24,22 +23,24 @@ namespace isc.bempleo.be.infrastructure.Repositories.Contacts
 
         public async Task<ContactResponse> CreateContactAsync(ContactRequest request)
         {
+            var pClientId = new MySqlParameter("@p_client_id", request.ClientId);
             var pNombre = new MySqlParameter("@p_nombre", request.ContactName);
             var pApellido = new MySqlParameter("@p_apellido", request.ContactLastName);
             var pEmail = new MySqlParameter("@p_email", request.ContactEmail);
 
             var resultId = await _dbContext.Database
-                .SqlQueryRaw<int>("CALL SP_CreateContact(@p_nombre, @p_apellido, @p_email)", pNombre, pApellido, pEmail)
+                .SqlQueryRaw<int>("CALL SP_CreateContact(@p_client_id, @p_nombre, @p_apellido, @p_email)", pClientId, pNombre, pApellido, pEmail)
                 .ToListAsync();
 
             int newId = resultId.FirstOrDefault();
 
             return new ContactResponse
             {
-                ContactId = newId,
-                ContactName = request.ContactName,         
-                ContactLastName = request.ContactLastName, 
-                ContactEmail = request.ContactEmail
+                ContactID = newId,
+                ClientID = request.ClientId,
+                first_name = request.ContactName,
+                last_name = request.ContactLastName,
+                email = request.ContactEmail
             };
         }
 
@@ -53,6 +54,5 @@ namespace isc.bempleo.be.infrastructure.Repositories.Contacts
                 .AsNoTracking()
                 .ToListAsync();
         }
-
     }
 }

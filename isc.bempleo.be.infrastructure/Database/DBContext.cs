@@ -9,6 +9,7 @@ using isc.bempleo.be.domain.Models.Request.Contacts;
 using isc.bempleo.be.domain.Models.Response;
 using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.domain.Models.Response.Catalogs;
+using isc.bempleo.be.domain.Models.Response.Contacts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -284,6 +285,7 @@ namespace isc.bempleo.be.infrastructure.Database
             modelBuilder.Entity<EducationLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<EnglishLevelResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<ContactRequest>().HasNoKey().ToView(null);
+            modelBuilder.Entity<ContactResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<WorkCityResponse>().HasNoKey().ToView(null);
 
 

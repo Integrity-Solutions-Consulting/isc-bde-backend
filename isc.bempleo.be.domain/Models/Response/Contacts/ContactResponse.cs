@@ -8,10 +8,10 @@ namespace isc.bempleo.be.domain.Models.Response.Contacts
 {
     public record class ContactResponse
     {
-        public int ContactId { get; set; }
-        public string ContactName { get; set; }
-        public string ContactLastName { get; set; }
-        public string ContactEmail { get; set; }
-
+        public int ContactID { get; set; } 
+        public int ClientID { get; set; }  
+        public string first_name { get; set; } 
+        public string last_name { get; set; }  
+        public string email { get; set; }      
     }
 }
