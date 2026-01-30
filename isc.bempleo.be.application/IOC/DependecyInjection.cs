@@ -1,7 +1,9 @@
-﻿using isc.bempleo.be.application.Interfaces.Service.Booklets;
+﻿using isc.bempleo.be.application.Interfaces.Repository.EmployeeCategoryRequirement;
+using isc.bempleo.be.application.Interfaces.Service.Booklets;
 using isc.bempleo.be.application.Interfaces.Service.Catalogs;
 using isc.bempleo.be.application.Interfaces.Service.Contacts;
 using isc.bempleo.be.application.Interfaces.Service.Documents;
+using isc.bempleo.be.application.Interfaces.Service.EmployeeCategoryRequirement;
 using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
@@ -11,6 +13,7 @@ using isc.bempleo.be.application.Services.Booklets;
 using isc.bempleo.be.application.Services.Catalogs;
 using isc.bempleo.be.application.Services.Contacts;
 using isc.bempleo.be.application.Services.Documents;
+using isc.bempleo.be.application.Services.EmployeeCategoryRequirement;
 using isc.bempleo.be.application.Services.Experiences;
 using isc.bempleo.be.application.Services.NotificacionesApi;
 using isc.bempleo.be.application.Services.Profiles;
@@ -35,6 +38,7 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<IEmployeeCategoryRequirementService, EmployeeCategoryRequirementService>();
 
             return services;
         }

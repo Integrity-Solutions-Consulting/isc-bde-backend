@@ -3,6 +3,7 @@ using isc.bempleo.be.application.Interfaces.Repository.Booklets;
 using isc.bempleo.be.application.Interfaces.Repository.Catalogs;
 using isc.bempleo.be.application.Interfaces.Repository.Contacts;
 using isc.bempleo.be.application.Interfaces.Repository.Documents;
+using isc.bempleo.be.application.Interfaces.Repository.EmployeeCategoryRequirement;
 using isc.bempleo.be.application.Interfaces.Repository.Experiences;
 using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
@@ -14,6 +15,7 @@ using isc.bempleo.be.infrastructure.Repositories.Booklets;
 using isc.bempleo.be.infrastructure.Repositories.Catalogs;
 using isc.bempleo.be.infrastructure.Repositories.Contacts;
 using isc.bempleo.be.infrastructure.Repositories.Documents;
+using isc.bempleo.be.infrastructure.Repositories.EmployeeCategoryRequirement;
 using isc.bempleo.be.infrastructure.Repositories.Experiences;
 using isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI;
 using isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes;
@@ -63,6 +65,8 @@ namespace isc.bempleo.be.infrastructure.IOC
             services.AddScoped<ICatalogRepository, CatalogRepository>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IEmployeeCategoryRequirementRepository, EmployeeCategoryRequirementRepository>();
+
 
             services.AddScoped<HttpUtils>();
                 return services;

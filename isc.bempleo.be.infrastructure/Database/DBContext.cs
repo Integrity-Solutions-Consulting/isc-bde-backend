@@ -6,10 +6,12 @@ using isc.bempleo.be.domain.Entity.Profiles;
 using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Request.Booklets;
 using isc.bempleo.be.domain.Models.Request.Contacts;
+using isc.bempleo.be.domain.Models.Request.EmployeeCategoryRequirement;
 using isc.bempleo.be.domain.Models.Response;
 using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.domain.Models.Response.Catalogs;
 using isc.bempleo.be.domain.Models.Response.Contacts;
+using isc.bempleo.be.domain.Models.Response.EmployeeCategoryRequirement;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -279,7 +281,6 @@ namespace isc.bempleo.be.infrastructure.Database
             });
 
             modelBuilder.Entity<StudyStatuResponse>().HasNoKey().ToView(null);
-
             modelBuilder.Entity<TemplateResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<TemplateRequest>().HasNoKey().ToView(null);
             modelBuilder.Entity<EducationLevelResponse>().HasNoKey().ToView(null);
@@ -287,6 +288,8 @@ namespace isc.bempleo.be.infrastructure.Database
             modelBuilder.Entity<ContactRequest>().HasNoKey().ToView(null);
             modelBuilder.Entity<ContactResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<WorkCityResponse>().HasNoKey().ToView(null);
+            modelBuilder.Entity<EmployeeCategoryRequirementRequest>().HasNoKey().ToView(null);
+            modelBuilder.Entity<EmployeeCategoryRequirementResponse>().HasNoKey().ToView(null);
 
 
             base.OnModelCreating(modelBuilder);
