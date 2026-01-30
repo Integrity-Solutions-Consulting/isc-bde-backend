@@ -29,7 +29,7 @@ namespace isc.bempleo.be.application.Services.Contacts
                 throw new ServerFaultException("Error interno: La creación del contacto retornó un valor nulo.");
             }
 
-            if (newContact.ContactId <= 0)
+            if (newContact.ContactID <= 0)
             {
                 throw new ServerFaultException(
                     "Error al crear el contacto: No se generó un ID válido en la base de datos."

@@ -96,7 +96,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             await connection.OpenAsync();
 
             using var command = connection.CreateCommand();
-            command.CommandText = "SP_SaveTemplate_JSON";
+            command.CommandText = "SP_CreateTemplate";
             command.CommandType = CommandType.StoredProcedure;
 
             var pName = command.CreateParameter();
