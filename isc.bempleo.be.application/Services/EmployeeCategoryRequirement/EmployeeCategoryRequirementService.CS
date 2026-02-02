@@ -27,14 +27,11 @@ namespace isc.bempleo.be.application.Services.EmployeeCategoryRequirement
 
             if (requestList == null || requestList.Count == 0)
             {
-                // Opción: Retornar lista vacía o lanzar error. 
                 return responses;
             }
 
-            // Recorremos la lista que viene del JSON
             foreach (var item in requestList)
             {
-                // LOGICA DE NEGOCIO: Solo guardamos si la cantidad es mayor a 0
                 if (item.Quantity > 0)
                 {
                     var result = await _requirementRepository.CreateEmployeeCategoryRequirementAsync(item);
@@ -43,7 +40,6 @@ namespace isc.bempleo.be.application.Services.EmployeeCategoryRequirement
                     {
                         responses.Add(result);
                     }
-                    // Si result es null, podrías loguear el error, pero continuamos con el siguiente
                 }
             }
 
