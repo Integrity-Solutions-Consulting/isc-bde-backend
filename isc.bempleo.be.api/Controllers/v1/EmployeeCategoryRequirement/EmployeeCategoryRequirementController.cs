@@ -23,10 +23,9 @@ namespace isc.bempleo.be.api.Controllers.v1.EmployeeCategoryRequirement
         }
 
         [HttpPost("employee-category-requirement")]
-        public async Task<ActionResult<EmployeeCategoryRequirementResponse>> CreateEmployeeCategoryRequirementAsync([FromBody] EmployeeCategoryRequirementRequest request)
+        public async Task<ActionResult<List<EmployeeCategoryRequirementResponse>>> CreateBatchAsync([FromBody] List<EmployeeCategoryRequirementRequest> requestList)
         {
-            var response = await _requirementService.AddEmployeeCategoryToRequirement(request);
-
+            var response = await _requirementService.AddEmployeeCategoryRequirements(requestList);
             return Ok(response);
         }
 

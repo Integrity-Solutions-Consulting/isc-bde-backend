@@ -10,7 +10,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.EmployeeCategoryRequirem
 {
     public interface IEmployeeCategoryRequirementService
     {
-        Task<EmployeeCategoryRequirementResponse> AddEmployeeCategoryToRequirement(EmployeeCategoryRequirementRequest request);
-        //Task<List<EmployeeCategoryRequirementResponse>> AddEmployeeCategoryRequirements(List<EmployeeCategoryRequirementRequest> requestList);
+        Task<List<EmployeeCategoryRequirementResponse>> AddEmployeeCategoryRequirements(List<EmployeeCategoryRequirementRequest> requestList);
     }
 }

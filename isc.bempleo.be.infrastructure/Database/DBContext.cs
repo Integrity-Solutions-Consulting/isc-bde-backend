@@ -7,11 +7,13 @@ using isc.bempleo.be.domain.Entity.ProfileVacancies;
 using isc.bempleo.be.domain.Models.Request.Booklets;
 using isc.bempleo.be.domain.Models.Request.Contacts;
 using isc.bempleo.be.domain.Models.Request.EmployeeCategoryRequirement;
+using isc.bempleo.be.domain.Models.Request.Requirements;
 using isc.bempleo.be.domain.Models.Response;
 using isc.bempleo.be.domain.Models.Response.Booklets;
 using isc.bempleo.be.domain.Models.Response.Catalogs;
 using isc.bempleo.be.domain.Models.Response.Contacts;
 using isc.bempleo.be.domain.Models.Response.EmployeeCategoryRequirement;
+using isc.bempleo.be.domain.Models.Response.Requirements;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -290,6 +292,8 @@ namespace isc.bempleo.be.infrastructure.Database
             modelBuilder.Entity<WorkCityResponse>().HasNoKey().ToView(null);
             modelBuilder.Entity<EmployeeCategoryRequirementRequest>().HasNoKey().ToView(null);
             modelBuilder.Entity<EmployeeCategoryRequirementResponse>().HasNoKey().ToView(null);
+            modelBuilder.Entity<RequirementRequest>().HasNoKey().ToView(null);
+            modelBuilder.Entity<RequirementResponse>().HasNoKey().ToView(null);
 
 
             base.OnModelCreating(modelBuilder);

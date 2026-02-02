@@ -21,22 +21,30 @@ namespace isc.bempleo.be.application.Services.EmployeeCategoryRequirement
             _requirementRepository = employeeRepository;
         }
 
-        public async Task<EmployeeCategoryRequirementResponse> AddEmployeeCategoryToRequirement(EmployeeCategoryRequirementRequest request)
+        public async Task<List<EmployeeCategoryRequirementResponse>> AddEmployeeCategoryRequirements(List<EmployeeCategoryRequirementRequest> requestList)
         {
-            var response = await _requirementRepository.CreateEmployeeCategoryRequirementAsync(request);
+            var responses = new List<EmployeeCategoryRequirementResponse>();
 
-
-            if (response == null)
+            if (requestList == null || requestList.Count == 0)
             {
-                throw new ServerFaultException("Error interno: La base de datos no devolvió respuesta al intentar guardar la categoría.");
+                return responses;
             }
 
-            return response;
+            foreach (var item in requestList)
+            {
+                if (item.Quantity > 0)
+                {
+                    var result = await _requirementRepository.CreateEmployeeCategoryRequirementAsync(item);
+
+                    if (result != null)
+                    {
+                        responses.Add(result);
+                    }
+                }
+            }
+
+            return responses;
         }
-
-
-
-
 
     }
 }
