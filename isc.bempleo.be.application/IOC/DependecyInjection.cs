@@ -8,6 +8,7 @@ using isc.bempleo.be.application.Interfaces.Service.Experiences;
 using isc.bempleo.be.application.Interfaces.Service.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Service.Profiles;
 using isc.bempleo.be.application.Interfaces.Service.ProfileVacancies;
+using isc.bempleo.be.application.Interfaces.Service.Requirements;
 using isc.bempleo.be.application.Interfaces.Service.S3Minio;
 using isc.bempleo.be.application.Services.Booklets;
 using isc.bempleo.be.application.Services.Catalogs;
@@ -18,6 +19,7 @@ using isc.bempleo.be.application.Services.Experiences;
 using isc.bempleo.be.application.Services.NotificacionesApi;
 using isc.bempleo.be.application.Services.Profiles;
 using isc.bempleo.be.application.Services.ProfileVacancies;
+using isc.bempleo.be.application.Services.Requirements;
 using isc.bempleo.be.application.Services.S3Minio;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +41,7 @@ namespace isc.bempleo.be.application.IOC
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IEmployeeCategoryRequirementService, EmployeeCategoryRequirementService>();
+            services.AddScoped<IRequirementService, RequirementService>();
 
             return services;
         }

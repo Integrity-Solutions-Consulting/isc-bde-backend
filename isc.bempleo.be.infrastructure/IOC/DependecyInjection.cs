@@ -9,6 +9,7 @@ using isc.bempleo.be.application.Interfaces.Repository.NotificacionesApi;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileAccessCodes;
 using isc.bempleo.be.application.Interfaces.Repository.Profiles;
 using isc.bempleo.be.application.Interfaces.Repository.ProfileVacancies;
+using isc.bempleo.be.application.Interfaces.Repository.Requirements;
 using isc.bempleo.be.application.Interfaces.Repository.S3Minio;
 using isc.bempleo.be.infrastructure.Database;
 using isc.bempleo.be.infrastructure.Repositories.Booklets;
@@ -21,6 +22,7 @@ using isc.bempleo.be.infrastructure.Repositories.NotificacionesAPI;
 using isc.bempleo.be.infrastructure.Repositories.ProfileAccessCodes;
 using isc.bempleo.be.infrastructure.Repositories.Profiles;
 using isc.bempleo.be.infrastructure.Repositories.ProfileVacancies;
+using isc.bempleo.be.infrastructure.Repositories.Requirements;
 using isc.bempleo.be.infrastructure.Repositories.S3Minio;
 using isc.bempleo.be.infrastructure.Utils.Peticiones;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +68,7 @@ namespace isc.bempleo.be.infrastructure.IOC
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IEmployeeCategoryRequirementRepository, EmployeeCategoryRequirementRepository>();
+            services.AddScoped<IRequirementRepository, RequirementRepository>();
 
 
             services.AddScoped<HttpUtils>();

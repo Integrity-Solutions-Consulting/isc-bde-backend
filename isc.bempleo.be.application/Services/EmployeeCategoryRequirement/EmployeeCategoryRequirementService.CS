@@ -21,22 +21,34 @@ namespace isc.bempleo.be.application.Services.EmployeeCategoryRequirement
             _requirementRepository = employeeRepository;
         }
 
-        public async Task<EmployeeCategoryRequirementResponse> AddEmployeeCategoryToRequirement(EmployeeCategoryRequirementRequest request)
+        public async Task<List<EmployeeCategoryRequirementResponse>> AddEmployeeCategoryRequirements(List<EmployeeCategoryRequirementRequest> requestList)
         {
-            var response = await _requirementRepository.CreateEmployeeCategoryRequirementAsync(request);
+            var responses = new List<EmployeeCategoryRequirementResponse>();
 
-
-            if (response == null)
+            if (requestList == null || requestList.Count == 0)
             {
-                throw new ServerFaultException("Error interno: La base de datos no devolvió respuesta al intentar guardar la categoría.");
+                // Opción: Retornar lista vacía o lanzar error. 
+                return responses;
             }
 
-            return response;
+            // Recorremos la lista que viene del JSON
+            foreach (var item in requestList)
+            {
+                // LOGICA DE NEGOCIO: Solo guardamos si la cantidad es mayor a 0
+                if (item.Quantity > 0)
+                {
+                    var result = await _requirementRepository.CreateEmployeeCategoryRequirementAsync(item);
+
+                    if (result != null)
+                    {
+                        responses.Add(result);
+                    }
+                    // Si result es null, podrías loguear el error, pero continuamos con el siguiente
+                }
+            }
+
+            return responses;
         }
-
-
-
-
 
     }
 }

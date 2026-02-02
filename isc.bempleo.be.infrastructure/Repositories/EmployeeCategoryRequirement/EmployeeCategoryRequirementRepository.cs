@@ -27,19 +27,15 @@ namespace isc.bempleo.be.infrastructure.Repositories.EmployeeCategoryRequirement
             var pCategoryId = new MySqlParameter("@p_employee_category_id", request.EmployeeCategoryId);
             var pQuantity = new MySqlParameter("@p_quantity", request.Quantity);
 
-            var result = await _dbContext.Database
-                .SqlQueryRaw<EmployeeCategoryRequirementResponse>(
-                    "CALL SP_CreateEmployeeCategoryRequirement(@p_requirement_id, @p_employee_category_id, @p_quantity)",
-                    pRequirementId, pCategoryId, pQuantity
-                )
+            // USAMOS Set<T>().FromSqlRaw PARA EVITAR ERRORES DE MAPEO
+            var result = await _dbContext.Set<EmployeeCategoryRequirementResponse>()
+                .FromSqlRaw("CALL SP_CreateEmployeeCategoryRequirement(@p_requirement_id, @p_employee_category_id, @p_quantity)",
+                            pRequirementId, pCategoryId, pQuantity)
                 .ToListAsync();
 
             return result.FirstOrDefault();
         }
+
+
     }
-
-
-
-
-
 }
