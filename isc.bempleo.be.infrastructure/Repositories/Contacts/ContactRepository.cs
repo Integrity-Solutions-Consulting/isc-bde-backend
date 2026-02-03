@@ -36,11 +36,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Contacts
 
             return new ContactResponse
             {
-                ContactID = newId,
-                ClientID = request.ClientId,
-                first_name = request.ContactName,
-                last_name = request.ContactLastName,
-                email = request.ContactEmail
+                ContactID = newId
             };
         }
 

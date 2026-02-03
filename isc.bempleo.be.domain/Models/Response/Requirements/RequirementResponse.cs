@@ -9,5 +9,6 @@ namespace isc.bempleo.be.domain.Models.Response.Requirements
     public class RequirementResponse
     {
         public int RequirementID { get; set; }
+        public string Message { get; set; }
     }
 }
