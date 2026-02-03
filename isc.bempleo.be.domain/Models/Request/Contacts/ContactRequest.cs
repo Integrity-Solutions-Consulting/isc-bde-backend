@@ -9,7 +9,6 @@ namespace isc.bempleo.be.domain.Models.Request.Contacts
 {
     public record class ContactRequest
     {
-        public int ContactId { get; set; }
         public int ClientId { get; set; }
         public string ContactName { get; set; }
         public string ContactLastName { get; set; }
