@@ -8,8 +8,8 @@ namespace isc.bempleo.be.domain.Models.Response.Contacts
 {
     public record class ContactResponse
     {
-        public int ContactID { get; set; }
-        public string Message { get; set; }
+        public int ContactID { get; set; } 
 
+    
     }
 }
