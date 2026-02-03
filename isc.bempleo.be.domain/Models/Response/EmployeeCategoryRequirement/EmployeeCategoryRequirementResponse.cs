@@ -9,5 +9,6 @@ namespace isc.bempleo.be.domain.Models.Response.EmployeeCategoryRequirement
     public class EmployeeCategoryRequirementResponse
     {
         public int EmployeeCategoryRequirementID { get; set; }
+        public string Message { get; set; }
     }
 }
