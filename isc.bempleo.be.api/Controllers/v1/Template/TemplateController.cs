@@ -1,5 +1,6 @@
 ﻿using isc.bempleo.be.application.Interfaces.Service.Booklets;
 using isc.bempleo.be.application.Interfaces.Service.Catalogs;
+using isc.bempleo.be.application.Services.Booklets;
 using isc.bempleo.be.domain.Models.DTOs.Exceptions;
 using isc.bempleo.be.domain.Models.Request.Booklets;
 using isc.bempleo.be.domain.Models.Response.Booklets;
@@ -45,15 +46,13 @@ namespace isc.bempleo.be.api.Controllers.v1.Booklets
         }
 
         [HttpPost("create-template")]
-        public async Task<ActionResult<SuccessResponse<int>>> CreateTemplate([FromBody] TemplateRequest request)
+        public async Task<ActionResult<TemplateResponse>> CreateTemplateAsync(
+            [FromBody] TemplateRequest request)
         {
-            string currentUser = "";
-            string currentIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
-
-            var newTemplateId = await _bookletService.CreateTemplate(request);
-
-            return Ok();
+            var response = await _bookletService.CreateTemplate(request);
+            return Ok(response);
         }
+
 
     }
 }
