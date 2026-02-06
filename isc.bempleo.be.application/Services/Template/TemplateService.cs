@@ -50,7 +50,7 @@ namespace isc.bempleo.be.application.Services.Booklets
             return booklet;
         }
 
-        public async Task<TemplateResponse> CreateTemplate(TemplateRequest request)
+        public async Task<TemplateCreateResponse> CreateTemplate(TemplateRequest request)
         {
             string jsonKnowledge = JsonSerializer.Serialize(request.KnowledgeIds);
             string jsonTools = JsonSerializer.Serialize(request.ToolIds);
