@@ -113,7 +113,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
                 return new TemplateResponse
                 {
                     TemplateID = reader.GetInt32("TemplateID"),
-                    message = reader.GetString("message")
+                    
                 };
             }
 
