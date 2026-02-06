@@ -8,6 +8,6 @@ namespace isc.bempleo.be.application.Interfaces.Service.Booklets
     {
         Task<List<TemplateResponse>> GetBooklet();
         Task<TemplateDetailResponse> GetTemplateById(int id);
-        Task<TemplateResponse> CreateTemplate(TemplateRequest requests);    
+        Task<TemplateCreateResponse> CreateTemplate(TemplateRequest requests);    
     }
 }

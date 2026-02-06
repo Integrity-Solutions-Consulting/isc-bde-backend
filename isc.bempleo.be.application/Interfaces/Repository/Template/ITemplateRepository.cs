@@ -13,6 +13,6 @@ namespace isc.bempleo.be.application.Interfaces.Repository.Booklets
     {
         Task<List<TemplateResponse>> GetBookletAsync();
         Task<TemplateDetailResponse> GetTemplateByIdAsync(int id);
-        Task<TemplateResponse> CreateTemplateAsync(string name, string knowledgeIdsJson, string toolIdsJson);
+        Task<TemplateCreateResponse> CreateTemplateAsync(string name, string knowledgeIdsJson, string toolIdsJson);
     }
 }

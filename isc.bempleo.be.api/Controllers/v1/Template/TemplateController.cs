@@ -46,7 +46,7 @@ namespace isc.bempleo.be.api.Controllers.v1.Booklets
         }
 
         [HttpPost("create-template")]
-        public async Task<ActionResult<TemplateResponse>> CreateTemplateAsync(
+        public async Task<ActionResult<TemplateCreateResponse>> CreateTemplateAsync(
             [FromBody] TemplateRequest request)
         {
             var response = await _bookletService.CreateTemplate(request);

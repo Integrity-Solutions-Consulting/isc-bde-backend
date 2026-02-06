@@ -90,7 +90,7 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             return response;
         }
 
-        public async Task<TemplateResponse> CreateTemplateAsync(
+        public async Task<TemplateCreateResponse> CreateTemplateAsync(
             string name,
             string knowledgeIdsJson,
             string toolIdsJson)
@@ -110,10 +110,10 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
 
             if (await reader.ReadAsync())
             {
-                return new TemplateResponse
+                return new TemplateCreateResponse
                 {
                     TemplateID = reader.GetInt32("TemplateID"),
-                    
+                    message = reader.GetString("message")
                 };
             }
 
