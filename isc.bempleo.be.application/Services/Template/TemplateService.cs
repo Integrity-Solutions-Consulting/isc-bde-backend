@@ -50,19 +50,18 @@ namespace isc.bempleo.be.application.Services.Booklets
             return booklet;
         }
 
-        public async Task<int> CreateTemplate(TemplateRequest request)
+        public async Task<TemplateResponse> CreateTemplate(TemplateRequest request)
         {
             string jsonKnowledge = JsonSerializer.Serialize(request.KnowledgeIds);
             string jsonTools = JsonSerializer.Serialize(request.ToolIds);
 
-            var newTemplateId = await _bookletRepository.CreateTemplateAsync(
+            return await _bookletRepository.CreateTemplateAsync(
                 request.TemplateName,
                 jsonKnowledge,
                 jsonTools
             );
-
-            return newTemplateId;
         }
+
 
     }
 }

@@ -90,7 +90,10 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             return response;
         }
 
-        public async Task<int> CreateTemplateAsync(string name, string knowledgeIdsJson, string toolIdsJson)
+        public async Task<TemplateResponse> CreateTemplateAsync(
+            string name,
+            string knowledgeIdsJson,
+            string toolIdsJson)
         {
             var connection = _dbContext.Database.GetDbConnection();
             await connection.OpenAsync();
@@ -99,24 +102,24 @@ namespace isc.bempleo.be.infrastructure.Repositories.Booklets
             command.CommandText = "SP_CreateTemplate";
             command.CommandType = CommandType.StoredProcedure;
 
-            var pName = command.CreateParameter();
-            pName.ParameterName = "p_template_name";
-            pName.Value = name;
-            command.Parameters.Add(pName);
+            command.Parameters.Add(new MySqlParameter("p_template_name", name));
+            command.Parameters.Add(new MySqlParameter("p_knowledge_ids", knowledgeIdsJson));
+            command.Parameters.Add(new MySqlParameter("p_tool_ids", toolIdsJson));
 
-            var pKnowledge = command.CreateParameter();
-            pKnowledge.ParameterName = "p_knowledge_ids";
-            pKnowledge.Value = knowledgeIdsJson;
-            command.Parameters.Add(pKnowledge);
+            using var reader = await command.ExecuteReaderAsync();
 
-            var pTools = command.CreateParameter();
-            pTools.ParameterName = "p_tool_ids";
-            pTools.Value = toolIdsJson;
-            command.Parameters.Add(pTools);
+            if (await reader.ReadAsync())
+            {
+                return new TemplateResponse
+                {
+                    TemplateID = reader.GetInt32("TemplateID"),
+                    message = reader.GetString("message")
+                };
+            }
 
-            var result = await command.ExecuteScalarAsync();
-            return result != null ? Convert.ToInt32(result) : 0;
+            return null!;
         }
+
 
 
 

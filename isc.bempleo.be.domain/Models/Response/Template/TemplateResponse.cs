@@ -9,7 +9,7 @@ namespace isc.bempleo.be.domain.Models.Response.Booklets
     public record class TemplateResponse
     {
         public int TemplateID { get; set; }
-        public string template_name { get; set; }
+        public string message { get; set; }
 
     }
 }
